@@ -74,7 +74,7 @@ namespace Tester.Migrator
             });
 
             var dbContextOptions = new DbContextOptionsBuilder()
-                .UseNpgsql(configuration.GetConnectionString("Postgres"), 
+                .UseNpgsql(configuration.GetConnectionString("Postgres"),
                     o => o.MigrationsAssembly("Tester.Migrator")
                         .MigrationsHistoryTable(HistoryRepository.DefaultTableName, "service"))
                 .Options;
@@ -93,8 +93,9 @@ namespace Tester.Migrator
                 _loggerFactory = loggerFactory;
             }
 
-            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            protected override void OnConfiguring([NotNull] DbContextOptionsBuilder optionsBuilder)
             {
+                if (optionsBuilder == null) throw new ArgumentNullException(nameof(optionsBuilder));
                 base.OnConfiguring(optionsBuilder);
 
                 if (_loggerFactory != null)

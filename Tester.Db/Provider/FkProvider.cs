@@ -5,7 +5,7 @@ using Tester.Db.Model;
 using Tester.Db.Model.Client;
 using Tester.Db.Model.Statistics;
 
-namespace Tester.Db.Context
+namespace Tester.Db.Provider
 {
     internal static class FkProvider
     {

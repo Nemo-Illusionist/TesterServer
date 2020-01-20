@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +14,7 @@ using REST.EfCore.Context;
 using REST.EfCore.Contract;
 using REST.EfCore.Provider;
 using Tester.Db.Context;
+using Tester.Db.Manager;
 using Tester.Db.Provider;
 using Tester.Db.Store;
 

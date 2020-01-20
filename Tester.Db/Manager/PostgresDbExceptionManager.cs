@@ -2,7 +2,7 @@ using Npgsql;
 using REST.DataCore.Contract;
 using Tester.Db.Exception;
 
-namespace Tester.Db.Provider
+namespace Tester.Db.Manager
 {
     public class PostgresDbExceptionManager : IDataExceptionManager
     {

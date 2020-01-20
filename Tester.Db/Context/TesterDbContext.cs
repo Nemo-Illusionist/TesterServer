@@ -8,6 +8,7 @@ using REST.EfCore.Extension;
 using Tester.Core.Common;
 using Tester.Db.Model;
 using Tester.Db.Model.Client;
+using Tester.Db.Provider;
 
 namespace Tester.Db.Context
 {

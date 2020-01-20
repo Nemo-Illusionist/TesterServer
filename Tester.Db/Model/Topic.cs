@@ -2,12 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 using REST.DataCore.Contract.Entity;
 using REST.EfCore.Annotation;
 using Tester.Db.Model.Client;
 
 namespace Tester.Db.Model
 {
+    [PublicAPI]
+    [SuppressMessage("ReSharper", "CA2227")]
     [Table("topic", Schema = DbConstant.Scheme.Default)]
     public class Topic : ICreatedUtc, IUpdatedUtc, IDeletable
     {

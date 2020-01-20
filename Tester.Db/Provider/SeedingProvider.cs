@@ -4,7 +4,7 @@ using Tester.Core.Common;
 using Tester.Core.Constant;
 using Tester.Db.Model.Client;
 
-namespace Tester.Db.Context
+namespace Tester.Db.Provider
 {
     internal static class SeedingProvider
     {
