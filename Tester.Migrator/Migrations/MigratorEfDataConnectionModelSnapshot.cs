@@ -2,8 +2,10 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tester.Core.Common;
+using Tester.Migrator;
 
 namespace Tester.Migrator.Migrations
 {
@@ -31,6 +33,7 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -82,12 +85,15 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Login")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Salt")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("SecurityTimestamp")
@@ -129,6 +135,7 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("gender");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedUtc")
@@ -188,6 +195,7 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Answer")
+                        .IsRequired()
                         .HasColumnType("jsonb");
 
                     b.Property<Guid>("AuthorId")
@@ -200,12 +208,14 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Hint")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("TopicId")
@@ -247,6 +257,7 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Value")
+                        .IsRequired()
                         .HasColumnType("jsonb");
 
                     b.HasKey("Id");
@@ -313,6 +324,7 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedUtc")
@@ -373,6 +385,7 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid?>("ParentId")

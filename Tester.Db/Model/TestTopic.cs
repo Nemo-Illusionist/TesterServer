@@ -13,13 +13,12 @@ namespace Tester.Db.Model
     public class TestTopic : ICreatedUtc, IDeletable
     {
         public Guid TestId { get; set; }
-
         public Guid TopicId { get; set; }
-
         public DateTime CreatedUtc { get; set; }
 
         [Index]
         public DateTime? DeletedUtc { get; set; }
+
 
         [ForeignKey(nameof(TestId))]
         public Test Test { get; set; }

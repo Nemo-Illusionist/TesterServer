@@ -18,11 +18,16 @@ namespace Tester.Db.Model.Client
         [Key]
         public Guid Id { get; set; }
 
+        [Required]
         [Index(isUnique: true)]
         public string Login { get; set; }
 
+        [Required]
         public string Password { get; set; }
+
+        [Required]
         public string Salt { get; set; }
+
         public Guid SecurityTimestamp { get; set; }
 
         [Index]
@@ -33,6 +38,7 @@ namespace Tester.Db.Model.Client
         [Index]
         public DateTime? DeletedUtc { get; set; }
 
+        
         public UserData UserData { get; set; }
         public ICollection<Topic> Topics { get; set; }
         public ICollection<Question> Questions { get; set; }

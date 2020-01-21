@@ -20,6 +20,10 @@ namespace Tester.Db.Model.Statistics
 
         public Guid QuestionId { get; set; }
 
+        /// <summary>
+        /// User response. The structure depends on the type of question
+        /// </summary>
+        [Required]
         [Column(TypeName = "jsonb")]
         public string Value { get; set; }
 

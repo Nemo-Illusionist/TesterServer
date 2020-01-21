@@ -18,6 +18,7 @@ namespace Tester.Db.Model.Client
         public Guid UserId { get; set; }
 
         [Index]
+        [Required]
         public string Name { get; set; }
 
         public Gender Gender { get; set; }

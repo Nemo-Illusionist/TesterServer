@@ -28,7 +28,7 @@ namespace Tester.Migrator.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     CreatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -42,9 +42,9 @@ namespace Tester.Migrator.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Login = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    Salt = table.Column<string>(nullable: true),
+                    Login = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false),
+                    Salt = table.Column<string>(nullable: false),
                     SecurityTimestamp = table.Column<Guid>(nullable: false),
                     CreatedUtc = table.Column<DateTime>(nullable: false),
                     UpdatedUtc = table.Column<DateTime>(nullable: false),
@@ -62,7 +62,7 @@ namespace Tester.Migrator.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     AuthorId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     CreatedUtc = table.Column<DateTime>(nullable: false),
                     UpdatedUtc = table.Column<DateTime>(nullable: false),
@@ -88,7 +88,7 @@ namespace Tester.Migrator.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     ParentId = table.Column<Guid>(nullable: true),
                     AuthorId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     CreatedUtc = table.Column<DateTime>(nullable: false),
                     UpdatedUtc = table.Column<DateTime>(nullable: false),
@@ -119,7 +119,7 @@ namespace Tester.Migrator.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     Gender = table.Column<Gender>(nullable: false),
                     UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
@@ -210,11 +210,11 @@ namespace Tester.Migrator.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     TopicId = table.Column<Guid>(nullable: false),
                     AuthorId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
                     Hint = table.Column<string>(nullable: true),
                     Type = table.Column<QuestionType>(nullable: false),
-                    Answer = table.Column<string>(type: "jsonb", nullable: true),
+                    Answer = table.Column<string>(type: "jsonb", nullable: false),
                     CreatedUtc = table.Column<DateTime>(nullable: false),
                     DeletedUtc = table.Column<DateTime>(nullable: true)
                 },
@@ -274,7 +274,7 @@ namespace Tester.Migrator.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     UserTestId = table.Column<Guid>(nullable: false),
                     QuestionId = table.Column<Guid>(nullable: false),
-                    Value = table.Column<string>(type: "jsonb", nullable: true),
+                    Value = table.Column<string>(type: "jsonb", nullable: false),
                     CreatedUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>

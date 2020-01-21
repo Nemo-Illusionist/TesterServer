@@ -24,14 +24,21 @@ namespace Tester.Db.Model
         public Guid AuthorId { get; set; }
 
         [Index]
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Description { get; set; }
+
         public string Hint { get; set; }
 
         [Index]
         public QuestionType Type { get; set; }
 
+        /// <summary>
+        /// Possible answers. The structure depends on the type of question
+        /// </summary>
+        [Required]
         [Column(TypeName = "jsonb")]
         public string Answer { get; set; }
 
@@ -40,6 +47,7 @@ namespace Tester.Db.Model
 
         [Index]
         public DateTime? DeletedUtc { get; set; }
+
 
         [ForeignKey(nameof(TopicId))]
         public Topic Topic { get; set; }

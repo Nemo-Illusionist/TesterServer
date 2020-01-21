@@ -11,7 +11,7 @@ using Tester.Migrator;
 namespace Tester.Migrator.Migrations
 {
     [DbContext(typeof(DbContextFactory.MigratorEfDataConnection))]
-    [Migration("20200119215606_Initial")]
+    [Migration("20200121083123_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,7 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -86,12 +87,15 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Login")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Salt")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("SecurityTimestamp")
@@ -133,6 +137,7 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("gender");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedUtc")
@@ -192,6 +197,7 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Answer")
+                        .IsRequired()
                         .HasColumnType("jsonb");
 
                     b.Property<Guid>("AuthorId")
@@ -204,12 +210,14 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Hint")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("TopicId")
@@ -251,6 +259,7 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Value")
+                        .IsRequired()
                         .HasColumnType("jsonb");
 
                     b.HasKey("Id");
@@ -317,6 +326,7 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedUtc")
@@ -377,6 +387,7 @@ namespace Tester.Migrator.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid?>("ParentId")

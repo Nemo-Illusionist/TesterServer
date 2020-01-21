@@ -22,6 +22,7 @@ namespace Tester.Db.Model
         public Guid AuthorId { get; set; }
 
         [Index]
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -34,6 +35,7 @@ namespace Tester.Db.Model
         [Index]
         public DateTime? DeletedUtc { get; set; }
 
+        
         [ForeignKey(nameof(AuthorId))]
         public User Author { get; set; }
 

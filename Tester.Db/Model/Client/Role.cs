@@ -18,6 +18,7 @@ namespace Tester.Db.Model.Client
         [AutoIncrement]
         public Guid Id { get; set; }
 
+        [Required]
         [Index(isUnique: true)]
         public string Name { get; set; }
 

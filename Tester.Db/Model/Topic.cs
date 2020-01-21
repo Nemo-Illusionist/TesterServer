@@ -22,6 +22,7 @@ namespace Tester.Db.Model
         public Guid AuthorId { get; set; }
 
         [Index]
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -34,14 +35,14 @@ namespace Tester.Db.Model
         [Index]
         public DateTime? DeletedUtc { get; set; }
 
+
         [ForeignKey(nameof(AuthorId))]
         public User Author { get; set; }
-        
+
         [ForeignKey(nameof(ParentId))]
         public Topic Parent { get; set; }
 
         public ICollection<Topic> Children { get; set; }
-
         public ICollection<Question> Questions { get; set; }
         public ICollection<TestTopic> TestTopics { get; set; }
     }
