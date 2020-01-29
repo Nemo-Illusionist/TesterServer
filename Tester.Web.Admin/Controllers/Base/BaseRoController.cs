@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
@@ -6,9 +7,9 @@ using REST.Core.Exception;
 using REST.DataCore.Contract.Entity;
 using REST.Infrastructure.Contract;
 using REST.Infrastructure.Contract.Dto;
-using REST.Infrastructure.Dto;
+using Tester.Web.Admin.Models;
 
-namespace Tester.Web.Admin.Controllers
+namespace Tester.Web.Admin.Controllers.Base
 {
     public abstract class BaseRoController<TService, TDb, TKey, TDto, TFullDto> : BaseController
         where TService : IBaseRoService<TDb, TKey, TDto, TFullDto>
@@ -26,10 +27,20 @@ namespace Tester.Web.Admin.Controllers
             _filterHelper = filterHelper ?? throw new ArgumentNullException(nameof(filterHelper));
         }
 
-        public virtual async Task<IActionResult> GetByFilter(IPageFilter pageFilter, Filter filter, IOrder[] orders)
+        public virtual async Task<IActionResult> GetByFilter(FilterRequest filter)
         {
-            var expression = _filterHelper.ToExpression<TDto>(filter);
-            var result = await _roService.GetByFilter(pageFilter, expression, orders).ConfigureAwait(false);
+            Expression<Func<TDto, bool>> expression = null;
+            IPageFilter pageFilter = null;
+            IOrder[] orders = null;
+            if (filter != null)
+            {
+                expression = _filterHelper.ToExpression<TDto>(filter.Filter);
+                pageFilter = filter.PageFilter;
+                orders = filter.Orders;
+            }
+
+            var result = await _roService.GetByFilter(pageFilter, expression, orders)
+                .ConfigureAwait(false);
             return Ok(result);
         }
 

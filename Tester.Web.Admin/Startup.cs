@@ -1,7 +1,9 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,10 +15,14 @@ using REST.DataCore.Contract.Provider;
 using REST.EfCore.Context;
 using REST.EfCore.Contract;
 using REST.EfCore.Provider;
+using REST.Infrastructure.Contract;
+using REST.Infrastructure.Service;
 using Tester.Db.Context;
 using Tester.Db.Manager;
 using Tester.Db.Provider;
 using Tester.Db.Store;
+using Tester.Infrastructure.Сontracts;
+using Tester.Web.Admin.Services;
 
 namespace Tester.Web.Admin
 {
@@ -39,7 +45,21 @@ namespace Tester.Web.Admin
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
             services.AddControllers();
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "My API", Version = "v1"}); });
+            var defaultApiVersion = new ApiVersion(1, 0);
+            services.AddApiVersioning(o =>
+            {
+                o.ReportApiVersions = true;
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = defaultApiVersion;
+            });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = $"Tester Admin API {defaultApiVersion}",
+                    Version = defaultApiVersion.ToString()
+                });
+            });
 
 
             services.AddEntityFrameworkNpgsql()
@@ -51,11 +71,20 @@ namespace Tester.Web.Admin
                         ob.UseLoggerFactory(_loggerFactory);
                     }
                 })
-                .AddScoped<ResetDbContext>(x=>x.GetService<TesterDbContext>())
+                .AddScoped<ResetDbContext>(x => x.GetService<TesterDbContext>())
                 .AddScoped<IDataProvider, EfDataProvider>()
+                .AddScoped<IRoDataProvider>(x => x.GetService<IDataProvider>())
                 .AddScoped<IModelStore, TesterDbModelStore>()
+                .AddScoped<IAsyncHelpers, EfAsyncHelpers>()
                 .AddScoped<IDataExceptionManager, PostgresDbExceptionManager>()
                 .AddScoped<IIndexProvider, PostgresIndexProvider>();
+
+            services.AddScoped<IRoleRoService, RoleRoService>();
+            services.AddScoped<IFilterHelper, FilterHelper>();
+            services.AddScoped<IExpressionHelper, ExpressionHelper>();
+            services.AddScoped<IOrderHelper, OrderHelper>();
+            
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         public static void Configure([NotNull] IApplicationBuilder app, [NotNull] IWebHostEnvironment env,
@@ -78,7 +107,7 @@ namespace Tester.Web.Admin
 
             app.UseRouting();
             app.UseAuthorization();
-            // app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

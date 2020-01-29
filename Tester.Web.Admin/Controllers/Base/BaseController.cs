@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Tester.Web.Admin.Controllers
+namespace Tester.Web.Admin.Controllers.Base
 {
     [PublicAPI]
     [Produces("application/json")]

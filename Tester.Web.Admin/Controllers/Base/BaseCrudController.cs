@@ -6,7 +6,7 @@ using REST.Core.Exception;
 using REST.DataCore.Contract.Entity;
 using REST.Infrastructure.Contract;
 
-namespace Tester.Web.Admin.Controllers
+namespace Tester.Web.Admin.Controllers.Base
 {
     public abstract class BaseCrudController<TService, TDb, TKey, TDto, TFullDto, TRequest>
         : BaseRoController<TService, TDb, TKey, TDto, TFullDto>
@@ -27,12 +27,13 @@ namespace Tester.Web.Admin.Controllers
         }
 
 
-        // public virtual async Task<IActionResult> Add(TRequest item)
-        // {
-            // var id = await _crudService.Post(item).ConfigureAwait(false);
-            // var result = await _crudService.GetById(id).ConfigureAwait(false);
-            // return CreatedAtAction(nameof(GetById), new {id}, result);
-        // }
+        public virtual async Task<IActionResult> Add(TRequest item)
+        {
+            var id = await _crudService.Post(item).ConfigureAwait(false);
+            var result = await _crudService.GetById(id).ConfigureAwait(false);
+            // ReSharper disable once Mvc.ActionNotResolved
+            return CreatedAtAction(nameof(GetById), new {id}, result);
+        }
 
         public virtual async Task<IActionResult> Update(TKey id, [FromBody] TRequest item)
         {
