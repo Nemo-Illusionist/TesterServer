@@ -78,7 +78,7 @@ namespace Tester.Web.Admin
 
             app.UseRouting();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            // app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
