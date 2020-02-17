@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using REST.Infrastructure.Contract;
+using REST.Infrastructure.Dto;
 using Tester.Db.Model.Client;
 using Tester.Dto;
 using Tester.Infrastructure.Сontracts;
@@ -19,15 +20,18 @@ namespace Tester.Web.Admin.Controllers.V1
         }
 
         [HttpGet]
-        public override Task<IActionResult> GetByFilter([FromQuery] FilterRequest filter)
+        [ProducesResponseType(typeof(PagedResult<BaseDto<Guid>>), 200)]
+        public Task<IActionResult> Get([FromQuery] FilterRequest filter)
         {
-            return base.GetByFilter(filter);
+            return GetByFilter(filter);
         }
 
         [HttpGet("{id}")]
-        public override Task<IActionResult> GetById(Guid id)
+        [ProducesResponseType(typeof(BaseDto<Guid>), 200)]
+        [ProducesResponseType(typeof(NotFoundResult), 404)]
+        public Task<IActionResult> Get(Guid id)
         {
-            return base.GetById(id);
+            return GetById(id);
         }
     }
 }

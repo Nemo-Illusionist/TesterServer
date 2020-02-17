@@ -15,12 +15,5 @@ namespace Tester.Web.Admin.Controllers
         {
             return Redirect("/swagger");
         }
-
-        // TODO: добавить полноценную проверку здоровья приложения
-        [HttpGet("health")]
-        public IActionResult Health()
-        {
-            return Ok();
-        }
     }
 }

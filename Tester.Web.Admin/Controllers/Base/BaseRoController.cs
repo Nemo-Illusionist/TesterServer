@@ -7,6 +7,7 @@ using REST.Core.Exception;
 using REST.DataCore.Contract.Entity;
 using REST.Infrastructure.Contract;
 using REST.Infrastructure.Contract.Dto;
+using Tester.Dto;
 using Tester.Web.Admin.Models;
 
 namespace Tester.Web.Admin.Controllers.Base
@@ -27,15 +28,19 @@ namespace Tester.Web.Admin.Controllers.Base
             _filterHelper = filterHelper ?? throw new ArgumentNullException(nameof(filterHelper));
         }
 
-        public virtual async Task<IActionResult> GetByFilter(FilterRequest filter)
+        protected async Task<IActionResult> GetByFilter(FilterRequest filter)
         {
             Expression<Func<TDto, bool>> expression = null;
             IPageFilter pageFilter = null;
             IOrder[] orders = null;
             if (filter != null)
             {
-                expression = _filterHelper.ToExpression<TDto>(filter.Filter);
-                pageFilter = filter.PageFilter;
+                if (filter.Filter != null)
+                {
+                    expression = _filterHelper.ToExpression<TDto>(filter.Filter);
+                }
+
+                pageFilter = filter.PageFilter ?? new PageFilter {Page = 1, PageSize = 20};
                 orders = filter.Orders;
             }
 
@@ -44,7 +49,7 @@ namespace Tester.Web.Admin.Controllers.Base
             return Ok(result);
         }
 
-        public virtual async Task<IActionResult> GetById(TKey id)
+        protected async Task<IActionResult> GetById(TKey id)
         {
             try
             {
