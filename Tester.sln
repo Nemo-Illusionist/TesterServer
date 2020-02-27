@@ -23,6 +23,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Web.Admin", "Web\Tester.Web.Admin\Tester.Web.Admin.csproj", "{573B5E09-81DA-4F4E-86CD-3203307F1AD9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{78952E8C-6353-4214-81CF-434375E09A74}"
+ProjectSection(SolutionItems) = preProject
+	Tools\.travis.yml = Tools\.travis.yml
+EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Migrator", "Tools\Tester.Migrator\Tester.Migrator.csproj", "{A8483CA5-4580-447F-AE2A-AA32FE085FA6}"
 EndProject
