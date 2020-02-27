@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Db", "Tester.Db\Tester.Db.csproj", "{3A7BB05C-391D-41A0-A154-D7556BDD0442}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Db", "Domain\Tester.Db\Tester.Db.csproj", "{3A7BB05C-391D-41A0-A154-D7556BDD0442}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "REST", "REST", "{C67ECFB2-705D-4626-A9E0-8D3AAE662C10}"
 EndProject
@@ -14,21 +14,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "REST.DataCore", "..\REST-AS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "REST.EfCore", "..\REST-ASP.NET\Core\Data\REST.EfCore\REST.EfCore.csproj", "{CBF28180-99AC-4A66-8331-4EB5FA4B1617}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Infrastructure", "Tester.Infrastructure\Tester.Infrastructure.csproj", "{5A59A014-0516-4742-9D99-7D47E9676574}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Infrastructure", "Domain\Tester.Infrastructure\Tester.Infrastructure.csproj", "{5A59A014-0516-4742-9D99-7D47E9676574}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{D1A7ECC2-5483-4D34-8796-F2AF89EBF2D8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{5EF5ECA5-0F6E-4D9A-B133-9560A58DB6A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Web.Admin", "Tester.Web.Admin\Tester.Web.Admin.csproj", "{573B5E09-81DA-4F4E-86CD-3203307F1AD9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Web.Admin", "Web\Tester.Web.Admin\Tester.Web.Admin.csproj", "{573B5E09-81DA-4F4E-86CD-3203307F1AD9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{78952E8C-6353-4214-81CF-434375E09A74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Migrator", "Tester.Migrator\Tester.Migrator.csproj", "{A8483CA5-4580-447F-AE2A-AA32FE085FA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Migrator", "Tools\Tester.Migrator\Tester.Migrator.csproj", "{A8483CA5-4580-447F-AE2A-AA32FE085FA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Core", "Tester.Core\Tester.Core.csproj", "{F90BE6FE-B949-4E4C-8128-191B7184C11C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Core", "Domain\Tester.Core\Tester.Core.csproj", "{F90BE6FE-B949-4E4C-8128-191B7184C11C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Dto", "Tester.Dto\Tester.Dto.csproj", "{6BFB546A-24DF-46A2-89BC-B16BB580DB10}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Dto", "Domain\Tester.Dto\Tester.Dto.csproj", "{6BFB546A-24DF-46A2-89BC-B16BB580DB10}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5F33B61E-C95E-458D-8550-7737279941AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Tests.Unit", "Tests\Tester.Tests.Unit\Tester.Tests.Unit.csproj", "{6D810517-93E9-45E8-97E7-A59FC2DC87E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +80,10 @@ Global
 		{6BFB546A-24DF-46A2-89BC-B16BB580DB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BFB546A-24DF-46A2-89BC-B16BB580DB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BFB546A-24DF-46A2-89BC-B16BB580DB10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D810517-93E9-45E8-97E7-A59FC2DC87E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D810517-93E9-45E8-97E7-A59FC2DC87E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D810517-93E9-45E8-97E7-A59FC2DC87E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D810517-93E9-45E8-97E7-A59FC2DC87E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FD41CB40-0DA8-4DB5-BF24-A63A68C7A34D} = {C67ECFB2-705D-4626-A9E0-8D3AAE662C10}
@@ -89,5 +97,6 @@ Global
 		{A8483CA5-4580-447F-AE2A-AA32FE085FA6} = {78952E8C-6353-4214-81CF-434375E09A74}
 		{F90BE6FE-B949-4E4C-8128-191B7184C11C} = {D1A7ECC2-5483-4D34-8796-F2AF89EBF2D8}
 		{6BFB546A-24DF-46A2-89BC-B16BB580DB10} = {D1A7ECC2-5483-4D34-8796-F2AF89EBF2D8}
+		{6D810517-93E9-45E8-97E7-A59FC2DC87E9} = {5F33B61E-C95E-458D-8550-7737279941AC}
 	EndGlobalSection
 EndGlobal

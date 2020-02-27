@@ -13,10 +13,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Tester.Core\Tester.Core.csproj" />
-      <ProjectReference Include="..\Tester.Db\Tester.Db.csproj" />
-      <ProjectReference Include="..\Tester.Dto\Tester.Dto.csproj" />
-      <ProjectReference Include="..\Tester.Infrastructure\Tester.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Domain\Tester.Core\Tester.Core.csproj" />
+      <ProjectReference Include="..\..\Domain\Tester.Db\Tester.Db.csproj" />
+      <ProjectReference Include="..\..\Domain\Tester.Dto\Tester.Dto.csproj" />
+      <ProjectReference Include="..\..\Domain\Tester.Infrastructure\Tester.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

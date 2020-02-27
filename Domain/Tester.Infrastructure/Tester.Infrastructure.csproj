@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\REST-ASP.NET\Core\REST.Infrastructure\REST.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Domain\Tester.Db\Tester.Db.csproj" />
+      <ProjectReference Include="..\..\Domain\Tester.Dto\Tester.Dto.csproj" />
+    </ItemGroup>
+
+</Project>

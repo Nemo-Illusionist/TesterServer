@@ -5,8 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\REST-ASP.NET\Core\Data\REST.EfCore\REST.EfCore.csproj" />
-      <ProjectReference Include="..\Tester.Core\Tester.Core.csproj" />
+      <ProjectReference Include="..\..\..\REST-ASP.NET\Core\Data\REST.EfCore\REST.EfCore.csproj" />
+      <ProjectReference Include="..\..\Domain\Tester.Core\Tester.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
