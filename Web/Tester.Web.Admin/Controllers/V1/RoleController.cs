@@ -7,6 +7,7 @@ using REST.Infrastructure.Dto;
 using Tester.Db.Model.Client;
 using Tester.Dto;
 using Tester.Infrastructure.Сontracts;
+using Tester.Web.Admin.Controllers.Base;
 using Tester.Web.Admin.Models;
 
 namespace Tester.Web.Admin.Controllers.V1

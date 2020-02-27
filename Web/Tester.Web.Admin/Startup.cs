@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,21 +46,27 @@ namespace Tester.Web.Admin
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
             services.AddControllers();
+
             var defaultApiVersion = new ApiVersion(1, 0);
             services.AddApiVersioning(o =>
-            {
-                o.ReportApiVersions = true;
-                o.AssumeDefaultVersionWhenUnspecified = true;
-                o.DefaultApiVersion = defaultApiVersion;
-            });
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = $"Tester Admin API {defaultApiVersion}",
-                    Version = defaultApiVersion.ToString()
+                    o.ReportApiVersions = true;
+                    o.AssumeDefaultVersionWhenUnspecified = true;
+                    o.DefaultApiVersion = defaultApiVersion;
+                })
+                .AddVersionedApiExplorer(o =>
+                {
+                    o.GroupNameFormat = "'v'VVV";
+                    o.SubstituteApiVersionInUrl = true;
+                })
+                .AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1", new OpenApiInfo
+                    {
+                        Title = $"Tester Admin API {defaultApiVersion}",
+                        Version = defaultApiVersion.ToString()
+                    });
                 });
-            });
 
 
             services.AddEntityFrameworkNpgsql()
@@ -83,12 +90,13 @@ namespace Tester.Web.Admin
             services.AddScoped<IFilterHelper, FilterHelper>();
             services.AddScoped<IExpressionHelper, ExpressionHelper>();
             services.AddScoped<IOrderHelper, OrderHelper>();
-            
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         public static void Configure([NotNull] IApplicationBuilder app, [NotNull] IWebHostEnvironment env,
-            [NotNull] IHostApplicationLifetime lifetime, [NotNull] IServiceProvider serviceProvider)
+            [NotNull] IHostApplicationLifetime lifetime, [NotNull] IServiceProvider serviceProvider,
+            IApiVersionDescriptionProvider provider)
         {
             if (app == null) throw new ArgumentNullException(nameof(app));
             if (env == null) throw new ArgumentNullException(nameof(env));
@@ -103,7 +111,15 @@ namespace Tester.Web.Admin
             app.UseHttpsRedirection();
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
+            app.UseSwaggerUI(o =>
+            {
+                foreach (var versionDescription in provider.ApiVersionDescriptions)
+                {
+                    o.SwaggerEndpoint($"/swagger/{(object) versionDescription.GroupName}/swagger.json",
+                        versionDescription.GroupName.ToUpperInvariant());
+                }
+                o.EnableDeepLinking();
+            });
 
             app.UseRouting();
             app.UseAuthorization();

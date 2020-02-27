@@ -3,9 +3,8 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using REST.DataCore.Contract.Entity;
 using REST.Infrastructure.Contract;
-using Tester.Web.Admin.Controllers.Base;
 
-namespace Tester.Web.Admin.Controllers.V1
+namespace Tester.Web.Admin.Controllers.Base
 {
     [ApiVersion("1.0")]
     public abstract class BaseCrudV1Controller<TService, TDb, TKey, TDto, TFullDto, TRequest>
