@@ -34,7 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5F33B61E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Tests.Unit", "Tests\Tester.Tests.Unit\Tester.Tests.Unit.csproj", "{6D810517-93E9-45E8-97E7-A59FC2DC87E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth", "Domain\Auth\Auth.csproj", "{96BC8C54-0807-4A8C-8505-FA49AAC6EC67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester.Auth", "Domain\Tester.Auth\Tester.Auth.csproj", "{96BC8C54-0807-4A8C-8505-FA49AAC6EC67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
