@@ -1,14 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace Auth.Services
 {
-    public static class PasswordHash
+    public class PasswordHash: IPasswordHash
     {
-        public static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        public HashStruct CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             if (password == null) 
                 throw new ArgumentNullException(nameof(password));
@@ -18,8 +17,13 @@ namespace Auth.Services
             using var hmac = new HMACSHA512();
             passwordSalt = hmac.Key;
             passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return new HashStruct
+            {
+                passwordHash=passwordHash, 
+                passwordSalt=passwordSalt
+            };
         }
-        public static bool VerifyPasswordHash(string password, string storedHash, string storedSalt)
+        public bool VerifyPasswordHash(string password, string storedHash, string storedSalt)
         {
             var stHash = Encoding.UTF8.GetBytes(storedHash);
             var stSalt = Encoding.UTF8.GetBytes(storedSalt);

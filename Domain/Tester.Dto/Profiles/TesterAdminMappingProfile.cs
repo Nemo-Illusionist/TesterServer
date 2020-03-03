@@ -1,6 +1,7 @@
 using System;
 using AutoMapper;
 using Tester.Db.Model.Client;
+using Tester.Dto.Users;
 
 namespace Tester.Dto.Profiles
 {
@@ -9,6 +10,7 @@ namespace Tester.Dto.Profiles
         public TesterMappingProfile()
         {
             CreateMap<Role, BaseDto<Guid>>();
+            CreateMap<User, UserModel>();
         }
     }
 }
