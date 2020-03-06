@@ -1,7 +1,8 @@
 namespace Auth.Helpers
 {
-    public class AppSettings
+    public class Options
     {
         public string Secret { get; set; }
+        public int Duration { get; } = 7;
     }
 }

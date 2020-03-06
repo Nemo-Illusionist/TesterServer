@@ -18,13 +18,14 @@ namespace Auth.Services
         private readonly IRoDataProvider _dataProvider;
         private IConfigurationProvider Mapper { get; }
         private IAsyncHelpers AsyncHelpers { get; }
-        public UserService([NotNull] IAsyncHelpers asyncHelpers)
+        private readonly TokenGenerator _tokenGenerator;
+        public UserService()
         {
             hashPassword = new PasswordHash();
-            AsyncHelpers = asyncHelpers ?? throw new ArgumentNullException(nameof(asyncHelpers));
+            _tokenGenerator = new TokenGenerator();
         }
 
-        public async Task<User> Authenticate(string login, string password)
+        public async Task<string> Authenticate(string login, string password)
         {
             if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
                 return null;
@@ -38,9 +39,10 @@ namespace Auth.Services
             // check if password is correct
             if (!hashPassword.VerifyPasswordHash(password, user.Password, user.Salt))
                 return null;
-
+            
+            var token = _tokenGenerator.Generate(user);
             // authentication successful
-            return user;
+            return token;
         }
     }
 }
