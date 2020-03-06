@@ -1,35 +1,36 @@
 using System;
 using System.Threading.Tasks;
-using Auth.Services;
-using AutoMapper;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
+using Tester.Auth.Contracts;
 using Tester.Dto;
 using Tester.Dto.Users;
-using Options = Auth.Helpers.Options;
+using Tester.Web.Admin.Controllers.Base;
 
 namespace Tester.Web.Admin.Controllers.V1
 {
-    public class AuthorizationController
+    public class AuthorizationController : BaseV1Controller
     {
-        private IMapper _mapper;
-        private readonly Options _appSettings;
-        private readonly UserService _auth;
-        public AuthorizationController(IMapper mapper, IOptions<Options> appSettings)
+        private readonly IAuthService _authService;
+
+        public AuthorizationController([NotNull] IAuthService authService)
         {
-            _mapper = mapper;
-            _appSettings = appSettings.Value;
+            _authService = authService ?? throw new ArgumentNullException(nameof(authService));
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(BaseDto<Guid>), 200)]
         [ProducesResponseType(typeof(NotFoundResult), 404)]
-        public async Task<IActionResult> Authorization([FromBody] AuthenticateModel model)
+        public async Task<IActionResult> Authorization([FromBody] [NotNull] AuthenticateModel model)
         {
+            if (model == null) throw new ArgumentNullException(nameof(model));
+            
             if (string.IsNullOrEmpty(model.Login) || string.IsNullOrEmpty(model.Password))
-                return BadRequest(new { message = "Username or password is incorrect" });
-            var token = await _auth.Authenticate(model.Login, model.Password)
-                .ConfigureAwait(false);
+                return BadRequest(new {message = "Login or password is incorrect"});
+            
+            var token = await _authService.Authenticate(model.Login, model.Password).ConfigureAwait(false);
+            
+            throw new NotImplementedException();
         }
     }
 }

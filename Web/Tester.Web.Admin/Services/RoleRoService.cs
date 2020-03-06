@@ -7,7 +7,7 @@ using REST.Infrastructure.Contract;
 using REST.Infrastructure.Service;
 using Tester.Db.Model.Client;
 using Tester.Dto;
-using Tester.Infrastructure.Сontracts;
+using Tester.Infrastructure.Contracts;
 
 namespace Tester.Web.Admin.Services
 {

@@ -22,7 +22,7 @@ using Tester.Db.Context;
 using Tester.Db.Manager;
 using Tester.Db.Provider;
 using Tester.Db.Store;
-using Tester.Infrastructure.Сontracts;
+using Tester.Infrastructure.Contracts;
 using Tester.Web.Admin.Services;
 
 namespace Tester.Web.Admin

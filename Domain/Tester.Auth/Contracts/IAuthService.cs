@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 
-namespace Auth.Services
+namespace Tester.Auth.Contracts
 {
-    public interface IUserService
+    public interface IAuthService
     {
         Task<string> Authenticate(string username, string password);
     }

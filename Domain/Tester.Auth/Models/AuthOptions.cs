@@ -1,6 +1,6 @@
-namespace Auth.Helpers
+namespace Tester.Auth
 {
-    public class Options
+    public class AuthOptions
     {
         public string Secret { get; set; }
         public int Duration { get; } = 7;
