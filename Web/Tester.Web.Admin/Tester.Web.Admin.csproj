@@ -19,7 +19,6 @@
       <ProjectReference Include="..\..\Domain\Tester.Db\Tester.Db.csproj" />
       <ProjectReference Include="..\..\Domain\Tester.Dto\Tester.Dto.csproj" />
       <ProjectReference Include="..\..\Domain\Tester.Infrastructure\Tester.Infrastructure.csproj" />
-      <ProjectReference Include="..\..\Tests\Tester.Tests.Unit\Tester.Tests.Unit.csproj" />
     </ItemGroup>
 
 </Project>
