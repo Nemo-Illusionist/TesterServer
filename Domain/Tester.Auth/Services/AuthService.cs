@@ -38,7 +38,9 @@ namespace Tester.Auth.Services
                 return null;
 
             var queryable = _dataProvider.GetQueryable<User>().Where(x => x.Login.Equals(login))
-                .Include(x => x.UserData).Include(x => x.UserRoles).ThenInclude(x => x.Role);
+                .Include(x => x.UserData)
+                .Include(x => x.UserRoles)
+                .ThenInclude(x => x.Role);
             var user = await _asyncHelpers.SingleOrDefaultAsync(queryable)
                 .ConfigureAwait(false);
 
@@ -57,7 +59,8 @@ namespace Tester.Auth.Services
                 new Claim("login", user.Login)
             };
 
-            var rolesClaims = user.UserRoles.Select(r => new Claim(ClaimsIdentity.DefaultRoleClaimType, r.Role.Name));
+            var rolesClaims = user.UserRoles.Select(r => 
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, r.Role.Name));
             claims.AddRange(rolesClaims);
 
             var id = new ClaimsIdentity(claims, "Cookies");

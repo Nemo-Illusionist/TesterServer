@@ -18,6 +18,8 @@ using REST.EfCore.Contract;
 using REST.EfCore.Provider;
 using REST.Infrastructure.Contract;
 using REST.Infrastructure.Service;
+using Tester.Auth.Contracts;
+using Tester.Auth.Services;
 using Tester.Db.Context;
 using Tester.Db.Manager;
 using Tester.Db.Provider;
@@ -90,6 +92,7 @@ namespace Tester.Web.Admin
             services.AddScoped<IFilterHelper, FilterHelper>();
             services.AddScoped<IExpressionHelper, ExpressionHelper>();
             services.AddScoped<IOrderHelper, OrderHelper>();
+            services.AddScoped<IAuthService, AuthService>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }

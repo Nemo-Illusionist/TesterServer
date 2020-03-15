@@ -28,9 +28,10 @@ namespace Tester.Web.Admin.Controllers.V1
             if (string.IsNullOrEmpty(model.Login) || string.IsNullOrEmpty(model.Password))
                 return BadRequest(new {message = "Login or password is incorrect"});
             
-            var token = await _authService.Authenticate(model.Login, model.Password).ConfigureAwait(false);
-            
-            throw new NotImplementedException();
+            var token = await _authService.Authenticate(model.Login, model.Password)
+                .ConfigureAwait(false);
+
+            return Ok(token);
         }
     }
 }
