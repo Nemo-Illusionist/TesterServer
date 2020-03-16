@@ -12,8 +12,10 @@ namespace Tester.Db.Model.Client
     [Table("user_role", Schema = DbConstant.Scheme.Client)]
     public class UserRole : ICreatedUtc, IDeletable
     {
+        [MultiKey]
         public Guid UserId { get; set; }
-
+        
+        [MultiKey]
         public Guid RoleId { get; set; }
 
         public DateTime CreatedUtc { get; set; }

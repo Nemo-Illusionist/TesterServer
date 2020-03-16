@@ -10,7 +10,7 @@ using Tester.Core.Common;
 using Tester.Db.Model.Client;
 using Tester.Db.Model.Statistics;
 
-namespace Tester.Db.Model
+namespace Tester.Db.Model.App
 {
     [PublicAPI]
     [SuppressMessage("ReSharper", "CA2227")]

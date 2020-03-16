@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 using REST.DataCore.Contract.Entity;
 using REST.EfCore.Annotation;
+using Tester.Db.Model.App;
 using Tester.Db.Model.Client;
 
 namespace Tester.Db.Model.Statistics

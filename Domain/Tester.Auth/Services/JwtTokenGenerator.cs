@@ -7,7 +7,6 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Tester.Auth.Contracts;
-using Tester.Auth.Models;
 
 namespace Tester.Auth.Services
 {

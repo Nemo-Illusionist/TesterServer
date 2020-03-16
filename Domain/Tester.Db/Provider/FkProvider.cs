@@ -1,7 +1,7 @@
 using System;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
-using Tester.Db.Model;
+using Tester.Db.Model.App;
 using Tester.Db.Model.Client;
 using Tester.Db.Model.Statistics;
 
