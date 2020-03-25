@@ -19,6 +19,7 @@ using REST.EfCore.Provider;
 using REST.Infrastructure.Contract;
 using REST.Infrastructure.Service;
 using Tester.Auth.Contracts;
+using Tester.Auth.Models;
 using Tester.Auth.Services;
 using Tester.Db.Context;
 using Tester.Db.Manager;
@@ -69,7 +70,8 @@ namespace Tester.Web.Admin
                         Version = defaultApiVersion.ToString()
                     });
                 });
-
+            
+            services.Configure<AuthOptions>(_configuration.GetSection(nameof(AuthOptions)));
 
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<TesterDbContext>((sp, ob) =>

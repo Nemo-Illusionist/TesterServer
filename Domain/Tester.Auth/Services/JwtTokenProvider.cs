@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Tester.Auth.Contracts;
+using Tester.Auth.Models;
 
 namespace Tester.Auth.Services
 {
@@ -27,8 +28,7 @@ namespace Tester.Auth.Services
             var key = Encoding.ASCII.GetBytes(_authOptions.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[0]
-                    .Concat(identity.Claims)),
+                Subject = new ClaimsIdentity(new Claim[0].Concat(identity.Claims)),
                 Expires = DateTime.UtcNow.AddDays(_authOptions.Duration),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
