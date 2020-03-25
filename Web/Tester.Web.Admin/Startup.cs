@@ -93,6 +93,8 @@ namespace Tester.Web.Admin
             services.AddScoped<IExpressionHelper, ExpressionHelper>();
             services.AddScoped<IOrderHelper, OrderHelper>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IPasswordProvider, PasswordProvider>();
+            services.AddScoped<ITokenProvider, JwtTokenProvider>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }

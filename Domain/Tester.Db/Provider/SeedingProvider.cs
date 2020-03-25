@@ -34,6 +34,7 @@ namespace Tester.Db.Provider
                 UserId = Guid.Parse("60396F59-DCD2-4045-9029-793DF7CEE7EA"),
                 Gender = Gender.Undefined,
                 Name = "admin",
+                LastName = null,
                 UpdatedUtc = DateTime.MinValue
             });
 

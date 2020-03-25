@@ -11,7 +11,7 @@ using Tester.Migrator;
 namespace Tester.Migrator.Migrations
 {
     [DbContext(typeof(DbContextFactory.MigratorEfDataConnection))]
-    [Migration("20200121083123_Initial")]
+    [Migration("20200325151924_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,163 @@ namespace Tester.Migrator.Migrations
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            modelBuilder.Entity("Tester.Db.Model.App.Question", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DeletedUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Hint")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("TopicId")
+                        .HasColumnType("uuid");
+
+                    b.Property<QuestionType>("Type")
+                        .HasColumnType("question_type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("CreatedUtc");
+
+                    b.HasIndex("DeletedUtc");
+
+                    b.HasIndex("Name");
+
+                    b.HasIndex("TopicId");
+
+                    b.HasIndex("Type");
+
+                    b.ToTable("question","app");
+                });
+
+            modelBuilder.Entity("Tester.Db.Model.App.Test", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DeletedUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("CreatedUtc");
+
+                    b.HasIndex("DeletedUtc");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("test","app");
+                });
+
+            modelBuilder.Entity("Tester.Db.Model.App.TestTopic", b =>
+                {
+                    b.Property<Guid>("TestId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TopicId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DeletedUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("TestId", "TopicId");
+
+                    b.HasIndex("DeletedUtc");
+
+                    b.HasIndex("TopicId");
+
+                    b.ToTable("test_topic","app");
+                });
+
+            modelBuilder.Entity("Tester.Db.Model.App.Topic", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DeletedUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdatedUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("CreatedUtc");
+
+                    b.HasIndex("DeletedUtc");
+
+                    b.HasIndex("Name");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("topic","app");
+                });
 
             modelBuilder.Entity("Tester.Db.Model.Client.Role", b =>
                 {
@@ -136,16 +293,16 @@ namespace Tester.Migrator.Migrations
                     b.Property<Gender>("Gender")
                         .HasColumnType("gender");
 
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedUtc")
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("UserId");
-
-                    b.HasIndex("Name");
 
                     b.ToTable("user_data","client");
 
@@ -188,59 +345,6 @@ namespace Tester.Migrator.Migrations
                             RoleId = new Guid("f7b718a4-535f-4e91-8b1e-8c65012c8960"),
                             CreatedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-                });
-
-            modelBuilder.Entity("Tester.Db.Model.Question", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Answer")
-                        .IsRequired()
-                        .HasColumnType("jsonb");
-
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DeletedUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Hint")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("TopicId")
-                        .HasColumnType("uuid");
-
-                    b.Property<QuestionType>("Type")
-                        .HasColumnType("question_type");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("CreatedUtc");
-
-                    b.HasIndex("DeletedUtc");
-
-                    b.HasIndex("Name");
-
-                    b.HasIndex("TopicId");
-
-                    b.HasIndex("Type");
-
-                    b.ToTable("question","app");
                 });
 
             modelBuilder.Entity("Tester.Db.Model.Statistics.UserAnswer", b =>
@@ -307,108 +411,56 @@ namespace Tester.Migrator.Migrations
                     b.ToTable("user_test","report");
                 });
 
-            modelBuilder.Entity("Tester.Db.Model.Test", b =>
+            modelBuilder.Entity("Tester.Db.Model.App.Question", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.HasOne("Tester.Db.Model.Client.User", "Author")
+                        .WithMany("Questions")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DeletedUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("CreatedUtc");
-
-                    b.HasIndex("DeletedUtc");
-
-                    b.HasIndex("Name");
-
-                    b.ToTable("test","app");
+                    b.HasOne("Tester.Db.Model.App.Topic", "Topic")
+                        .WithMany("Questions")
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Tester.Db.Model.TestTopic", b =>
+            modelBuilder.Entity("Tester.Db.Model.App.Test", b =>
                 {
-                    b.Property<Guid>("TopicId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TestId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DeletedUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("TopicId", "TestId");
-
-                    b.HasIndex("DeletedUtc");
-
-                    b.HasIndex("TestId");
-
-                    b.ToTable("test_topic","app");
+                    b.HasOne("Tester.Db.Model.Client.User", "Author")
+                        .WithMany("Tests")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Tester.Db.Model.Topic", b =>
+            modelBuilder.Entity("Tester.Db.Model.App.TestTopic", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.HasOne("Tester.Db.Model.App.Test", "Test")
+                        .WithMany("TestTopics")
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uuid");
+                    b.HasOne("Tester.Db.Model.App.Topic", "Topic")
+                        .WithMany("TestTopics")
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Property<DateTime>("CreatedUtc")
-                        .HasColumnType("timestamp without time zone");
+            modelBuilder.Entity("Tester.Db.Model.App.Topic", b =>
+                {
+                    b.HasOne("Tester.Db.Model.Client.User", "Author")
+                        .WithMany("Topics")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<DateTime?>("DeletedUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("ParentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("UpdatedUtc")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("CreatedUtc");
-
-                    b.HasIndex("DeletedUtc");
-
-                    b.HasIndex("Name");
-
-                    b.HasIndex("ParentId");
-
-                    b.ToTable("topic","app");
+                    b.HasOne("Tester.Db.Model.App.Topic", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("Tester.Db.Model.Client.UserData", b =>
@@ -435,24 +487,9 @@ namespace Tester.Migrator.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Tester.Db.Model.Question", b =>
-                {
-                    b.HasOne("Tester.Db.Model.Client.User", "Author")
-                        .WithMany("Questions")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tester.Db.Model.Topic", "Topic")
-                        .WithMany("Questions")
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Tester.Db.Model.Statistics.UserAnswer", b =>
                 {
-                    b.HasOne("Tester.Db.Model.Question", "Question")
+                    b.HasOne("Tester.Db.Model.App.Question", "Question")
                         .WithMany("UserAnswer")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -471,7 +508,7 @@ namespace Tester.Migrator.Migrations
                         .WithMany("Observers")
                         .HasForeignKey("ExaminerId");
 
-                    b.HasOne("Tester.Db.Model.Test", "Test")
+                    b.HasOne("Tester.Db.Model.App.Test", "Test")
                         .WithMany("UserTests")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -482,43 +519,6 @@ namespace Tester.Migrator.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Tester.Db.Model.Test", b =>
-                {
-                    b.HasOne("Tester.Db.Model.Client.User", "Author")
-                        .WithMany("Tests")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Tester.Db.Model.TestTopic", b =>
-                {
-                    b.HasOne("Tester.Db.Model.Test", "Test")
-                        .WithMany("TestTopics")
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tester.Db.Model.Topic", "Topic")
-                        .WithMany("TestTopics")
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Tester.Db.Model.Topic", b =>
-                {
-                    b.HasOne("Tester.Db.Model.Client.User", "Author")
-                        .WithMany("Topics")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tester.Db.Model.Topic", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId");
                 });
 #pragma warning restore 612, 618
         }

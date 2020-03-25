@@ -9,10 +9,10 @@ namespace Tester.Migrator.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "client");
+                name: "app");
 
             migrationBuilder.EnsureSchema(
-                name: "app");
+                name: "client");
 
             migrationBuilder.EnsureSchema(
                 name: "report");
@@ -119,7 +119,8 @@ namespace Tester.Migrator.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     Gender = table.Column<Gender>(nullable: false),
                     UpdatedUtc = table.Column<DateTime>(nullable: false)
                 },
@@ -249,7 +250,7 @@ namespace Tester.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_test_topic", x => new { x.TopicId, x.TestId });
+                    table.PrimaryKey("PK_test_topic", x => new { x.TestId, x.TopicId });
                     table.ForeignKey(
                         name: "FK_test_topic_test_TestId",
                         column: x => x.TestId,
@@ -317,8 +318,8 @@ namespace Tester.Migrator.Migrations
             migrationBuilder.InsertData(
                 schema: "client",
                 table: "user_data",
-                columns: new[] { "UserId", "Gender", "Name", "UpdatedUtc" },
-                values: new object[] { new Guid("60396f59-dcd2-4045-9029-793df7cee7ea"), Gender.Undefined, "admin", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                columns: new[] { "UserId", "Gender", "LastName", "Name", "UpdatedUtc" },
+                values: new object[] { new Guid("60396f59-dcd2-4045-9029-793df7cee7ea"), Gender.Undefined, null, "admin", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 schema: "client",
@@ -393,10 +394,10 @@ namespace Tester.Migrator.Migrations
                 column: "DeletedUtc");
 
             migrationBuilder.CreateIndex(
-                name: "IX_test_topic_TestId",
+                name: "IX_test_topic_TopicId",
                 schema: "app",
                 table: "test_topic",
-                column: "TestId");
+                column: "TopicId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_topic_AuthorId",
@@ -459,12 +460,6 @@ namespace Tester.Migrator.Migrations
                 table: "user",
                 column: "Login",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_user_data_Name",
-                schema: "client",
-                table: "user_data",
-                column: "Name");
 
             migrationBuilder.CreateIndex(
                 name: "IX_user_role_DeletedUtc",

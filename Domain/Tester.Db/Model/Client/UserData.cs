@@ -17,9 +17,11 @@ namespace Tester.Db.Model.Client
         [Key]
         public Guid UserId { get; set; }
 
-        [Index]
-        [Required]
+        [CanBeNull]
         public string Name { get; set; }
+
+        [CanBeNull]
+        public string LastName { get; set; }
 
         public Gender Gender { get; set; }
         public DateTime UpdatedUtc { get; set; }

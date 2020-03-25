@@ -38,10 +38,7 @@ namespace Tester.Db.Model.Client
 
         [Index]
         public DateTime? DeletedUtc { get; set; }
-        
-        [CanBeNull] public string FirstName { get; set; }
-        
-        [CanBeNull] public string LastName { get; set; }
+
         
         public UserData UserData { get; set; }
         public ICollection<Topic> Topics { get; set; }
