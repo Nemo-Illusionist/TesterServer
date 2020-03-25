@@ -1,4 +1,4 @@
-namespace Tester.Auth
+namespace Tester.Auth.Models
 {
     public class AuthOptions
     {
