@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
+using REST.Core.Exception;
 using Tester.Auth.Contracts;
 using Tester.Dto;
 using Tester.Dto.Users;
@@ -21,17 +22,20 @@ namespace Tester.Web.Admin.Controllers.V1
         [HttpPost]
         [ProducesResponseType(typeof(BaseDto<Guid>), 200)]
         [ProducesResponseType(typeof(NotFoundResult), 404)]
-        public async Task<IActionResult> Authorization([FromBody] [NotNull] AuthenticateModel model)
+        public async Task<IActionResult> Authorization([FromBody] AuthenticateModel model)
         {
-            if (model == null) throw new ArgumentNullException(nameof(model));
-            
-            if (string.IsNullOrEmpty(model.Login) || string.IsNullOrEmpty(model.Password))
+            if (model == null || string.IsNullOrEmpty(model.Login) || string.IsNullOrEmpty(model.Password))
                 return BadRequest(new {message = "Login or password is incorrect"});
-            
-            var token = await _authService.Authenticate(model.Login, model.Password)
-                .ConfigureAwait(false);
 
-            return Ok(token);
+            try
+            {
+                var token = await _authService.Authenticate(model.Login, model.Password).ConfigureAwait(false);
+                return Ok(token);
+            }
+            catch (ItemNotFoundException)
+            {
+                return NotFound();
+            }
         }
     }
 }
