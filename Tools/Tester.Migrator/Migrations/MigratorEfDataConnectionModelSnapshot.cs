@@ -245,13 +245,13 @@ namespace Tester.Migrator.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
+                    b.Property<byte[]>("Password")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("bytea");
 
-                    b.Property<string>("Salt")
+                    b.Property<byte[]>("Salt")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("bytea");
 
                     b.Property<Guid>("SecurityTimestamp")
                         .HasColumnType("uuid");
@@ -276,8 +276,8 @@ namespace Tester.Migrator.Migrations
                             Id = new Guid("60396f59-dcd2-4045-9029-793df7cee7ea"),
                             CreatedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Login = "admin",
-                            Password = "10-57-FD-75-B5-7A-95-53-F0-B7-92-16-4C-01-5F-8C",
-                            Salt = "8a57ad97-45fe-4db1-89c4-3973e0852177",
+                            Password = new byte[] { 252, 29, 38, 134, 205, 60, 211, 7, 6, 166, 238, 109, 252, 219, 114, 230, 31, 160, 3, 66, 95, 52, 43, 254, 67, 79, 170, 23, 245, 25, 139, 232, 83, 176, 200, 234, 163, 191, 147, 143, 72, 111, 76, 207, 76, 172, 183, 154, 145, 160, 161, 114, 55, 204, 25, 110, 216, 186, 201, 126, 123, 70, 31, 253 },
+                            Salt = new byte[] { 64, 132, 145, 88, 10, 194, 112, 102, 76, 212, 254, 162, 125, 138, 223, 21, 4, 81, 183, 120, 84, 126, 249, 91, 62, 130, 18, 98, 178, 248, 222, 142, 22, 154, 45, 110, 115, 84, 65, 117, 211, 184, 143, 18, 163, 142, 61, 51, 186, 90, 171, 19, 13, 43, 237, 203, 240, 200, 26, 220, 197, 203, 107, 79, 195, 28, 216, 213, 98, 204, 10, 100, 217, 22, 188, 30, 11, 252, 76, 60, 200, 196, 215, 43, 249, 16, 30, 132, 0, 251, 117, 32, 179, 220, 242, 96, 191, 183, 113, 36, 81, 51, 136, 119, 252, 31, 230, 119, 167, 130, 190, 7, 18, 209, 30, 75, 216, 129, 55, 27, 98, 27, 108, 163, 176, 33, 19, 118 },
                             SecurityTimestamp = new Guid("b73df749-8157-4f3f-880e-a083e0d90b4c"),
                             UpdatedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });

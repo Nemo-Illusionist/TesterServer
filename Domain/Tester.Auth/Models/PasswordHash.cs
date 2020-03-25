@@ -5,15 +5,15 @@ namespace Tester.Auth.Models
 {
     public struct PasswordHash
     {
-        public string Hash { get; }
-        public string Salt { get; }
+        public byte[] Hash { get; }
+        public byte[] Salt { get; }
 
-        public PasswordHash([NotNull] string hash, [NotNull] string salt)
+        public PasswordHash([NotNull] byte[] hash, [NotNull] byte[] salt)
         {
-            if (string.IsNullOrWhiteSpace(salt))
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(salt));
-            if (string.IsNullOrWhiteSpace(hash))
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(hash));
+            if (hash == null || hash.Length != 64)
+                throw new ArgumentException("Invalid hash", nameof(hash));
+            if (salt == null || salt.Length != 128)
+                throw new ArgumentException("Invalid salt", nameof(hash));
             Hash = hash;
             Salt = salt;
         }

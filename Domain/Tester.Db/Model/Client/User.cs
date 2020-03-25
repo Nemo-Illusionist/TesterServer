@@ -24,10 +24,10 @@ namespace Tester.Db.Model.Client
         public string Login { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public byte[] Password { get; set; }
 
         [Required]
-        public string Salt { get; set; }
+        public byte[] Salt { get; set; }
 
         public Guid SecurityTimestamp { get; set; }
 
