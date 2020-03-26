@@ -18,8 +18,8 @@ using REST.EfCore.Contract;
 using REST.EfCore.Provider;
 using REST.Infrastructure.Contract;
 using REST.Infrastructure.Service;
+using Tester.Auth;
 using Tester.Auth.Contracts;
-using Tester.Auth.Models;
 using Tester.Auth.Services;
 using Tester.Db.Context;
 using Tester.Db.Manager;
@@ -70,8 +70,8 @@ namespace Tester.Web.Admin
                         Version = defaultApiVersion.ToString()
                     });
                 });
-            
-            services.Configure<AuthOptions>(_configuration.GetSection(nameof(AuthOptions)));
+
+            services.AddAuth(_configuration);
 
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<TesterDbContext>((sp, ob) =>
@@ -125,10 +125,12 @@ namespace Tester.Web.Admin
                     o.SwaggerEndpoint($"/swagger/{(object) versionDescription.GroupName}/swagger.json",
                         versionDescription.GroupName.ToUpperInvariant());
                 }
+
                 o.EnableDeepLinking();
             });
 
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

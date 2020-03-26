@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using REST.Core.Exception;
 using Tester.Auth.Contracts;
@@ -10,7 +11,7 @@ using Tester.Web.Admin.Controllers.Base;
 
 namespace Tester.Web.Admin.Controllers.V1
 {
-    public class AuthorizationController : BaseV1Controller
+    public class AuthorizationController : BaseController
     {
         private readonly IAuthService _authService;
 
@@ -20,6 +21,7 @@ namespace Tester.Web.Admin.Controllers.V1
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(BaseDto<Guid>), 200)]
         [ProducesResponseType(typeof(NotFoundResult), 404)]
         public async Task<IActionResult> Authorization([FromBody] AuthenticateModel model)
@@ -30,12 +32,18 @@ namespace Tester.Web.Admin.Controllers.V1
             try
             {
                 var token = await _authService.Authenticate(model.Login, model.Password).ConfigureAwait(false);
+                SetTokenToCookie(token);
                 return Ok(token);
             }
             catch (ItemNotFoundException)
             {
                 return NotFound();
             }
+        }
+
+        private void SetTokenToCookie(string token)
+        {
+            HttpContext.Response.Cookies.Append("access_token", token);
         }
     }
 }

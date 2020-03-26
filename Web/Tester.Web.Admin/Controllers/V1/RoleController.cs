@@ -12,7 +12,7 @@ using Tester.Web.Admin.Models;
 
 namespace Tester.Web.Admin.Controllers.V1
 {
-    public class RoleController : BaseRoV1Controller<IRoleRoService, Role, Guid, BaseDto<Guid>, BaseDto<Guid>>
+    public class RoleController : BaseRoController<IRoleRoService, Role, Guid, BaseDto<Guid>, BaseDto<Guid>>
     {
         public RoleController([NotNull] IRoleRoService crudService,
             [NotNull] IFilterHelper filterHelper)

@@ -6,8 +6,6 @@ using REST.EfCore.Context;
 using REST.EfCore.Contract;
 using REST.EfCore.Extension;
 using Tester.Core.Common;
-using Tester.Db.Model.App;
-using Tester.Db.Model.Client;
 using Tester.Db.Provider;
 
 namespace Tester.Db.Context
