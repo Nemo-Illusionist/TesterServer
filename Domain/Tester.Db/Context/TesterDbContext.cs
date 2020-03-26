@@ -2,12 +2,10 @@ using System;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using REST.EfCore.Context;
-using REST.EfCore.Contract;
-using REST.EfCore.Extension;
+using Radilovsoft.Rest.Data.Ef.Context;
+using Radilovsoft.Rest.Data.Ef.Contract;
+using Radilovsoft.Rest.Data.Ef.Extension;
 using Tester.Core.Common;
-using Tester.Db.Model;
-using Tester.Db.Model.Client;
 using Tester.Db.Provider;
 
 namespace Tester.Db.Context
@@ -38,16 +36,14 @@ namespace Tester.Db.Context
             builder.HasPostgresExtension("uuid-ossp");
             builder.BuildEntity(_store)
                 .BuildIndex(_store, _indexProvider)
-                .BuildAutoIncrement(_store);
+                .BuildAutoIncrement(_store)
+                .BuildMultiKey(_store);
 
             FkProvider.BuildFk(builder);
             SeedingProvider.BuildSeeding(builder);
 
             builder.HasPostgresEnum<Gender>();
             builder.HasPostgresEnum<QuestionType>();
-
-            builder.Entity<UserRole>().HasKey(x => new {x.UserId, x.RoleId});
-            builder.Entity<TestTopic>().HasKey(x => new {x.TopicId, x.TestId});
         }
     }
 }

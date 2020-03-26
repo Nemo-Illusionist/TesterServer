@@ -3,8 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using REST.DataCore.Contract.Entity;
-using REST.EfCore.Annotation;
+using Radilovsoft.Rest.Data.Core.Contract.Entity;
 using Tester.Core.Common;
 
 namespace Tester.Db.Model.Client
@@ -17,9 +16,11 @@ namespace Tester.Db.Model.Client
         [Key]
         public Guid UserId { get; set; }
 
-        [Index]
-        [Required]
+        [CanBeNull]
         public string Name { get; set; }
+
+        [CanBeNull]
+        public string LastName { get; set; }
 
         public Gender Gender { get; set; }
         public DateTime UpdatedUtc { get; set; }

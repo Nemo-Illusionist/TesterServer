@@ -2,17 +2,17 @@ using System;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
-using REST.Infrastructure.Contract;
-using REST.Infrastructure.Dto;
+using Radilovsoft.Rest.Infrastructure.Contract;
+using Radilovsoft.Rest.Infrastructure.Dto;
 using Tester.Db.Model.Client;
 using Tester.Dto;
-using Tester.Infrastructure.Сontracts;
+using Tester.Infrastructure.Contracts;
 using Tester.Web.Admin.Controllers.Base;
 using Tester.Web.Admin.Models;
 
 namespace Tester.Web.Admin.Controllers.V1
 {
-    public class RoleController : BaseRoV1Controller<IRoleRoService, Role, Guid, BaseDto<Guid>, BaseDto<Guid>>
+    public class RoleController : BaseRoController<IRoleRoService, Role, Guid, BaseDto<Guid>, BaseDto<Guid>>
     {
         public RoleController([NotNull] IRoleRoService crudService,
             [NotNull] IFilterHelper filterHelper)

@@ -4,8 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using REST.DataCore.Contract.Entity;
-using REST.EfCore.Annotation;
+using Radilovsoft.Rest.Data.Core.Contract.Entity;
+using Radilovsoft.Rest.Data.Ef.Annotation;
+using Tester.Db.Model.App;
 using Tester.Db.Model.Statistics;
 
 namespace Tester.Db.Model.Client
@@ -23,10 +24,10 @@ namespace Tester.Db.Model.Client
         public string Login { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public byte[] Password { get; set; }
 
         [Required]
-        public string Salt { get; set; }
+        public byte[] Salt { get; set; }
 
         public Guid SecurityTimestamp { get; set; }
 

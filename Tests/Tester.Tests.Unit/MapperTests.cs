@@ -1,14 +1,14 @@
 using System;
 using AutoMapper;
 using NUnit.Framework;
-using Tester.Dto.Profiles;
+using Tester.Infrastructure.Profiles;
 using Tester.Web.Admin.Profiles;
 
 namespace Tester.Tests.Unit
 {
     public class MapperTests
     {
-        [TestCase(typeof(TesterMappingProfile))]
+        [TestCase(typeof(TesterDtoMappingProfile))]
         [TestCase(typeof(TesterAdminMappingProfile))]
         public void MapperTest(Type profileType)
         {

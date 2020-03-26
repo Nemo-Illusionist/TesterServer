@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Mono.Options;
-using REST.EfCore.Contract;
+using Radilovsoft.Rest.Data.Ef.Contract;
 using Tester.Db.Context;
 using Tester.Db.Provider;
 using Tester.Db.Store;

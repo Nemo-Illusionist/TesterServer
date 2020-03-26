@@ -2,9 +2,9 @@ using System;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
-using REST.Core.Exception;
-using REST.DataCore.Contract.Entity;
-using REST.Infrastructure.Contract;
+using Radilovsoft.Rest.Core.Exception;
+using Radilovsoft.Rest.Data.Core.Contract.Entity;
+using Radilovsoft.Rest.Infrastructure.Contract;
 
 namespace Tester.Web.Admin.Controllers.Base
 {

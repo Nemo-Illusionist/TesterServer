@@ -11,18 +11,22 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using REST.DataCore.Contract;
-using REST.DataCore.Contract.Provider;
-using REST.EfCore.Context;
-using REST.EfCore.Contract;
-using REST.EfCore.Provider;
-using REST.Infrastructure.Contract;
-using REST.Infrastructure.Service;
+using Radilovsoft.Rest.Data.Core.Contract;
+using Radilovsoft.Rest.Data.Core.Contract.Provider;
+using Radilovsoft.Rest.Data.Ef.Context;
+using Radilovsoft.Rest.Data.Ef.Contract;
+using Radilovsoft.Rest.Data.Ef.Provider;
+using Radilovsoft.Rest.Infrastructure.Contract;
+using Radilovsoft.Rest.Infrastructure.Service;
+using Tester.Auth;
+using Tester.Auth.Contracts;
+using Tester.Auth.Extensions;
+using Tester.Auth.Services;
 using Tester.Db.Context;
 using Tester.Db.Manager;
 using Tester.Db.Provider;
 using Tester.Db.Store;
-using Tester.Infrastructure.Сontracts;
+using Tester.Infrastructure.Contracts;
 using Tester.Web.Admin.Services;
 
 namespace Tester.Web.Admin
@@ -68,6 +72,7 @@ namespace Tester.Web.Admin
                     });
                 });
 
+            services.AddAuth(_configuration, _env);
 
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<TesterDbContext>((sp, ob) =>
@@ -90,6 +95,9 @@ namespace Tester.Web.Admin
             services.AddScoped<IFilterHelper, FilterHelper>();
             services.AddScoped<IExpressionHelper, ExpressionHelper>();
             services.AddScoped<IOrderHelper, OrderHelper>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IPasswordProvider, PasswordProvider>();
+            services.AddScoped<ITokenProvider, JwtTokenProvider>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
@@ -118,10 +126,12 @@ namespace Tester.Web.Admin
                     o.SwaggerEndpoint($"/swagger/{(object) versionDescription.GroupName}/swagger.json",
                         versionDescription.GroupName.ToUpperInvariant());
                 }
+
                 o.EnableDeepLinking();
             });
 
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

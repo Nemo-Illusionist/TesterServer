@@ -1,5 +1,5 @@
 using Npgsql;
-using REST.DataCore.Contract;
+using Radilovsoft.Rest.Data.Core.Contract;
 using Tester.Db.Exception;
 
 namespace Tester.Db.Manager

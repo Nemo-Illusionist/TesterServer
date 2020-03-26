@@ -2,8 +2,8 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using REST.DataCore.Contract.Entity;
-using REST.EfCore.Annotation;
+using Radilovsoft.Rest.Data.Core.Contract.Entity;
+using Radilovsoft.Rest.Data.Ef.Annotation;
 
 namespace Tester.Db.Model.Client
 {
@@ -12,8 +12,10 @@ namespace Tester.Db.Model.Client
     [Table("user_role", Schema = DbConstant.Scheme.Client)]
     public class UserRole : ICreatedUtc, IDeletable
     {
+        [MultiKey]
         public Guid UserId { get; set; }
-
+        
+        [MultiKey]
         public Guid RoleId { get; set; }
 
         public DateTime CreatedUtc { get; set; }
