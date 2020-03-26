@@ -59,12 +59,12 @@ namespace Tester.Auth.Services
                 new Claim("login", user.Login)
             };
 
-            var rolesClaims = user.UserRoles.Select(r => 
+            var rolesClaims = user.UserRoles.Select(r =>
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, r.Role.Name));
             claims.AddRange(rolesClaims);
 
             var id = new ClaimsIdentity(claims, "Cookies");
-            return _tokenProvider.Generate(id);
+            return await _tokenProvider.Generate(id).ConfigureAwait(false);
         }
     }
 }

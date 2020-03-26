@@ -20,6 +20,7 @@ using Radilovsoft.Rest.Infrastructure.Contract;
 using Radilovsoft.Rest.Infrastructure.Service;
 using Tester.Auth;
 using Tester.Auth.Contracts;
+using Tester.Auth.Extensions;
 using Tester.Auth.Services;
 using Tester.Db.Context;
 using Tester.Db.Manager;
@@ -71,7 +72,7 @@ namespace Tester.Web.Admin
                     });
                 });
 
-            services.AddAuth(_configuration);
+            services.AddAuth(_configuration, _env);
 
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<TesterDbContext>((sp, ob) =>

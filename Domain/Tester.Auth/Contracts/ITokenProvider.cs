@@ -1,9 +1,10 @@
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Tester.Auth.Contracts
 {
     public interface ITokenProvider
     {
-        string Generate(ClaimsIdentity identity);
+        Task<string> Generate(ClaimsIdentity identity);
     }
 }
