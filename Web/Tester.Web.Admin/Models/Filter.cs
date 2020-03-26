@@ -1,5 +1,5 @@
-using REST.Infrastructure.Contract.Dto;
-using REST.Infrastructure.Dto;
+using Radilovsoft.Rest.Infrastructure.Contract.Dto;
+using Radilovsoft.Rest.Infrastructure.Dto;
 
 namespace Tester.Web.Admin.Models
 {

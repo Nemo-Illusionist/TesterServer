@@ -2,8 +2,8 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using REST.DataCore.Contract.Entity;
-using REST.EfCore.Annotation;
+using Radilovsoft.Rest.Data.Core.Contract.Entity;
+using Radilovsoft.Rest.Data.Ef.Annotation;
 
 namespace Tester.Db.Model.Client
 {

@@ -2,9 +2,9 @@ using System;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using REST.EfCore.Context;
-using REST.EfCore.Contract;
-using REST.EfCore.Extension;
+using Radilovsoft.Rest.Data.Ef.Context;
+using Radilovsoft.Rest.Data.Ef.Contract;
+using Radilovsoft.Rest.Data.Ef.Extension;
 using Tester.Core.Common;
 using Tester.Db.Provider;
 

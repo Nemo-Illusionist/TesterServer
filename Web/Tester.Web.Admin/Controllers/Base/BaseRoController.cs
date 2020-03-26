@@ -3,10 +3,10 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
-using REST.Core.Exception;
-using REST.DataCore.Contract.Entity;
-using REST.Infrastructure.Contract;
-using REST.Infrastructure.Contract.Dto;
+using Radilovsoft.Rest.Core.Exception;
+using Radilovsoft.Rest.Data.Core.Contract.Entity;
+using Radilovsoft.Rest.Infrastructure.Contract;
+using Radilovsoft.Rest.Infrastructure.Contract.Dto;
 using Tester.Dto;
 using Tester.Web.Admin.Models;
 

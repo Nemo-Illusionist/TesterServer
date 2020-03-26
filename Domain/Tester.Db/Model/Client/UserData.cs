@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using REST.DataCore.Contract.Entity;
+using Radilovsoft.Rest.Data.Core.Contract.Entity;
 using Tester.Core.Common;
 
 namespace Tester.Db.Model.Client

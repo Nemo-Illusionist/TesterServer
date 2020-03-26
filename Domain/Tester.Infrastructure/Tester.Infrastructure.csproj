@@ -5,9 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\REST-ASP.NET\Core\REST.Infrastructure\REST.Infrastructure.csproj" />
       <ProjectReference Include="..\..\Domain\Tester.Db\Tester.Db.csproj" />
       <ProjectReference Include="..\..\Domain\Tester.Dto\Tester.Dto.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Radilovsoft.Rest.Infrastructure" Version="1.0.0" />
     </ItemGroup>
 
 </Project>

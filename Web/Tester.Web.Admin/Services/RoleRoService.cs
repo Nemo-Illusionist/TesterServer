@@ -1,10 +1,10 @@
 using System;
 using AutoMapper;
 using JetBrains.Annotations;
-using REST.DataCore.Contract;
-using REST.DataCore.Contract.Provider;
-using REST.Infrastructure.Contract;
-using REST.Infrastructure.Service;
+using Radilovsoft.Rest.Data.Core.Contract;
+using Radilovsoft.Rest.Data.Core.Contract.Provider;
+using Radilovsoft.Rest.Infrastructure.Contract;
+using Radilovsoft.Rest.Infrastructure.Service;
 using Tester.Db.Model.Client;
 using Tester.Dto;
 using Tester.Infrastructure.Contracts;

@@ -14,6 +14,7 @@
       <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.1" />
       <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
       <PackageReference Include="Mono.Options" Version="6.6.0.161" />
+      <PackageReference Include="Radilovsoft.Rest.Data.Ef" Version="1.0.0" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,4 +1,4 @@
-using REST.EfCore.Provider;
+using Radilovsoft.Rest.Data.Ef.Provider;
 
 namespace Tester.Db.Store
 {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using REST.Core.Exception;
+using Radilovsoft.Rest.Core.Exception;
 using Tester.Auth.Contracts;
 using Tester.Dto;
 using Tester.Dto.Users;

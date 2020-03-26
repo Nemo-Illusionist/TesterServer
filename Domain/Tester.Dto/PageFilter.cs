@@ -1,4 +1,4 @@
-using REST.Infrastructure.Contract.Dto;
+using Radilovsoft.Rest.Infrastructure.Contract.Dto;
 
 namespace Tester.Dto
 {

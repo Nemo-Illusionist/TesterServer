@@ -1,5 +1,5 @@
 using System;
-using REST.Infrastructure.Contract;
+using Radilovsoft.Rest.Infrastructure.Contract;
 using Tester.Db.Model.Client;
 using Tester.Dto;
 

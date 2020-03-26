@@ -10,6 +10,9 @@
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.1.1" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />
+      <PackageReference Include="Radilovsoft.Rest.Core" Version="1.0.0" />
+      <PackageReference Include="Radilovsoft.Rest.Data.Core" Version="1.0.0" />
+      <PackageReference Include="Radilovsoft.Rest.Data.Ef" Version="1.0.0" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
     </ItemGroup>
 

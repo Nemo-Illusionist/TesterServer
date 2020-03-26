@@ -5,13 +5,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\REST-ASP.NET\Core\Data\REST.EfCore\REST.EfCore.csproj" />
       <ProjectReference Include="..\..\Domain\Tester.Core\Tester.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Npgsql" Version="4.1.2" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />
+      <PackageReference Include="Radilovsoft.Rest.Data.Ef" Version="1.0.0" />
     </ItemGroup>
 
 </Project>
