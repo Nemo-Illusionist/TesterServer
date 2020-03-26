@@ -1,6 +1,6 @@
 namespace Tester.Core.Constant
 {
-    public class RoleNameConstant
+    public static class RoleNameConstant
     {
         public const string Admin = "Admin";
         public const string Moderator = "Moderator";

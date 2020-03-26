@@ -8,7 +8,7 @@ using Tester.Migrator;
 
 namespace Tester.Migrator.Migrations
 {
-    [DbContext(typeof(DbContextFactory.MigratorEfDataConnection))]
+    [DbContext(typeof(MigratorEfDataConnection))]
     [Migration("20200119183733_Empty")]
     partial class Empty
     {

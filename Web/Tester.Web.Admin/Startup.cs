@@ -18,7 +18,6 @@ using Radilovsoft.Rest.Data.Ef.Contract;
 using Radilovsoft.Rest.Data.Ef.Provider;
 using Radilovsoft.Rest.Infrastructure.Contract;
 using Radilovsoft.Rest.Infrastructure.Service;
-using Tester.Auth;
 using Tester.Auth.Contracts;
 using Tester.Auth.Extensions;
 using Tester.Auth.Services;

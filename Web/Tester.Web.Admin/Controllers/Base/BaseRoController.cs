@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -41,7 +42,7 @@ namespace Tester.Web.Admin.Controllers.Base
                 }
 
                 pageFilter = filter.PageFilter ?? new PageFilter {Page = 1, PageSize = 20};
-                orders = filter.Orders;
+                orders = filter.Orders?.ToArray();
             }
 
             var result = await _roService.GetByFilter(pageFilter, expression, orders)

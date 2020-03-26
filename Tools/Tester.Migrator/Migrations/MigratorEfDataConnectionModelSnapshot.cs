@@ -7,7 +7,7 @@ using Tester.Core.Common;
 
 namespace Tester.Migrator.Migrations
 {
-    [DbContext(typeof(DbContextFactory.MigratorEfDataConnection))]
+    [DbContext(typeof(MigratorEfDataConnection))]
     partial class MigratorEfDataConnectionModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -37,7 +37,7 @@ namespace Tester.Auth.Services
             if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
                 return null;
 
-            var queryable = _dataProvider.GetQueryable<User>().Where(x => x.Login.Equals(login))
+            var queryable = _dataProvider.GetQueryable<User>().Where(x => x.Login == login)
                 .Include(x => x.UserData)
                 .Include(x => x.UserRoles)
                 .ThenInclude(x => x.Role);

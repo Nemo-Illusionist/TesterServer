@@ -18,8 +18,7 @@ namespace Tester.Migrator
     [UsedImplicitly(ImplicitUseKindFlags.InstantiatedWithFixedConstructorSignature)]
     public static class MigratorProgram
     {
-        public static string EnvironmentName = "Development";
-        public static string BaseDirectory;
+        public static string EnvironmentName { get; private set; } = "Development";
 
         [UsedImplicitly]
         private static void Main(string[] args)
@@ -47,17 +46,17 @@ namespace Tester.Migrator
 
         private static void Migrate()
         {
-            var context = new DbContextFactory().CreateDbContext(new string[0]);
+            using var context = new DbContextFactory().CreateDbContext(Array.Empty<string>());
             context.Database.Migrate();
         }
     }
 
-    public class DbContextFactory : IDesignTimeDbContextFactory<DbContextFactory.MigratorEfDataConnection>
+    public class DbContextFactory : IDesignTimeDbContextFactory<MigratorEfDataConnection>
     {
         public MigratorEfDataConnection CreateDbContext(string[] args)
         {
             var configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(MigratorProgram.BaseDirectory ?? Directory.GetCurrentDirectory())
+                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true)
                 .AddJsonFile($"appsettings.{MigratorProgram.EnvironmentName}.json", true)
                 .AddJsonFile("appsettings.local.json", true);
@@ -81,27 +80,27 @@ namespace Tester.Migrator
 
             return new MigratorEfDataConnection(modelStore, indexProvider, dbContextOptions, loggerFactory);
         }
+    }
 
-        public class MigratorEfDataConnection : TesterDbContext
+    public class MigratorEfDataConnection : TesterDbContext
+    {
+        private readonly ILoggerFactory _loggerFactory;
+
+        public MigratorEfDataConnection(IModelStore modelStore, IIndexProvider indexProvider,
+            [NotNull] DbContextOptions options,
+            ILoggerFactory loggerFactory) : base(modelStore, indexProvider, options)
         {
-            private readonly ILoggerFactory _loggerFactory;
+            _loggerFactory = loggerFactory;
+        }
 
-            public MigratorEfDataConnection(IModelStore modelStore, IIndexProvider indexProvider,
-                [NotNull] DbContextOptions options,
-                ILoggerFactory loggerFactory) : base(modelStore, indexProvider, options)
+        protected override void OnConfiguring([NotNull] DbContextOptionsBuilder optionsBuilder)
+        {
+            if (optionsBuilder == null) throw new ArgumentNullException(nameof(optionsBuilder));
+            base.OnConfiguring(optionsBuilder);
+
+            if (_loggerFactory != null)
             {
-                _loggerFactory = loggerFactory;
-            }
-
-            protected override void OnConfiguring([NotNull] DbContextOptionsBuilder optionsBuilder)
-            {
-                if (optionsBuilder == null) throw new ArgumentNullException(nameof(optionsBuilder));
-                base.OnConfiguring(optionsBuilder);
-
-                if (_loggerFactory != null)
-                {
-                    optionsBuilder.UseLoggerFactory(_loggerFactory);
-                }
+                optionsBuilder.UseLoggerFactory(_loggerFactory);
             }
         }
     }
