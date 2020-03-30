@@ -17,29 +17,30 @@ namespace Tester.Web.Admin.Controllers.Base
         where TFullDto : class
         where TRequest : class
     {
-        private readonly TService _crudService;
+        protected TService CrudService { get; }
 
         protected BaseCrudController([NotNull] TService crudService,
             [NotNull] IFilterHelper filterHelper)
             : base(crudService, filterHelper)
         {
-            _crudService = crudService ?? throw new ArgumentNullException(nameof(crudService));
+            CrudService = crudService ?? throw new ArgumentNullException(nameof(crudService));
         }
 
 
         protected async Task<IActionResult> Add(TRequest item)
         {
-            var id = await _crudService.Post(item).ConfigureAwait(false);
-            var result = await _crudService.GetById(id).ConfigureAwait(false);
+            var id = await CrudService.Post(item).ConfigureAwait(false);
+            var result = await CrudService.GetById(id).ConfigureAwait(false);
+            return Ok(result);
             // ReSharper disable once Mvc.ActionNotResolved
-            return CreatedAtAction(nameof(GetById), new {id}, result);
+            // return CreatedAtAction(nameof(GetById), new {id}, result);
         }
 
         protected async Task<IActionResult> Update(TKey id, TRequest item)
         {
             try
             {
-                await _crudService.Put(id, item).ConfigureAwait(false);
+                await CrudService.Put(id, item).ConfigureAwait(false);
                 return NoContent();
             }
             catch (ItemNotFoundException)
@@ -52,7 +53,7 @@ namespace Tester.Web.Admin.Controllers.Base
         {
             try
             {
-                await _crudService.Delete(id).ConfigureAwait(false);
+                await CrudService.Delete(id).ConfigureAwait(false);
                 return NoContent();
             }
             catch (ItemNotFoundException)

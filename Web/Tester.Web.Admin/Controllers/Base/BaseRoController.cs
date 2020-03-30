@@ -20,13 +20,13 @@ namespace Tester.Web.Admin.Controllers.Base
         where TDto : class
         where TFullDto : class
     {
-        private readonly IFilterHelper _filterHelper;
-        private readonly TService _roService;
+        protected  IFilterHelper FilterHelper {get;}
+        protected  TService RoService {get;}
 
         protected BaseRoController([NotNull] TService roService, [NotNull] IFilterHelper filterHelper)
         {
-            _roService = roService ?? throw new ArgumentNullException(nameof(roService));
-            _filterHelper = filterHelper ?? throw new ArgumentNullException(nameof(filterHelper));
+            RoService = roService ?? throw new ArgumentNullException(nameof(roService));
+            FilterHelper = filterHelper ?? throw new ArgumentNullException(nameof(filterHelper));
         }
 
         protected async Task<IActionResult> GetByFilter(FilterRequest filter)
@@ -38,14 +38,14 @@ namespace Tester.Web.Admin.Controllers.Base
             {
                 if (filter.Filter != null)
                 {
-                    expression = _filterHelper.ToExpression<TDto>(filter.Filter);
+                    expression = FilterHelper.ToExpression<TDto>(filter.Filter);
                 }
 
                 pageFilter = filter.PageFilter ?? new PageFilter {Page = 1, PageSize = 20};
                 orders = filter.Orders?.ToArray();
             }
 
-            var result = await _roService.GetByFilter(pageFilter, expression, orders)
+            var result = await RoService.GetByFilter(pageFilter, expression, orders)
                 .ConfigureAwait(false);
             return Ok(result);
         }
@@ -54,7 +54,7 @@ namespace Tester.Web.Admin.Controllers.Base
         {
             try
             {
-                var result = await _roService.GetById(id).ConfigureAwait(false);
+                var result = await RoService.GetById(id).ConfigureAwait(false);
                 return Ok(result);
             }
             catch (ItemNotFoundException)

@@ -15,7 +15,6 @@ namespace Tester.Db.Model.Client
     public class Role : IEntity<Guid>, ICreatedUtc
     {
         [Key]
-        [AutoIncrement]
         public Guid Id { get; set; }
 
         [Required]

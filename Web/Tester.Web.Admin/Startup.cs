@@ -85,12 +85,14 @@ namespace Tester.Web.Admin
                 .AddScoped<ResetDbContext>(x => x.GetService<TesterDbContext>())
                 .AddScoped<IDataProvider, EfDataProvider>()
                 .AddScoped<IRoDataProvider>(x => x.GetService<IDataProvider>())
+                .AddScoped<IRwDataProvider>(x => x.GetService<IDataProvider>())
                 .AddScoped<IModelStore, TesterDbModelStore>()
                 .AddScoped<IAsyncHelpers, EfAsyncHelpers>()
                 .AddScoped<IDataExceptionManager, PostgresDbExceptionManager>()
                 .AddScoped<IIndexProvider, PostgresIndexProvider>();
 
             services.AddScoped<IRoleRoService, RoleRoService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFilterHelper, FilterHelper>();
             services.AddScoped<IExpressionHelper, ExpressionHelper>();
             services.AddScoped<IOrderHelper, OrderHelper>();

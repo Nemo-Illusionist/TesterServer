@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using AutoMapper;
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
 using Radilovsoft.Rest.Data.Core.Contract;
 using Radilovsoft.Rest.Data.Core.Contract.Provider;
 using Radilovsoft.Rest.Infrastructure.Contract;
