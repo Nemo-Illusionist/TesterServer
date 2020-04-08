@@ -91,6 +91,7 @@ namespace Tester.Web.Admin
                 .AddScoped<IIndexProvider, PostgresIndexProvider>();
 
             services.AddScoped<IRoleRoService, RoleRoService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFilterHelper, FilterHelper>();
             services.AddScoped<IExpressionHelper, ExpressionHelper>();
             services.AddScoped<IOrderHelper, OrderHelper>();
