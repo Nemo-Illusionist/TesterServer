@@ -14,12 +14,15 @@ using Tester.Dto.Users;
 using Tester.Db.Model.Client;
 using AutoMapper;
 
+
 namespace Tester.Web.Admin.Services
 {
     public class UserService : BaseRoService<User, Guid, UserDto, UserDto>, IUserService
 
     {
-        public UserService(IRoDataProvider dataProvider, IAsyncHelpers asyncHelpers, IOrderHelper orderHelper, IMapper mapper) 
+        public UserService(IRoDataProvider dataProvider, IAsyncHelpers asyncHelpers, IOrderHelper orderHelper,
+            IMapper mapper,
+            IDataProvider rwDataProvider) 
             : base(dataProvider, asyncHelpers, orderHelper, mapper)
         {
         }

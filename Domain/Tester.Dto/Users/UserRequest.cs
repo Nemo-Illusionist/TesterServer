@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tester.Core.Common;
 
 namespace Tester.Dto.Users
 {
@@ -10,5 +11,6 @@ namespace Tester.Dto.Users
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
+        public Gender Gender { get; set; }
     }
 }

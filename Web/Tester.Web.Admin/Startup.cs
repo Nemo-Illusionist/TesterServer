@@ -92,6 +92,9 @@ namespace Tester.Web.Admin
 
             services.AddScoped<IRoleRoService, RoleRoService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITestService, TestService>();
+            services.AddScoped<ITopicService, TopicService>();
+            services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IFilterHelper, FilterHelper>();
             services.AddScoped<IExpressionHelper, ExpressionHelper>();
             services.AddScoped<IOrderHelper, OrderHelper>();
