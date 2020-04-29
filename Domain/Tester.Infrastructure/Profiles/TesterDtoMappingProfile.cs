@@ -45,6 +45,7 @@ namespace Tester.Infrastructure.Profiles
             CreateMap<Test, TestDto>();
 
             CreateMap<TestRequest, Test>()
+                .ForMember(x => x.Id, x => x.Ignore())
                 .ForMember(x => x.CreatedUtc, x => x.Ignore())
                 .ForMember(x => x.UpdatedUtc, x => x.Ignore())
                 .ForMember(x => x.DeletedUtc, x => x.Ignore())
@@ -54,6 +55,9 @@ namespace Tester.Infrastructure.Profiles
             CreateMap<Topic, TopicDto>();
 
             CreateMap<TopicRequest, Topic>()
+                .ForMember(x => x.Id, x => x.Ignore())
+                .ForMember(x => x.Children, x => x.Ignore())
+                .ForMember(x => x.Questions, x => x.Ignore())
                .ForMember(x => x.CreatedUtc, x => x.Ignore())
                .ForMember(x => x.UpdatedUtc, x => x.Ignore())
                .ForMember(x => x.DeletedUtc, x => x.Ignore())
@@ -63,9 +67,13 @@ namespace Tester.Infrastructure.Profiles
            CreateMap<Question, QuestionDto>();
 
             CreateMap<QuestionRequest, Question>()
-               .ForMember(x => x.CreatedUtc, x => x.Ignore());
-               
-               
+               .ForMember(x => x.CreatedUtc, x => x.Ignore())
+             .ForMember(x => x.Id, x => x.Ignore())
+                .ForMember(x => x.DeletedUtc, x => x.Ignore())
+                .ForMember(x => x.UserAnswer, x => x.Ignore());
+
+
+
 
         }
     }
