@@ -24,6 +24,7 @@ using Tester.Auth.Extensions;
 using Tester.Auth.Services;
 using Tester.Db.Context;
 using Tester.Db.Manager;
+using Tester.Db.Model.App;
 using Tester.Db.Provider;
 using Tester.Db.Store;
 using Tester.Infrastructure.Contracts;
@@ -98,6 +99,7 @@ namespace Tester.Web.Admin
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPasswordProvider, PasswordProvider>();
             services.AddScoped<ITokenProvider, JwtTokenProvider>();
+            services.AddScoped<IQuestionService, QuestionService>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
