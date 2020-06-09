@@ -14,7 +14,7 @@ namespace Tester.Db.Model.App
     [PublicAPI]
     [SuppressMessage("ReSharper", "CA2227")]
     [Table("test", Schema = DbConstant.Scheme.Default)]
-    public class Test : ICreatedUtc, IUpdatedUtc, IDeletable
+    public class Test : ICreatedUtc, IUpdatedUtc, IDeletable, IEntity<Guid>
     {
         [Key]
         public Guid Id { get; set; }

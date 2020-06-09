@@ -13,7 +13,7 @@ namespace Tester.Db.Model.App
     [PublicAPI]
     [SuppressMessage("ReSharper", "CA2227")]
     [Table("topic", Schema = DbConstant.Scheme.Default)]
-    public class Topic : ICreatedUtc, IUpdatedUtc, IDeletable
+    public class Topic : ICreatedUtc, IUpdatedUtc, IDeletable, IEntity<Guid>
     {
         [Key]
         public Guid Id { get; set; }
