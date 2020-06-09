@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
-using Radilovsoft.Rest.Core.Exception;
+using Radilovsoft.Rest.Core.Exceptions;
 using Radilovsoft.Rest.Data.Core.Contract.Entity;
 using Radilovsoft.Rest.Infrastructure.Contract;
 using Radilovsoft.Rest.Infrastructure.Contract.Dto;

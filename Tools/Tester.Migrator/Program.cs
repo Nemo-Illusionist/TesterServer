@@ -9,8 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Mono.Options;
 using Radilovsoft.Rest.Data.Ef.Contract;
+using Radilovsoft.Rest.Data.Ef.Postgres;
 using Tester.Db.Context;
-using Tester.Db.Provider;
 using Tester.Db.Store;
 
 namespace Tester.Migrator

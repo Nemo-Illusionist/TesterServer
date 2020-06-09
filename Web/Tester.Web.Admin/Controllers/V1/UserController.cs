@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Radilovsoft.Rest.Infrastructure.Contract;
 using Radilovsoft.Rest.Infrastructure.Dto;
 using Tester.Db.Model.Client;
-using Tester.Dto;
 using Tester.Dto.Users;
 using Tester.Infrastructure.Contracts;
 using Tester.Web.Admin.Controllers.Base;

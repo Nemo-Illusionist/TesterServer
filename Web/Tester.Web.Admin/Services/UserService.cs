@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
-using Radilovsoft.Rest.Core.Exception;
+using Radilovsoft.Rest.Core.Exceptions;
 using Radilovsoft.Rest.Data.Core.Contract;
 using Radilovsoft.Rest.Data.Core.Contract.Provider;
 using Radilovsoft.Rest.Infrastructure.Contract;
