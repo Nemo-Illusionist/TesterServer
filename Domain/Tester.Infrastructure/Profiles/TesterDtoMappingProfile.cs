@@ -55,7 +55,8 @@ namespace Tester.Infrastructure.Profiles
         private void Topic()
         {
             CreateMap<Topic, BaseDto<Guid>>();
-            CreateMap<Topic, TopicDto>();
+            CreateMap<Topic, TopicDto>()
+                .IncludeBase<Topic, BaseDto<Guid>>();
             CreateMap<Topic, TopicFullDto>()
                 .IncludeBase<Topic, TopicDto>();
             CreateMap<TopicRequest, Topic>()
@@ -73,7 +74,9 @@ namespace Tester.Infrastructure.Profiles
 
         private void Test()
         {
-            CreateMap<Test, TestDto>();
+            CreateMap<Test, BaseDto<Guid>>();
+            CreateMap<Test, TestDto>()
+                .IncludeBase<Test, BaseDto<Guid>>();
             CreateMap<Test, TestFullDto>()
                 .IncludeBase<Test, TestDto>();
             CreateMap<TestRequest, Test>()
@@ -89,7 +92,9 @@ namespace Tester.Infrastructure.Profiles
 
         private void Question()
         {
-            CreateMap<Question, QuestionDto>();
+            CreateMap<Question, BaseDto<Guid>>();
+            CreateMap<Question, QuestionDto>()
+                .IncludeBase<Question, BaseDto<Guid>>();
             CreateMap<Question, QuestionFullDto>()
                 .IncludeBase<Question, QuestionDto>();
             CreateMap<QuestionRequest, Question>()
