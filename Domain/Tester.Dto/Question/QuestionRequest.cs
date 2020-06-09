@@ -1,8 +1,10 @@
 using System;
+using JetBrains.Annotations;
 using Tester.Core.Common;
 
 namespace Tester.Dto.Question
 {
+    [PublicAPI]
     public class QuestionRequest
     {
         public Guid TopicId { get; set; }

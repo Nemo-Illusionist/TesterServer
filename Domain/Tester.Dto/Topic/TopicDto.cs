@@ -1,14 +1,14 @@
 using System;
 using JetBrains.Annotations;
-using Tester.Core.Common;
 
-namespace Tester.Dto.Question
+namespace Tester.Dto.Topic
 {
     [PublicAPI]
-    public class QuestionDto : BaseDto<Guid>
+    public class TopicDto : BaseDto<Guid>
     {
-        public QuestionType Type { get; set; }
+        public BaseDto<Guid> Parent { get; set; }
         public DateTime CreatedUtc { get; set; }
+        public DateTime UpdatedUtc { get; set; }
         public DateTime? DeletedUtc { get; set; }
     }
 }

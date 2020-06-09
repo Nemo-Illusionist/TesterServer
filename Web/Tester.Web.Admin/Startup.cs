@@ -100,6 +100,7 @@ namespace Tester.Web.Admin
             services.AddScoped<IPasswordProvider, PasswordProvider>();
             services.AddScoped<ITokenProvider, JwtTokenProvider>();
             services.AddScoped<IQuestionService, QuestionService>();
+            services.AddScoped<ITopicService, TopicService>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }

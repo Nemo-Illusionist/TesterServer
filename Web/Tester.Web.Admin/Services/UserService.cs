@@ -12,7 +12,7 @@ using Radilovsoft.Rest.Infrastructure.Service;
 using Tester.Auth.Contracts;
 using Tester.Core.Common;
 using Tester.Db.Model.Client;
-using Tester.Dto.Users;
+using Tester.Dto.User;
 using Tester.Infrastructure.Contracts;
 
 namespace Tester.Web.Admin.Services

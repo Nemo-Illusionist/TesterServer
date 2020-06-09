@@ -1,6 +1,6 @@
 using System;
 
-namespace Tester.Dto.Users
+namespace Tester.Dto.User
 {
     public class UserDto : BaseDto<Guid>
     {

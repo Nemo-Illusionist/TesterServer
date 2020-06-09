@@ -4,7 +4,8 @@ using Tester.Db.Model.App;
 using Tester.Db.Model.Client;
 using Tester.Dto;
 using Tester.Dto.Question;
-using Tester.Dto.Users;
+using Tester.Dto.Topic;
+using Tester.Dto.User;
 
 namespace Tester.Infrastructure.Profiles
 {
@@ -14,6 +15,13 @@ namespace Tester.Infrastructure.Profiles
         {
             CreateMap<Role, BaseDto<Guid>>();
 
+            User();
+            Question();
+            Topic();
+        }
+
+        private void User()
+        {
             CreateMap<User, BaseDto<Guid>>()
                 .ForMember(x => x.Name, x => x.MapFrom(y => y.UserData.Name));
             CreateMap<User, UserDto>()
@@ -40,7 +48,29 @@ namespace Tester.Infrastructure.Profiles
                 .ForMember(x => x.Gender, x => x.Ignore())
                 .ForMember(x => x.UpdatedUtc, x => x.Ignore())
                 .ForMember(x => x.User, x => x.Ignore());
+        }
 
+        private void Topic()
+        {
+            CreateMap<Topic, BaseDto<Guid>>();
+            CreateMap<Topic, TopicDto>();
+            CreateMap<Topic, TopicFullDto>()
+                .IncludeBase<Topic, TopicDto>();
+            CreateMap<TopicRequest, Topic>()
+                .ForMember(x => x.Id, x => x.Ignore())
+                .ForMember(x => x.CreatedUtc, x => x.Ignore())
+                .ForMember(x => x.UpdatedUtc, x => x.Ignore())
+                .ForMember(x => x.DeletedUtc, x => x.Ignore())
+                .ForMember(x => x.Author, x => x.Ignore())
+                .ForMember(x => x.AuthorId, x => x.MapFrom((r, q) => q?.AuthorId ?? r.AuthorId))
+                .ForMember(x => x.Parent, x => x.Ignore())
+                .ForMember(x => x.Children, x => x.Ignore())
+                .ForMember(x => x.Questions, x => x.Ignore())
+                .ForMember(x => x.TestTopics, x => x.Ignore());
+        }
+
+        private void Question()
+        {
             CreateMap<Question, QuestionDto>();
             CreateMap<Question, QuestionFullDto>()
                 .IncludeBase<Question, QuestionDto>();

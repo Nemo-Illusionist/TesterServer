@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Tester.Dto.Users
+namespace Tester.Dto.User
 {
     public class AuthenticateModel
     {

@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace Tester.Dto.Users
+namespace Tester.Dto.User
 {
     [PublicAPI]
     public class UserRequest

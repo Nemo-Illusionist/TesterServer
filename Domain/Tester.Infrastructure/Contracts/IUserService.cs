@@ -1,7 +1,7 @@
 using System;
 using Radilovsoft.Rest.Infrastructure.Contract;
 using Tester.Db.Model.Client;
-using Tester.Dto.Users;
+using Tester.Dto.User;
 
 namespace Tester.Infrastructure.Contracts
 {

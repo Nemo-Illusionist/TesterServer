@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Radilovsoft.Rest.Core.Exceptions;
 using Tester.Auth.Contracts;
 using Tester.Dto;
-using Tester.Dto.Users;
+using Tester.Dto.User;
 using Tester.Web.Admin.Controllers.Base;
 
 namespace Tester.Web.Admin.Controllers.V1
