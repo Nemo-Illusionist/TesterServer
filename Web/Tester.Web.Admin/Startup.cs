@@ -99,6 +99,7 @@ namespace Tester.Web.Admin
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPasswordProvider, PasswordProvider>();
             services.AddScoped<ITokenProvider, JwtTokenProvider>();
+            services.AddScoped<IQuestionService, QuestionService>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
