@@ -4,7 +4,6 @@ using Tester.Db.Model.App;
 using Tester.Db.Model.Client;
 using Tester.Dto;
 using Tester.Dto.Question;
-using Tester.Dto.Topic;
 using Tester.Dto.Users;
 
 namespace Tester.Infrastructure.Profiles
@@ -53,7 +52,6 @@ namespace Tester.Infrastructure.Profiles
                 .ForMember(x => x.Topic, x => x.Ignore())
                 .ForMember(x => x.Author, x => x.Ignore())
                 .ForMember(x => x.UserAnswer, x => x.Ignore());
-            CreateMap<Topic, TopicDto>();
         }
     }
 }
