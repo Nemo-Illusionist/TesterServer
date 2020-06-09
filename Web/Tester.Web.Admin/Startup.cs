@@ -101,6 +101,7 @@ namespace Tester.Web.Admin
             services.AddScoped<ITokenProvider, JwtTokenProvider>();
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<ITopicService, TopicService>();
+            services.AddScoped<ITestService, TestService>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
