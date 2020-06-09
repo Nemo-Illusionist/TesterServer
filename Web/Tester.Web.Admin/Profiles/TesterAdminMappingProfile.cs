@@ -6,7 +6,6 @@ namespace Tester.Web.Admin.Profiles
     {
         public TesterAdminMappingProfile()
         {
-            
         }
     }
 }

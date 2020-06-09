@@ -1,114 +1,67 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using JetBrains.Annotations;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Radilovsoft.Rest.Core.Exception;
-using Radilovsoft.Rest.Data.Core.Contract;
+using Radilovsoft.Rest.Infrastructure.Contract;
+using Radilovsoft.Rest.Infrastructure.Dto;
+using Tester.Auth.Extensions;
 using Tester.Db.Model.App;
-using Tester.Dto;
 using Tester.Dto.Question;
+using Tester.Infrastructure.Contracts;
 using Tester.Web.Admin.Controllers.Base;
-using Tester.Web.Admin.Services;
+using Tester.Web.Admin.Models;
 
 namespace Tester.Web.Admin.Controllers.V1
 {
-    public class QuestionController : BaseController
+    public class QuestionController : BaseCrudController<IQuestionService, Question, Guid, QuestionDto, QuestionFullDto,
+        QuestionRequest>
     {
-        private readonly IQuestionService _questionService;
-        private readonly IMapper _mapper;
-        private readonly IAsyncHelpers _asyncHelpers;
-
-        public QuestionController([NotNull] IQuestionService questionService, 
-            IMapper mapper, 
-            [NotNull] IAsyncHelpers asyncHelpers)
+        public QuestionController([NotNull] IQuestionService crudService,
+            [NotNull] IFilterHelper filterHelper)
+            : base(crudService, filterHelper)
         {
-            _asyncHelpers = asyncHelpers ?? throw new ArgumentNullException(nameof(asyncHelpers));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _questionService = questionService ?? throw new ArgumentNullException(nameof(_questionService));
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(BaseDto<Guid>), 200)]
-        public async Task<ActionResult<IEnumerable<QuestionModel>>> GetAll()
+        [ProducesResponseType(typeof(PagedResult<QuestionDto>), StatusCodes.Status200OK)]
+        public Task<IActionResult> Get([FromQuery] FilterRequest filter)
         {
-            var query = _questionService.GetAll();
-            return await _mapper.ProjectTo<QuestionModel>(query).ToArrayAsync();
+            return GetByFilter(filter);
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(NotFoundResult), 404)]
-        [ProducesResponseType(typeof(BaseDto<Guid>), 200)]
-        public async Task<ActionResult<QuestionModel>> GetById(Guid id)
+        [ProducesResponseType(typeof(QuestionDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+        public Task<IActionResult> Get(Guid id)
         {
-            var query = _questionService.GetById(id);
-            var res = await query.ToArrayAsync();
-            return await _mapper.ProjectTo<QuestionModel>(query).FirstOrDefaultAsync();
-        }
-        
-        [HttpGet("topic/{topicId}")]
-        [ProducesResponseType(typeof(NotFoundResult), 404)]
-        public async Task<ActionResult<IEnumerable<QuestionModel>>> GetByTopicId(Guid topicId)
-        {
-            try
-            {
-                var query = _questionService.GetAllByTopicId(topicId);
-                return await _mapper.ProjectTo<QuestionModel>(query).ToArrayAsync();
-            }
-            catch (ItemNotFoundException)
-            {
-                return NotFound();
-            }
+            return GetById(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<QuestionModel>> Create(CreateQuestionModel model)
+        [ProducesResponseType(typeof(QuestionDto), StatusCodes.Status201Created)]
+        public Task<IActionResult> Create([NotNull] QuestionRequest request)
         {
-            try
-            {
-                var question = _mapper.Map<Question>(model);
-                
-                
-                // var question = await _asyncHelpers.FirstOrDefaultAsync<Question>(query).ConfigureAwait(false);
-                return Ok(_questionService.Create(question));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message, stackTrace = ex.StackTrace });
-            }
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
+            request.AuthorId = User.Claims.GetUserId();
+            return Add(request);
         }
-        
-        [HttpPut]
-        public IActionResult Update([FromBody] UpdateQuestionModel model)
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(QuestionDto), StatusCodes.Status200OK)]
+        public new Task<IActionResult> Update(Guid id, [NotNull] QuestionRequest request)
         {
-            try
-            {
-                var query = _mapper.Map<Question>(model);
-                _questionService.Update(query);   
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message, stackTrace = ex.StackTrace });
-            }
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            request.AuthorId = null;
+            return base.Update(id, request);
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(BaseDto<Guid>), 200)]
-        [ProducesResponseType(typeof(NotFoundResult), 404)]
-        public async Task<IActionResult> Delete(Guid id)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public new Task<IActionResult> Delete(Guid id)
         {
-            try
-            {
-                await _questionService.Delete(id).ConfigureAwait(false);
-                return Ok();
-            }
-            catch (ItemNotFoundException)
-            {
-                return NotFound();
-            }
+            return base.Delete(id);
         }
     }
 }

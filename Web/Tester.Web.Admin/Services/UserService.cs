@@ -17,24 +17,24 @@ using Tester.Infrastructure.Contracts;
 
 namespace Tester.Web.Admin.Services
 {
-    public class UserService : BaseRoService<User, Guid, UserDto, UserDto>, IUserService
+    public class UserService : BaseCrudService<User, Guid, UserDto, UserDto, UserRequest>, IUserService
     {
-        private readonly IRwDataProvider _rwDataProvider;
         private readonly IPasswordProvider _passwordProvider;
 
         public UserService(IAsyncHelpers asyncHelpers,
             IOrderHelper orderHelper,
             IMapper mapper,
-            [NotNull] IRwDataProvider rwDataProvider,
+            IDataProvider dataProvider,
             [NotNull] IPasswordProvider passwordProvider)
-            : base(rwDataProvider, asyncHelpers, orderHelper, mapper)
+            : base(dataProvider, asyncHelpers, orderHelper, mapper)
         {
-            _rwDataProvider = rwDataProvider ?? throw new ArgumentNullException(nameof(rwDataProvider));
             _passwordProvider = passwordProvider ?? throw new ArgumentNullException(nameof(passwordProvider));
         }
 
-        public async Task<Guid> Post(UserRequest request)
+        public override async Task<Guid> Post([NotNull] UserRequest request)
         {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             var user = Mapper.Map<User>(request);
             var userData = Mapper.Map<UserData>(request);
             var passwordHash = _passwordProvider.CreatePasswordHash(request.Password);
@@ -43,30 +43,29 @@ namespace Tester.Web.Admin.Services
             user.SecurityTimestamp = Guid.NewGuid();
             userData.Gender = Gender.Undefined;
 
-            await using var transaction = _rwDataProvider.Transaction();
-            await _rwDataProvider.InsertAsync(user);
+            await using var transaction = DataProvider.Transaction();
+            await DataProvider.InsertAsync(user).ConfigureAwait(false);
             userData.UserId = user.Id;
-            await _rwDataProvider.InsertAsync(userData);
-            await transaction.CommitAsync();
+            await DataProvider.InsertAsync(userData).ConfigureAwait(false);
+            await transaction.CommitAsync().ConfigureAwait(false);
             return user.Id;
         }
 
-        public async Task<Guid> Put(Guid id, UserRequest request)
+        public override async Task<Guid> Put(Guid id, UserRequest request)
         {
-            var user = await _rwDataProvider.GetQueryable<User>().Where(x=>x.Id == id)
-                .Include(x=>x.UserData)
-                .SingleOrDefaultAsync();
-            if(user == null) throw new ItemNotFoundException();
-            
+            await using var transaction = DataProvider.Transaction();
+            var user = await RoDataProvider.GetQueryable<User>().Where(x => x.Id == id)
+                .Include(x => x.UserData)
+                .SingleOrDefaultAsync()
+                .ConfigureAwait(false);
+
+            if (user == null) throw new ItemNotFoundException();
+
             user = Mapper.Map(request, user);
             user.UserData = Mapper.Map(request, user.UserData);
-
-            throw new NotImplementedException();
-        }
-
-        public Task Delete(Guid id)
-        {
-            throw new NotImplementedException();
+            await DataProvider.UpdateAsync(user).ConfigureAwait(false);
+            await transaction.CommitAsync().ConfigureAwait(false);
+            return user.Id;
         }
     }
 }

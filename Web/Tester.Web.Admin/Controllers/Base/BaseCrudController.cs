@@ -27,7 +27,7 @@ namespace Tester.Web.Admin.Controllers.Base
         }
 
 
-        protected async Task<IActionResult> Add(TRequest item)
+        protected virtual async Task<IActionResult> Add(TRequest item)
         {
             var id = await CrudService.Post(item).ConfigureAwait(false);
             var result = await CrudService.GetById(id).ConfigureAwait(false);
@@ -36,7 +36,7 @@ namespace Tester.Web.Admin.Controllers.Base
             // return CreatedAtAction(nameof(GetById), new {id}, result);
         }
 
-        protected async Task<IActionResult> Update(TKey id, TRequest item)
+        protected virtual async Task<IActionResult> Update(TKey id, TRequest item)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Tester.Web.Admin.Controllers.Base
             }
         }
 
-        protected async Task<IActionResult> Delete(TKey id)
+        protected virtual async Task<IActionResult> Delete(TKey id)
         {
             try
             {

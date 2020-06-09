@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Radilovsoft.Rest.Infrastructure.Contract;
 using Radilovsoft.Rest.Infrastructure.Dto;
@@ -21,15 +22,15 @@ namespace Tester.Web.Admin.Controllers.V1
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(PagedResult<BaseDto<Guid>>), 200)]
+        [ProducesResponseType(typeof(PagedResult<BaseDto<Guid>>), StatusCodes.Status200OK)]
         public Task<IActionResult> Get([FromQuery] FilterRequest filter)
         {
             return GetByFilter(filter);
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(BaseDto<Guid>), 200)]
-        [ProducesResponseType(typeof(NotFoundResult), 404)]
+        [ProducesResponseType(typeof(BaseDto<Guid>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
         public Task<IActionResult> Get(Guid id)
         {
             return GetById(id);

@@ -11,7 +11,7 @@
 
     <ItemGroup>
       <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
-      <PackageReference Include="Radilovsoft.Rest.Infrastructure" Version="1.0.2" />
+      <PackageReference Include="Radilovsoft.Rest.Infrastructure" Version="1.0.2.2" />
     </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Radilovsoft.Rest.Core.Exceptions;
 using Tester.Auth.Contracts;
@@ -22,8 +23,8 @@ namespace Tester.Web.Admin.Controllers.V1
 
         [HttpPost]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(BaseDto<Guid>), 200)]
-        [ProducesResponseType(typeof(NotFoundResult), 404)]
+        [ProducesResponseType(typeof(BaseDto<Guid>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Authorization([FromBody] AuthenticateModel model)
         {
             if (model == null || string.IsNullOrEmpty(model.Login) || string.IsNullOrEmpty(model.Password))

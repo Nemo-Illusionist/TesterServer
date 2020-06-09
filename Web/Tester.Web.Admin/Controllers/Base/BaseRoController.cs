@@ -20,8 +20,8 @@ namespace Tester.Web.Admin.Controllers.Base
         where TDto : class
         where TFullDto : class
     {
-        protected  IFilterHelper FilterHelper {get;}
-        protected  TService RoService {get;}
+        protected IFilterHelper FilterHelper { get; }
+        protected TService RoService { get; }
 
         protected BaseRoController([NotNull] TService roService, [NotNull] IFilterHelper filterHelper)
         {
@@ -29,7 +29,7 @@ namespace Tester.Web.Admin.Controllers.Base
             FilterHelper = filterHelper ?? throw new ArgumentNullException(nameof(filterHelper));
         }
 
-        protected async Task<IActionResult> GetByFilter(FilterRequest filter)
+        protected virtual async Task<IActionResult> GetByFilter(FilterRequest filter)
         {
             Expression<Func<TDto, bool>> expression = null;
             IPageFilter pageFilter = null;
