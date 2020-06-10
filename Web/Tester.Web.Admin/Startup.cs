@@ -102,6 +102,7 @@ namespace Tester.Web.Admin
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<ITopicService, TopicService>();
             services.AddScoped<ITestService, TestService>();
+            services.AddScoped<ITestTopicService, TestTopicService>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }

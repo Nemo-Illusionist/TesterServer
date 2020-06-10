@@ -5,6 +5,7 @@ using Tester.Db.Model.Client;
 using Tester.Dto;
 using Tester.Dto.Question;
 using Tester.Dto.Test;
+using Tester.Dto.TestTopic;
 using Tester.Dto.Topic;
 using Tester.Dto.User;
 
@@ -20,6 +21,7 @@ namespace Tester.Infrastructure.Profiles
             Question();
             Topic();
             Test();
+            TestTopic();
         }
 
         private void User()
@@ -105,6 +107,16 @@ namespace Tester.Infrastructure.Profiles
                 .ForMember(x => x.Topic, x => x.Ignore())
                 .ForMember(x => x.Author, x => x.Ignore())
                 .ForMember(x => x.UserAnswer, x => x.Ignore());
+        }
+
+        private void TestTopic()
+        {
+            CreateMap<TestTopic, TestTopicDto>();
+            CreateMap<TestTopicRequest, TestTopic>()
+                .ForMember(x => x.CreatedUtc, x => x.Ignore())
+                .ForMember(x => x.DeletedUtc, x => x.Ignore())
+                .ForMember(x => x.Test, x => x.Ignore())
+                .ForMember(x => x.Topic, x => x.Ignore());
         }
     }
 }
