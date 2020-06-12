@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using FluentValidation;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,10 @@ namespace Tester.Web.Admin.Controllers.V1
         private readonly IFilterHelper _filterHelper;
         private readonly ITestTopicService _service;
 
-        public TestTopicController([NotNull] IFilterHelper filterHelper, [NotNull] ITestTopicService service)
+        public TestTopicController([NotNull] IFilterHelper filterHelper,
+            [NotNull] ITestTopicService service,
+            [NotNull] IValidatorFactory validatorFactory)
+            : base(validatorFactory)
         {
             _filterHelper = filterHelper ?? throw new ArgumentNullException(nameof(filterHelper));
             _service = service ?? throw new ArgumentNullException(nameof(service));

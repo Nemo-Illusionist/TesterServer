@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using FluentValidation;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using Radilovsoft.Rest.Core.Exceptions;
@@ -20,8 +21,9 @@ namespace Tester.Web.Admin.Controllers.Base
         protected TService CrudService { get; }
 
         protected BaseCrudController([NotNull] TService crudService,
-            [NotNull] IFilterHelper filterHelper)
-            : base(crudService, filterHelper)
+            [NotNull] IFilterHelper filterHelper,
+            [NotNull] IValidatorFactory validatorFactory)
+            : base(crudService, filterHelper, validatorFactory)
         {
             CrudService = crudService ?? throw new ArgumentNullException(nameof(crudService));
         }

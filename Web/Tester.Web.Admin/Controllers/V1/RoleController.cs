@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using FluentValidation;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,8 +17,9 @@ namespace Tester.Web.Admin.Controllers.V1
     public class RoleController : BaseRoController<IRoleRoService, Role, Guid, BaseDto<Guid>, BaseDto<Guid>>
     {
         public RoleController([NotNull] IRoleRoService crudService,
-            [NotNull] IFilterHelper filterHelper)
-            : base(crudService, filterHelper)
+            [NotNull] IFilterHelper filterHelper,
+            [NotNull] IValidatorFactory validatorFactory)
+            : base(crudService, filterHelper, validatorFactory)
         {
         }
 

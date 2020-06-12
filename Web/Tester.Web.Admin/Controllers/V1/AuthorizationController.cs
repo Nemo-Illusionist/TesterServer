@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using FluentValidation;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -16,7 +17,9 @@ namespace Tester.Web.Admin.Controllers.V1
     {
         private readonly IAuthService _authService;
 
-        public AuthorizationController([NotNull] IAuthService authService)
+        public AuthorizationController([NotNull] IAuthService authService,
+            [NotNull] IValidatorFactory validatorFactory)
+            : base(validatorFactory)
         {
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
         }

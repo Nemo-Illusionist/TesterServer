@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using FluentValidation;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using Radilovsoft.Rest.Core.Exceptions;
@@ -23,7 +24,10 @@ namespace Tester.Web.Admin.Controllers.Base
         protected IFilterHelper FilterHelper { get; }
         protected TService RoService { get; }
 
-        protected BaseRoController([NotNull] TService roService, [NotNull] IFilterHelper filterHelper)
+        protected BaseRoController([NotNull] TService roService,
+            [NotNull] IFilterHelper filterHelper,
+            IValidatorFactory validatorFactory)
+            : base(validatorFactory)
         {
             RoService = roService ?? throw new ArgumentNullException(nameof(roService));
             FilterHelper = filterHelper ?? throw new ArgumentNullException(nameof(filterHelper));

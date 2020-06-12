@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +19,9 @@ using Radilovsoft.Rest.Data.Ef.Contract;
 using Radilovsoft.Rest.Data.Ef.Postgres;
 using Radilovsoft.Rest.Data.Ef.Provider;
 using Radilovsoft.Rest.Data.Postgres;
-using Radilovsoft.Rest.Infrastructure.Contract;
-using Radilovsoft.Rest.Infrastructure.Service;
-using Tester.Auth.Contracts;
 using Tester.Auth.Extensions;
-using Tester.Auth.Services;
 using Tester.Db.Context;
 using Tester.Db.Store;
-using Tester.Infrastructure.Contracts;
 
 namespace Tester.Web.Broker
 {
@@ -49,7 +45,12 @@ namespace Tester.Web.Broker
         public void ConfigureServices(IServiceCollection services)
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(config =>
+                {
+                    config.LocalizationEnabled = true;
+                    config.RegisterValidatorsFromAssembly(GetType().Assembly);
+                });
 
             var defaultApiVersion = new ApiVersion(1, 0);
             services.AddApiVersioning(o =>

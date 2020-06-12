@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -48,7 +49,12 @@ namespace Tester.Web.Admin
         public void ConfigureServices(IServiceCollection services)
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(config =>
+                {
+                    config.LocalizationEnabled = true;
+                    config.RegisterValidatorsFromAssembly(GetType().Assembly);
+                });
 
             var defaultApiVersion = new ApiVersion(1, 0);
             services.AddApiVersioning(o =>

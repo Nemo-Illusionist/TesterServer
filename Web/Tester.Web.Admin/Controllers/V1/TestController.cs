@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using FluentValidation;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,8 +19,9 @@ namespace Tester.Web.Admin.Controllers.V1
         TestRequest>
     {
         public TestController([NotNull] ITestService crudService,
-            [NotNull] IFilterHelper filterHelper)
-            : base(crudService, filterHelper)
+            [NotNull] IFilterHelper filterHelper,
+            [NotNull] IValidatorFactory validatorFactory)
+            : base(crudService, filterHelper, validatorFactory)
         {
         }
 

@@ -1,3 +1,5 @@
+using System;
+using FluentValidation;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,5 +14,12 @@ namespace Tester.Web.Admin.Controllers.Base
     [Authorize(Roles = AdminAccessRoles.Roles)]
     public abstract class BaseController : Controller
     {
+        protected IValidatorFactory ValidatorFactory { get; }
+
+        protected BaseController([NotNull] IValidatorFactory validatorFactory)
+        {
+            ValidatorFactory = validatorFactory ?? throw new ArgumentNullException(nameof(validatorFactory));
+        }
+
     }   
 }
