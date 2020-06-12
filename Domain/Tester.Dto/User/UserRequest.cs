@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 
 namespace Tester.Dto.User
@@ -9,5 +10,6 @@ namespace Tester.Dto.User
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
+        public Guid RoleId { get; set; }
     }
 }

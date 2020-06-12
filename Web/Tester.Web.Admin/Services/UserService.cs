@@ -42,11 +42,17 @@ namespace Tester.Web.Admin.Services
             user.Salt = passwordHash.Salt;
             user.SecurityTimestamp = Guid.NewGuid();
             userData.Gender = Gender.Undefined;
+            var userRole = new UserRole {RoleId = request.RoleId};
 
             await using var transaction = DataProvider.Transaction();
             await DataProvider.InsertAsync(user).ConfigureAwait(false);
+
             userData.UserId = user.Id;
             await DataProvider.InsertAsync(userData).ConfigureAwait(false);
+
+            userRole.UserId = user.Id;
+            await DataProvider.InsertAsync(userRole).ConfigureAwait(false);
+
             await transaction.CommitAsync().ConfigureAwait(false);
             return user.Id;
         }
