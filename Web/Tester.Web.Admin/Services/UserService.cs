@@ -57,11 +57,14 @@ namespace Tester.Web.Admin.Services
             return user.Id;
         }
 
-        public override async Task<Guid> Put(Guid id, UserRequest request)
+        public override async Task<Guid> Put(Guid id, [NotNull] UserRequest request)
         {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             await using var transaction = DataProvider.Transaction();
             var user = await RoDataProvider.GetQueryable<User>().Where(x => x.Id == id)
                 .Include(x => x.UserData)
+                .Include(x => x.UserRoles)
                 .SingleOrDefaultAsync()
                 .ConfigureAwait(false);
 
@@ -70,8 +73,40 @@ namespace Tester.Web.Admin.Services
             user = Mapper.Map(request, user);
             user.UserData = Mapper.Map(request, user.UserData);
             await DataProvider.UpdateAsync(user).ConfigureAwait(false);
+            await UpdateRole(request, user).ConfigureAwait(false);
             await transaction.CommitAsync().ConfigureAwait(false);
             return user.Id;
+        }
+
+        private async Task UpdateRole(UserRequest request, User user)
+        {
+            if (user.UserRoles.Any(x => x.RoleId == request.RoleId && x.DeletedUtc.HasValue))
+            {
+                foreach (var userRole in user.UserRoles)
+                {
+                    if (userRole.RoleId == request.RoleId)
+                    {
+                        userRole.DeletedUtc = null;
+                    }
+                    else if (userRole.DeletedUtc == null)
+                    {
+                        userRole.DeletedUtc = DateTime.UtcNow;
+                    }
+                }
+
+                await DataProvider.BatchUpdateAsync(user.UserRoles).ConfigureAwait(false);
+            }
+            else if (user.UserRoles.All(x => x.RoleId != request.RoleId))
+            {
+                foreach (var userRole in user.UserRoles)
+                {
+                    userRole.DeletedUtc ??= DateTime.UtcNow;
+                }
+
+                await DataProvider.BatchUpdateAsync(user.UserRoles).ConfigureAwait(false);
+                var role = new UserRole {RoleId = request.RoleId, UserId = user.Id};
+                await DataProvider.InsertAsync(role).ConfigureAwait(false);
+            }
         }
     }
 }

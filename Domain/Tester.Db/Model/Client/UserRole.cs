@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
@@ -11,15 +10,12 @@ namespace Tester.Db.Model.Client
     [PublicAPI]
     [SuppressMessage("ReSharper", "CA2227")]
     [Table("user_role", Schema = DbConstant.Scheme.Client)]
-    public class UserRole : ICreatedUtc, IDeletable, IEntity<Guid>
+    public class UserRole : ICreatedUtc, IDeletable
     {
-        [Key]
-        public Guid Id { get; }
-
-        [Index("IX_user_role_UserId_RoleId", true)]
+        [MultiKey]
         public Guid UserId { get; set; }
 
-        [Index("IX_user_role_UserId_RoleId", true)]
+        [MultiKey]
         public Guid RoleId { get; set; }
 
         public DateTime CreatedUtc { get; set; }
