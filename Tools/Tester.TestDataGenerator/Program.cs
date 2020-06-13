@@ -42,6 +42,7 @@ namespace Tester.TestDataGenerator
             var dataProvider = new EfDataProvider(dbContext, new PostgresDbExceptionManager());
             var users = await UserGenerator.Gen(dataProvider).ConfigureAwait(false);
             var topics = await TopicGenerator.Gen(dataProvider, users).ConfigureAwait(false);
+            var tests = await TestGenerator.Gen(dataProvider, users, topics).ConfigureAwait(false);
         }
 
         private static ResetDbContext GetDbContext(IConfigurationRoot configuration)
