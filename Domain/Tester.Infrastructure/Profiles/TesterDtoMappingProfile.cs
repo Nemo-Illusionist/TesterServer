@@ -67,7 +67,7 @@ namespace Tester.Infrastructure.Profiles
                 .ForMember(x => x.UpdatedUtc, x => x.Ignore())
                 .ForMember(x => x.DeletedUtc, x => x.Ignore())
                 .ForMember(x => x.Author, x => x.Ignore())
-                .ForMember(x => x.AuthorId, x => x.MapFrom((r, q) => q?.AuthorId ?? r.AuthorId))
+                .ForMember(x => x.AuthorId, x => x.MapFrom((r, q) => r.AuthorId ?? q.AuthorId))
                 .ForMember(x => x.Parent, x => x.Ignore())
                 .ForMember(x => x.Children, x => x.Ignore())
                 .ForMember(x => x.Questions, x => x.Ignore())
@@ -88,7 +88,7 @@ namespace Tester.Infrastructure.Profiles
                 .ForMember(x => x.DeletedUtc, x => x.Ignore())
                 .ForMember(x => x.Author, x => x.Ignore())
                 .ForMember(x => x.UserTests, x => x.Ignore())
-                .ForMember(x => x.AuthorId, x => x.MapFrom((r, q) => q?.AuthorId ?? r.AuthorId))
+                .ForMember(x => x.AuthorId, x => x.MapFrom((r, q) => r.AuthorId ?? q.AuthorId))
                 .ForMember(x => x.TestTopics, x => x.Ignore());
         }
 
@@ -101,7 +101,7 @@ namespace Tester.Infrastructure.Profiles
                 .IncludeBase<Question, QuestionDto>();
             CreateMap<QuestionRequest, Question>()
                 .ForMember(x => x.Id, x => x.Ignore())
-                .ForMember(x => x.AuthorId, x => x.MapFrom((r, q) => q?.AuthorId ?? r.AuthorId))
+                .ForMember(x => x.AuthorId, x => x.MapFrom((r, q) => r.AuthorId ?? q.AuthorId))
                 .ForMember(x => x.CreatedUtc, x => x.Ignore())
                 .ForMember(x => x.DeletedUtc, x => x.Ignore())
                 .ForMember(x => x.Topic, x => x.Ignore())
