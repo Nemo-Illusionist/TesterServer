@@ -33,7 +33,7 @@ namespace Tester.Web.Admin.Controllers.Base
         {
             var id = await CrudService.Post(item).ConfigureAwait(false);
             var result = await CrudService.GetById(id).ConfigureAwait(false);
-            return Ok(result);
+            return CreatedAtRoute("",new {id},result);
             // ReSharper disable once Mvc.ActionNotResolved
             // return CreatedAtAction(nameof(GetById), new {id}, result);
         }
