@@ -33,7 +33,7 @@ namespace Tester.Web.Admin.Controllers.Base
         {
             var id = await CrudService.Post(item).ConfigureAwait(false);
             var result = await CrudService.GetById(id).ConfigureAwait(false);
-            return CreatedAtRoute("",new {id},result);
+            return CreatedAtRoute("", new {id}, result);
         }
 
         protected virtual async Task<IActionResult> Update(TKey id, TRequest item)
@@ -41,7 +41,8 @@ namespace Tester.Web.Admin.Controllers.Base
             try
             {
                 await CrudService.Put(id, item).ConfigureAwait(false);
-                return NoContent();
+                var result = await CrudService.GetById(id).ConfigureAwait(false);
+                return Ok(result);
             }
             catch (ItemNotFoundException)
             {

@@ -44,5 +44,12 @@ namespace Tester.Web.Admin.Controllers.V1
         {
             return Add(request);
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+        public new Task<IActionResult> Update(Guid id, [NotNull] UserRequest request)
+        {
+            return base.Update(id, request);
+        }
     }
 }
