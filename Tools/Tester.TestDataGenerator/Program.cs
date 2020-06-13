@@ -1,25 +1,27 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Mono.Options;
-using Radilovsoft.Rest.Data.Core.Contract.Provider;
+using Radilovsoft.Rest.Data.Ef.Context;
 using Radilovsoft.Rest.Data.Ef.Postgres;
 using Radilovsoft.Rest.Data.Ef.Provider;
 using Radilovsoft.Rest.Data.Postgres;
 using Tester.Db.Context;
+using Tester.Db.Model.App;
 using Tester.Db.Store;
+using Tester.TestDataGenerator.DataGenerator;
 
 namespace Tester.TestDataGenerator
 {
     [UsedImplicitly(ImplicitUseKindFlags.InstantiatedWithFixedConstructorSignature)]
-    public class Program
+    public static class Program
     {
-        public static string EnvironmentName { get; private set; } = "Development";
+        private static string EnvironmentName { get; set; } = "Development";
 
-
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var dataOptions = new OptionSet
             {
@@ -35,9 +37,14 @@ namespace Tester.TestDataGenerator
                 .AddJsonFile("appsettings.local.json", true);
 
             var configuration = configurationBuilder.Build();
+
+            await using var dbContext = GetDbContext(configuration);
+            var dataProvider = new EfDataProvider(dbContext, new PostgresDbExceptionManager());
+            var users = await UserGenerator.Gen(dataProvider).ConfigureAwait(false);
+            var topics = await TopicGenerator.Gen(dataProvider, users).ConfigureAwait(false);
         }
 
-        private IDataProvider GetDbContext(IConfigurationRoot configuration)
+        private static ResetDbContext GetDbContext(IConfigurationRoot configuration)
         {
             var modelStore = new TesterDbModelStore();
             var indexProvider = new PostgresIndexProvider();
@@ -48,9 +55,7 @@ namespace Tester.TestDataGenerator
                         .MigrationsHistoryTable(HistoryRepository.DefaultTableName, "service"))
                 .Options;
 
-            var dbContext = new TesterDbContext(modelStore, indexProvider, dbContextOptions);
-            var efDataProvider = new EfDataProvider(dbContext, new PostgresDbExceptionManager());
-            return efDataProvider;
+            return new TesterDbContext(modelStore, indexProvider, dbContextOptions);
         }
     }
 }
