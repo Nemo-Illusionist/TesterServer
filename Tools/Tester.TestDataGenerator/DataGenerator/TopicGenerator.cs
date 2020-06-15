@@ -18,19 +18,25 @@ namespace Tester.TestDataGenerator.DataGenerator
                 .RuleFor(x => x.AuthorId, (f, u) => f.PickRandom(users).Id)
                 .RuleFor(x => x.Name, (f, u) => f.Name.JobTitle())
                 .RuleFor(x => x.Description, (f, u) => f.Name.JobDescriptor());
+
             var topics = new List<Topic>();
             for (int i = 0; i < 10; i++)
             {
                 var topic = faker.Generate();
                 await dataProvider.InsertAsync(topic).ConfigureAwait(false);
                 topics.Add(topic);
+
+                var subTopics = new List<Topic>();
                 for (int j = 0; j < 100; j++)
                 {
                     var subTopic = faker.Generate();
                     subTopic.Parent = topic;
                     subTopic.ParentId = topic.Id;
-                    topics.Add(subTopic);
+                    subTopics.Add(subTopic);
                 }
+
+                await dataProvider.BatchInsertAsync(subTopics).ConfigureAwait(false);
+                topics.AddRange(subTopics);
             }
 
             return topics;

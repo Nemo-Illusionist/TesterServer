@@ -43,6 +43,7 @@ namespace Tester.TestDataGenerator
             var users = await UserGenerator.Gen(dataProvider).ConfigureAwait(false);
             var topics = await TopicGenerator.Gen(dataProvider, users).ConfigureAwait(false);
             var tests = await TestGenerator.Gen(dataProvider, users, topics).ConfigureAwait(false);
+            var questions = await QuestionGenerator.Gen(dataProvider, users, topics).ConfigureAwait(false);
         }
 
         private static ResetDbContext GetDbContext(IConfigurationRoot configuration)
