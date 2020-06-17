@@ -34,7 +34,7 @@ namespace Tester.Web.Admin.Controllers.V1
 
         [HttpGet]
         [ProducesResponseType(typeof(PagedResult<TestTopicDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetByFilter(FilterRequest filter)
+        public async Task<IActionResult> GetByFilter([FromQuery] FilterRequest filter)
         {
             Expression<Func<TestTopicDto, bool>> expression = null;
             IPageFilter pageFilter = null;
