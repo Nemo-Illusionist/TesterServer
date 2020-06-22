@@ -35,7 +35,7 @@ namespace Tester.Web.Admin.Controllers.V1
 
             try
             {
-                var token = await _authService.Authenticate(model.Login, model.Password).ConfigureAwait(false);
+                var token = await _authService.Authenticate(model.Login, model.Password ).ConfigureAwait(false);
                 SetTokenToCookie(token);
                 return Ok(token);
             }

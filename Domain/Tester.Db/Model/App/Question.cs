@@ -41,6 +41,7 @@ namespace Tester.Db.Model.App
         [Required]
         [Column(TypeName = "jsonb")]
         public string Answer { get; set; }
+        
 
         [Index]
         public DateTime CreatedUtc { get; set; }

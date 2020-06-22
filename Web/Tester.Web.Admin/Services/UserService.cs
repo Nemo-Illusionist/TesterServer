@@ -17,7 +17,8 @@ using Tester.Infrastructure.Contracts;
 
 namespace Tester.Web.Admin.Services
 {
-    public class UserService : BaseCrudService<User, Guid, UserDto, UserDto, UserRequest>, IUserService
+    public class 
+        UserService : BaseCrudService<User, Guid, UserDto, UserDto, UserRequest>, IUserService
     {
         private readonly IPasswordProvider _passwordProvider;
 
