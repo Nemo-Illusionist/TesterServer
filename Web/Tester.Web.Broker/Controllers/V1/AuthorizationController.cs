@@ -10,9 +10,9 @@ using Tester.Auth.Contracts;
 using Tester.Core.Constant;
 using Tester.Dto;
 using Tester.Dto.User;
-using Tester.Web.Admin.Controllers.Base;
+using Tester.Web.Broker.Controllers.Base;
 
-namespace Tester.Web.Admin.Controllers.V1
+namespace Tester.Web.Broker.Controllers.V1
 {
     public class AuthorizationController : BaseController
     {
@@ -36,7 +36,7 @@ namespace Tester.Web.Admin.Controllers.V1
 
             try
             {
-                var token = await _authService.Authenticate(model.Login, model.Password, new []{RoleNameConstant.Admin, RoleNameConstant.Lecturer, RoleNameConstant.Moderator}).ConfigureAwait(false);
+                var token = await _authService.Authenticate(model.Login, model.Password, RoleNameConstant.Student).ConfigureAwait(false);
                 SetTokenToCookie(token);
                 return Ok(token);
             }
