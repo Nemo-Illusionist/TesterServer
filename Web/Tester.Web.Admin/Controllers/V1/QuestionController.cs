@@ -46,20 +46,21 @@ namespace Tester.Web.Admin.Controllers.V1
 
         [HttpPost]
         [ProducesResponseType(typeof(QuestionDto), StatusCodes.Status201Created)]
-        public Task<IActionResult> Create([NotNull] QuestionRequest request)
+        public async Task<IActionResult> Create([NotNull] QuestionRequest request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
-
-            var validator = new QuestionValidator();
-            ValidationResult results = validator.Validate(request);
-            if (results.IsValid)
+            var validator = ValidatorFactory.GetValidator<QuestionRequest>();
+            try
             {
+                await validator.ValidateAndThrowAsync(request).ConfigureAwait(false);
                 request.AuthorId = User.Claims.GetUserId();
-                return Add(request);
+                return await Add(request).ConfigureAwait(false);
             }
-            else
-                return null;
+            catch (ValidationException exception)
+            {
+                return BadRequest(exception);
+            }
         }
 
         [HttpDelete("{id}")]
