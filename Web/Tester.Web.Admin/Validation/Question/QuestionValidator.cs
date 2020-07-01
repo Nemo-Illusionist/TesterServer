@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text.Json;
 using FluentValidation;
 using FluentValidation.Internal;
@@ -20,16 +21,18 @@ namespace Tester.Web.Admin.Validation.Question
             RuleFor(request => request.TopicId).NotNull();
             RuleFor(request => request.Answer).Must(BeOpen)
                 .When(request => (request.Type == QuestionType.Open));
-            RuleFor(request => request.Answer).Must(BeSingleMultipleSection)
-                .When(request => (request.Type == QuestionType.SingleSelection || request.Type == QuestionType.MultipleSelection ));
+            RuleFor(request => request.Answer).Must(BeSingleSection)
+                .When(request => (request.Type == QuestionType.SingleSelection ));
+            RuleFor(request => request.Answer).Must(BeMultipleSection)
+                .When(request => (request.Type == QuestionType.MultipleSelection ));
         }
 
         public bool BeOpen(string answer)
         {
             try
             {
-                var openAnswer = JsonSerializer.Deserialize<string[]>(answer);
-                return openAnswer.Length != 0;
+                var openAnswer = JsonSerializer.Deserialize<OpenQuestion>(answer);
+                return openAnswer.answers.Length != 0;
             }
             catch(Exception ex)
             {
@@ -38,17 +41,37 @@ namespace Tester.Web.Admin.Validation.Question
             }
         }
 
-        public bool BeSingleMultipleSection(string answer)
+        public bool BeSingleSection(string answer)
         {
             try
             {
-                var sectionAnswer = JsonSerializer.Deserialize<string[][]>(answer);
-                return sectionAnswer.Length != 0;
+                var sectionAnswer = JsonSerializer.Deserialize<SingleSectionQuestion>(answer);
+                var valid = (sectionAnswer.values.Contains(sectionAnswer.answer))
+                                && sectionAnswer.values != null;
+                return valid;
             }
             catch
             {
                 return false;
             }
+        }
+        public bool BeMultipleSection(string answer)
+        {
+            try
+            {
+                var multipleAnswer = JsonSerializer.Deserialize<MultipleSectionQuestion>(answer);
+                foreach (var ans in multipleAnswer.answers)
+                {
+                    if (!multipleAnswer.values.Contains(ans))
+                        return false;
+                }
+                return multipleAnswer.values != null;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }

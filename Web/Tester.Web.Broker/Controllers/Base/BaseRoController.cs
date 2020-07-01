@@ -10,7 +10,7 @@ using Radilovsoft.Rest.Data.Core.Contract.Entity;
 using Radilovsoft.Rest.Infrastructure.Contract;
 using Radilovsoft.Rest.Infrastructure.Contract.Dto;
 using Tester.Dto;
-using Tester.Web.Admin.Models;
+using Tester.Web.Broker.Models;
 
 namespace Tester.Web.Broker.Controllers.Base
 {

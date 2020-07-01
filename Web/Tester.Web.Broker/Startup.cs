@@ -95,6 +95,7 @@ namespace Tester.Web.Broker
             
             
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddMemoryCache();
         }
 
         public static void Configure([NotNull] IApplicationBuilder app, [NotNull] IWebHostEnvironment env,

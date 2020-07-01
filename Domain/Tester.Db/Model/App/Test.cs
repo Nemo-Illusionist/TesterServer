@@ -26,6 +26,8 @@ namespace Tester.Db.Model.App
         public string Name { get; set; }
 
         public string Description { get; set; }
+        
+        public int NumberOfQuestions { get; set; }
 
         [Index]
         public DateTime CreatedUtc { get; set; }

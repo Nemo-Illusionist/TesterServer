@@ -25,6 +25,8 @@ namespace Tester.Db.Model.Statistics
         public Guid? ExaminerId { get; set; }
 
         public TimeSpan? Time { get; set; }
+        
+        public bool IsOver { get; set; }
 
         [Index]
         public DateTime CreatedUtc { get; set; }

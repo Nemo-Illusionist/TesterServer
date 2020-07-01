@@ -9,8 +9,8 @@ using Radilovsoft.Rest.Infrastructure.Dto;
 using Tester.Db.Model.App;
 using Tester.Dto.Test;
 using Tester.Infrastructure.Contracts;
-using Tester.Web.Admin.Models;
 using Tester.Web.Broker.Controllers.Base;
+using Tester.Web.Broker.Models;
 
 namespace Tester.Web.Broker.Controllers.V1
 {
@@ -37,5 +37,7 @@ namespace Tester.Web.Broker.Controllers.V1
         {
             return GetById(id);
         }
+        
+        
     }
 }
