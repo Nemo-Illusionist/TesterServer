@@ -10,7 +10,6 @@ using Radilovsoft.Rest.Data.Ef.Postgres;
 using Radilovsoft.Rest.Data.Ef.Provider;
 using Radilovsoft.Rest.Data.Postgres;
 using Tester.Db.Context;
-using Tester.Db.Model.App;
 using Tester.Db.Store;
 using Tester.TestDataGenerator.DataGenerator;
 

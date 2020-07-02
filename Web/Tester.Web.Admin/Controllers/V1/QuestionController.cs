@@ -12,10 +12,6 @@ using Tester.Dto.Question;
 using Tester.Infrastructure.Contracts;
 using Tester.Web.Admin.Controllers.Base;
 using Tester.Web.Admin.Models;
-using Tester.Web.Admin.Validation.Question;
-using FluentValidation.Internal;
-using FluentValidation.Results;
-using JetBrains.Annotations;
 
 namespace Tester.Web.Admin.Controllers.V1
 {

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tester.Dto.User
 {
-    public class AuthenticateModel
+    public class LoginDto
     {
         [Required]
         public string Login { get; set; }

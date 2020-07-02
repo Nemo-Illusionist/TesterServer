@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using FluentValidation;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -10,24 +9,22 @@ using Tester.Auth.Contracts;
 using Tester.Core.Constant;
 using Tester.Dto;
 using Tester.Dto.User;
-using Tester.Web.Broker.Controllers.Base;
+using Tester.Web.Auth.Controllers.Base;
 
-namespace Tester.Web.Broker.Controllers.V1
+namespace Tester.Web.Auth.Controllers.V1
 {
     public class AuthorizationController : BaseController
     {
         private readonly IAuthService _authService;
 
-        public AuthorizationController([NotNull] IAuthService authService,
-            [NotNull] IValidatorFactory validatorFactory)
-            : base(validatorFactory)
+        public AuthorizationController([NotNull] IAuthService authService)
         {
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
         }
 
         [HttpPost]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(BaseDto<Guid>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Authorization([FromBody] LoginDto model)
         {
@@ -36,9 +33,11 @@ namespace Tester.Web.Broker.Controllers.V1
 
             try
             {
-                var token = await _authService.Authenticate(model.Login, model.Password, RoleNameConstant.Student).ConfigureAwait(false);
+                var token = await _authService.Authenticate(model.Login, model.Password,
+                        RoleNameConstant.Admin, RoleNameConstant.Lecturer, RoleNameConstant.Moderator)
+                    .ConfigureAwait(false);
                 SetTokenToCookie(token);
-                return Ok(token);
+                return Ok(new TokenDto {Token = token});
             }
             catch (ItemNotFoundException)
             {

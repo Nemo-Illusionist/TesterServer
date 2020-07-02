@@ -1,6 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
-using Tester.Core.Common;
+﻿using JetBrains.Annotations;
 
 namespace Tester.Dto.Question
 {

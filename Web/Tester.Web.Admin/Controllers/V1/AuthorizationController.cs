@@ -29,7 +29,7 @@ namespace Tester.Web.Admin.Controllers.V1
         [AllowAnonymous]
         [ProducesResponseType(typeof(BaseDto<Guid>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Authorization([FromBody] AuthenticateModel model)
+        public async Task<IActionResult> Authorization([FromBody] LoginDto model)
         {
             if (model == null || string.IsNullOrEmpty(model.Login) || string.IsNullOrEmpty(model.Password))
                 return BadRequest(new {message = "Login or password is incorrect"});
