@@ -43,8 +43,9 @@ namespace Tester.TestDataGenerator.DataGenerator
                     var user = fakerUser.Generate();
                     await dataProvider.InsertAsync(user).ConfigureAwait(false);
                     var userData = fakerUserData.Generate();
+                    userData.UserId = user.Id;
                     await dataProvider.InsertAsync(userData).ConfigureAwait(false);
-                    var userRole = new UserRole {UserId = user.Id, RoleId = role.Id, Role = role, User = user};
+                    var userRole = new UserRole {UserId = user.Id, RoleId = role.Id};
                     await dataProvider.InsertAsync(userRole).ConfigureAwait(false);
                     user.UserData = userData;
                     user.UserRoles = new List<UserRole> {userRole};

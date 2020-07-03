@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
@@ -39,10 +41,21 @@ namespace Tester.TestDataGenerator
 
             await using var dbContext = GetDbContext(configuration);
             var dataProvider = new EfDataProvider(dbContext, new PostgresDbExceptionManager());
+            await using var transaction = dataProvider.Transaction();
+            
             var users = await UserGenerator.Gen(dataProvider).ConfigureAwait(false);
+            Console.WriteLine("users: {0}", users.Count());
+            
             var topics = await TopicGenerator.Gen(dataProvider, users).ConfigureAwait(false);
+            Console.WriteLine("topics: {0}", topics.Count());
+
             var tests = await TestGenerator.Gen(dataProvider, users, topics).ConfigureAwait(false);
+            Console.WriteLine("tests: {0}", tests.Count());
+
             var questions = await QuestionGenerator.Gen(dataProvider, users, topics).ConfigureAwait(false);
+            Console.WriteLine("questions: {0}", questions.Count());
+
+            await transaction.CommitAsync().ConfigureAwait(false);
         }
 
         private static ResetDbContext GetDbContext(IConfigurationRoot configuration)

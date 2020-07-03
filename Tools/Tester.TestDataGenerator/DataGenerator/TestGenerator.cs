@@ -22,14 +22,15 @@ namespace Tester.TestDataGenerator.DataGenerator
                 .RuleFor(x => x.Id, f => Guid.NewGuid())
                 .RuleFor(x => x.Name, (f, u) => f.Name.JobTitle())
                 .RuleFor(x => x.Description, (f, u) => f.Name.JobDescriptor())
+                .RuleFor(x => x.NumberOfQuestions, (f, u) => f.Random.Int(20, 50))
                 .RuleFor(x => x.AuthorId, (f, u) => f.PickRandom(users).Id);
 
             var tests = new List<Test>();
             for (int i = 0; i < 100; i++)
             {
                 var test = faker.Generate();
-                await dataProvider.InsertAsync(tests).ConfigureAwait(false);
-                
+                await dataProvider.InsertAsync(test).ConfigureAwait(false);
+
                 test.TestTopics = new Faker().PickRandom(topics, 10)
                     .Select(x => new TestTopic {TestId = test.Id, TopicId = x.Id})
                     .ToArray();
