@@ -6,6 +6,6 @@ namespace Tester.Dto.Question
     
     public class OpenQuestion
     {
-        public string[] answers { get; set; }
+        public string[] Answers { get; set; }
     }
 }

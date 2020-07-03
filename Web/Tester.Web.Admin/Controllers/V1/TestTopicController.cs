@@ -14,11 +14,10 @@ using Tester.Dto;
 using Tester.Dto.TestTopic;
 using Tester.Infrastructure.Contracts;
 using Tester.Web.Admin.Controllers.Base;
-using Tester.Web.Admin.Models;
 
 namespace Tester.Web.Admin.Controllers.V1
 {
-    public class TestTopicController : BaseController
+    public class TestTopicController : BaseAdminController
     {
         private readonly IFilterHelper _filterHelper;
         private readonly ITestTopicService _service;

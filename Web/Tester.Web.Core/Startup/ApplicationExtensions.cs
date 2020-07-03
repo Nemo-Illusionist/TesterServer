@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
-namespace Tester.Web.Core
+namespace Tester.Web.Core.Startup
 {
     public static class ApplicationExtensions
     {

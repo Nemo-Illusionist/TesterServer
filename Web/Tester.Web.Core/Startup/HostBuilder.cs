@@ -1,24 +1,14 @@
-using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace Tester.Web.Admin
+namespace Tester.Web.Core.Startup
 {
-    public static class Program
+    public static class HostBuilder
     {
-        public static void Main(string[] args)
+        public static IWebHost Build<TStartup>(string[] args, IConfiguration configuration) where TStartup : class
         {
-            IConfiguration config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("hosting.json", optional: true)
-                .Build();
-
-            BuildWebHost(args, config).Run();
-        }
-
-        private static IWebHost BuildWebHost(string[] args, IConfiguration configuration) =>
-            WebHost.CreateDefaultBuilder(args)
+            return WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(configuration)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
@@ -36,7 +26,8 @@ namespace Tester.Web.Admin
                     config.AddCommandLine(args);
                 })
                 .UseIISIntegration()
-                .UseStartup<Startup>()
+                .UseStartup<TStartup>()
                 .Build();
+        }
     }
 }

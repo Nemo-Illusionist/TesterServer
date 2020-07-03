@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Radilovsoft.Rest.Infrastructure.Contract.Dto;
 using Radilovsoft.Rest.Infrastructure.Dto;
 
-namespace Tester.Web.Admin.Models
+namespace Tester.Dto
 {
     public class FilterRequest
     {

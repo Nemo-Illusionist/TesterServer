@@ -14,7 +14,7 @@ using Radilovsoft.Rest.Data.Postgres;
 using Tester.Db.Context;
 using Tester.Db.Store;
 
-namespace Tester.Web.Core
+namespace Tester.Web.Core.Startup
 {
     public static class ServiceExtensions
     {

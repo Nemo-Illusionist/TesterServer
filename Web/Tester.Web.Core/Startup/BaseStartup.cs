@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Tester.Web.Core
+namespace Tester.Web.Core.Startup
 {
     public abstract class BaseStartup
     {

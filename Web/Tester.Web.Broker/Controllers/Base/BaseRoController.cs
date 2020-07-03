@@ -10,11 +10,10 @@ using Radilovsoft.Rest.Data.Core.Contract.Entity;
 using Radilovsoft.Rest.Infrastructure.Contract;
 using Radilovsoft.Rest.Infrastructure.Contract.Dto;
 using Tester.Dto;
-using Tester.Web.Broker.Models;
 
 namespace Tester.Web.Broker.Controllers.Base
 {
-    public abstract class BaseRoController<TService, TDb, TKey, TDto, TFullDto> : BaseController
+    public abstract class BaseBrokerRoController<TService, TDb, TKey, TDto, TFullDto> : BaseBrokerController
         where TService : IBaseRoService<TDb, TKey, TDto, TFullDto>
         where TDb : class, IEntity<TKey>
         where TKey : IComparable
@@ -24,7 +23,7 @@ namespace Tester.Web.Broker.Controllers.Base
         protected IFilterHelper FilterHelper { get; }
         protected TService RoService { get; }
 
-        protected BaseRoController([NotNull] TService roService,
+        protected BaseBrokerRoController([NotNull] TService roService,
             [NotNull] IFilterHelper filterHelper,
             IValidatorFactory validatorFactory)
             : base(validatorFactory)

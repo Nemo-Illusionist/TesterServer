@@ -32,13 +32,12 @@ namespace Tester.Auth.Services
             _passwordProvider = passwordProvider ?? throw new ArgumentNullException(nameof(passwordProvider));
         }
 
-        public async Task<string> Authenticate(string login, string password, string[] roles)
+        public async Task<string> Authenticate(string login, string password)
         {
             if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
                 return null;
 
             var queryable = _dataProvider.GetQueryable<User>().Where(x => x.Login == login)
-                .Where(x => x.UserRoles.Any(y => roles.Contains(y.Role.Name)))
                 .Include(x => x.UserData)
                 .Include(x => x.UserRoles)
                 .ThenInclude(x => x.Role);

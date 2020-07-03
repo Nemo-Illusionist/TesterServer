@@ -15,7 +15,7 @@ using Tester.Db.Model.App;
 using Tester.Dto.TestTopic;
 using Tester.Infrastructure.Contracts;
 
-namespace Tester.Web.Admin.Services
+namespace Tester.Infrastructure.Services
 {
     public class TestTopicService : ITestTopicService
     {

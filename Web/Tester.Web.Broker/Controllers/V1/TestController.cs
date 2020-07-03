@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Radilovsoft.Rest.Infrastructure.Contract;
 using Radilovsoft.Rest.Infrastructure.Dto;
 using Tester.Db.Model.App;
+using Tester.Dto;
 using Tester.Dto.Test;
 using Tester.Infrastructure.Contracts;
 using Tester.Web.Broker.Controllers.Base;
-using Tester.Web.Broker.Models;
 
 namespace Tester.Web.Broker.Controllers.V1
 {
-    public class TestController : BaseRoController<ITestService, Test, Guid, TestDto, TestFullDto>
+    public class TestController : BaseBrokerRoController<ITestService, Test, Guid, TestDto, TestFullDto>
     {
         public TestController([NotNull] ITestService crudService,
             [NotNull] IFilterHelper filterHelper,

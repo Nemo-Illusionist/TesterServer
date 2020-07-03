@@ -10,11 +10,10 @@ using Radilovsoft.Rest.Data.Core.Contract.Entity;
 using Radilovsoft.Rest.Infrastructure.Contract;
 using Radilovsoft.Rest.Infrastructure.Contract.Dto;
 using Tester.Dto;
-using Tester.Web.Admin.Models;
 
 namespace Tester.Web.Admin.Controllers.Base
 {
-    public abstract class BaseRoController<TService, TDb, TKey, TDto, TFullDto> : BaseController
+    public abstract class BaseRoController<TService, TDb, TKey, TDto, TFullDto> : BaseAdminController
         where TService : IBaseRoService<TDb, TKey, TDto, TFullDto>
         where TDb : class, IEntity<TKey>
         where TKey : IComparable

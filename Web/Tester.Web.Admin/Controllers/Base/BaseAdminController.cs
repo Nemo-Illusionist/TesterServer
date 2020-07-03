@@ -3,20 +3,18 @@ using FluentValidation;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Tester.Core.Constant;
+using Tester.Web.Admin.Constant;
+using Tester.Web.Core.Controllers;
 
-namespace Tester.Web.Broker.Controllers.Base
+namespace Tester.Web.Admin.Controllers.Base
 {
-    [PublicAPI]
-    [Produces("application/json")]
     [Route("api/admin/v{version:apiVersion}/[controller]")]
-    [ApiController]
-    [Authorize(Roles = RoleNameConstant.Student)]
-    public abstract class BaseController : Controller
+    [Authorize(Roles = AdminAccessRoles.Roles)]
+    public abstract class BaseAdminController : BaseController
     {
         protected IValidatorFactory ValidatorFactory { get; }
 
-        protected BaseController([NotNull] IValidatorFactory validatorFactory)
+        protected BaseAdminController([NotNull] IValidatorFactory validatorFactory)
         {
             ValidatorFactory = validatorFactory ?? throw new ArgumentNullException(nameof(validatorFactory));
         }

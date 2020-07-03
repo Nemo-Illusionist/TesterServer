@@ -15,7 +15,7 @@ using Tester.Db.Model.Client;
 using Tester.Dto.User;
 using Tester.Infrastructure.Contracts;
 
-namespace Tester.Web.Admin.Services
+namespace Tester.Infrastructure.Services
 {
     public class 
         UserService : BaseCrudService<User, Guid, UserDto, UserDto, UserRequest>, IUserService

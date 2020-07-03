@@ -12,12 +12,12 @@ using Tester.Web.Broker.Controllers.Base;
 
 namespace Tester.Web.Broker.Controllers.V1
 {
-    public class BrokerController : BaseController
+    public class BrokerBrokerController : BaseBrokerController
     {
         private readonly IDataProvider _dataProvider;
         private IMemoryCache _cache;
 
-        public BrokerController([NotNull] IDataProvider dataProvider,
+        public BrokerBrokerController([NotNull] IDataProvider dataProvider,
             [NotNull] IValidatorFactory validatorFactory,
             IMemoryCache memoryCache)
             : base(validatorFactory)
@@ -54,7 +54,7 @@ namespace Tester.Web.Broker.Controllers.V1
             throw new NotImplementedException();
         }
 
-        public Question[] TestGenerator(Test test)
+        private Question[] TestGenerator(Test test)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace Tester.Web.Broker.Controllers.V1
                         var _questions = _dataProvider.GetQueryable<Question>().Where(x => !x.DeletedUtc.HasValue)
                             .Where(x => x.Topic.Id == topic.TopicId)
                             .OrderBy(x => Guid.NewGuid()).Take(1).ToArray();
-                        questions.Append<>(_questions);
+                        // questions.Append<>(_questions);
                     }
 
                     length--;

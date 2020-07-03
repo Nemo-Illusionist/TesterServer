@@ -6,10 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Radilovsoft.Rest.Core.Exceptions;
 using Tester.Auth.Contracts;
-using Tester.Core.Constant;
-using Tester.Dto;
 using Tester.Dto.User;
-using Tester.Web.Auth.Controllers.Base;
+using Tester.Web.Core.Controllers;
 
 namespace Tester.Web.Auth.Controllers.V1
 {
@@ -33,8 +31,7 @@ namespace Tester.Web.Auth.Controllers.V1
 
             try
             {
-                var token = await _authService.Authenticate(model.Login, model.Password,
-                        RoleNameConstant.Admin, RoleNameConstant.Lecturer, RoleNameConstant.Moderator)
+                var token = await _authService.Authenticate(model.Login, model.Password)
                     .ConfigureAwait(false);
                 SetTokenToCookie(token);
                 return Ok(new TokenDto {Token = token});

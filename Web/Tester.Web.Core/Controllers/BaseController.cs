@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Tester.Web.Auth.Controllers.Base
+namespace Tester.Web.Core.Controllers
 {
     [PublicAPI]
     [Produces("application/json")]

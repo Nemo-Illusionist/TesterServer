@@ -9,7 +9,7 @@ using Tester.Db.Model.Client;
 using Tester.Dto;
 using Tester.Infrastructure.Contracts;
 
-namespace Tester.Web.Admin.Services
+namespace Tester.Infrastructure.Services
 {
     public class RoleRoService : BaseRoService<Role, Guid, BaseDto<Guid>, BaseDto<Guid>>, IRoleRoService
     {

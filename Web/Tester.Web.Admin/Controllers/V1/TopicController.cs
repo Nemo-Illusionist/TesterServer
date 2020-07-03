@@ -8,10 +8,10 @@ using Radilovsoft.Rest.Infrastructure.Contract;
 using Radilovsoft.Rest.Infrastructure.Dto;
 using Tester.Auth.Extensions;
 using Tester.Db.Model.App;
+using Tester.Dto;
 using Tester.Dto.Topic;
 using Tester.Infrastructure.Contracts;
 using Tester.Web.Admin.Controllers.Base;
-using Tester.Web.Admin.Models;
 
 namespace Tester.Web.Admin.Controllers.V1
 {

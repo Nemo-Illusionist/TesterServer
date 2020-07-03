@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="9.0.0" />
+      <PackageReference Include="AutoMapper" Version="10.0.0" />
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
       <PackageReference Include="FluentValidation" Version="8.6.2" />
       <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
@@ -15,8 +15,6 @@
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
       <PackageReference Include="Radilovsoft.Rest.Core" Version="1.0.2" />
       <PackageReference Include="Radilovsoft.Rest.Data.Core" Version="1.0.2" />
-      <PackageReference Include="Radilovsoft.Rest.Data.Ef" Version="1.0.2" />
-      <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,6 +23,7 @@
       <ProjectReference Include="..\..\Domain\Tester.Db\Tester.Db.csproj" />
       <ProjectReference Include="..\..\Domain\Tester.Dto\Tester.Dto.csproj" />
       <ProjectReference Include="..\..\Domain\Tester.Infrastructure\Tester.Infrastructure.csproj" />
+      <ProjectReference Include="..\Tester.Web.Core\Tester.Web.Core.csproj" />
     </ItemGroup>
 
 </Project>

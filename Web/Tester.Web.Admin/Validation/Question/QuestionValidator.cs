@@ -29,7 +29,7 @@ namespace Tester.Web.Admin.Validation.Question
             try
             {
                 var openAnswer = JsonSerializer.Deserialize<OpenQuestion>(answer);
-                return openAnswer.answers.Length != 0;
+                return openAnswer.Answers.Length != 0;
             }
             catch(Exception ex)
             {
@@ -43,8 +43,8 @@ namespace Tester.Web.Admin.Validation.Question
             try
             {
                 var sectionAnswer = JsonSerializer.Deserialize<SingleSectionQuestion>(answer);
-                var valid = (sectionAnswer.values.Contains(sectionAnswer.answer))
-                                && sectionAnswer.values != null;
+                var valid = (sectionAnswer.Values.Contains(sectionAnswer.Answer))
+                                && sectionAnswer.Values != null;
                 return valid;
             }
             catch
@@ -57,12 +57,12 @@ namespace Tester.Web.Admin.Validation.Question
             try
             {
                 var multipleAnswer = JsonSerializer.Deserialize<MultipleSectionQuestion>(answer);
-                foreach (var ans in multipleAnswer.answers)
+                foreach (var ans in multipleAnswer.Answers)
                 {
-                    if (!multipleAnswer.values.Contains(ans))
+                    if (!multipleAnswer.Values.Contains(ans))
                         return false;
                 }
-                return multipleAnswer.values != null;
+                return multipleAnswer.Values != null;
             }
             catch
             {

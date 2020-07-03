@@ -6,7 +6,7 @@ namespace Tester.Dto.Question
     
     public class SingleSectionQuestion
     {
-        public string answer { get; set; }
-        public string[] values { get; set; }
+        public string Answer { get; set; }
+        public string[] Values { get; set; }
     }
 }
