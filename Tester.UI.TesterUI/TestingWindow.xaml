@@ -1,0 +1,56 @@
+﻿<Window x:Name="Testi" x:Class="TesterUI.TestingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TesterUI"
+        mc:Ignorable="d"
+        Title="TestingWindow" Width="800" Height="995" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="StartGrid" Margin="10,34,10,40" AllowDrop="True" Background="WhiteSmoke" d:IsHidden="True" >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="118"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="studentInfo_textBlock" Margin="10,10,217,0" TextWrapping="Wrap" Text="StudentInfo" FontSize="16" Foreground="Black" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="251" VerticalAlignment="Top"/>
+            <Button x:Name="changeInfo_Button" Content="Change Info" HorizontalAlignment="Left" Height="70" Margin="568,42,0,0" VerticalAlignment="Top" Width="202"/>
+            <Button x:Name="statistic_Button" Content="Ststistic" HorizontalAlignment="Left" Height="70" Margin="568,191,0,0" VerticalAlignment="Top" Width="212"/>
+            <GroupBox x:Name="tests_GroupBox" Header="GroupBox" Margin="10,294,10,0">
+                <ListBox x:Name="tests_listBox" Margin="1,0,-2,0" Height="448"/>
+            </GroupBox>
+            <Button x:Name="passTheTest_Button" Content="Пройти тест" Margin="41,10,57,10" Grid.Row="1"/>
+        </Grid>
+        <Grid x:Name="TestGrid" Margin="10,34,10,40" AllowDrop="True" Background="WhiteSmoke" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300" />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <RichTextBox x:Name="question_textBox" Margin="10,10,10,10" Visibility="Visible" IsReadOnlyCaretVisible="True" IsReadOnly="True">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="RichTextBox"/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+            <Button x:Name="nextQuestion_Button" Content="Далее" Height="75" Margin="276,520,276,0" Grid.Row="1" VerticalAlignment="Top"/>
+        </Grid>
+        <Grid x:Name="AnswerGrid" Margin="10,350,10,149">
+            <RichTextBox x:Name="Ans_textBox" Margin="10,10,10,10" d:IsHidden="True">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="RichTextBox"/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+            <GroupBox x:Name="oneSection_GroupBox" Header="GroupBox" Margin="10,10,10,10" Content="" IsEnabled="False" d:IsHidden="True"/>
+            <GroupBox x:Name="multipleSection_gropBox" Header="GroupBox" Margin="10,10,10,10" d:IsHidden="True"/>
+        </Grid>
+
+    </Grid>
+</Window>
