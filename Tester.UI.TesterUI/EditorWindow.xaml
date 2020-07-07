@@ -7,6 +7,48 @@
         mc:Ignorable="d"
         Title="EditorWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="269*"/>
+                <ColumnDefinition Width="531*"/>
+            </Grid.ColumnDefinitions>
+            <RichTextBox x:Name="UserInfoTextBox" Margin="10,10,10,289"/>
+            <ListView x:Name="TestsListView" Margin="10,164,10,80">
+
+            </ListView>
+            <Button x:Name="NewTestButton" Margin="10,372,10,25" Content="New Test">
+
+            </Button>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="13*"/>
+            </Grid.ColumnDefinitions>
+            <ListBox x:Name="listBox" Grid.Column="1" Margin="10,10,10,10">
+                <Label x:Name="NewTestLabel" Grid.Column="1" Margin="10,10,1,1" Height="14" Width="466" Content="Настройки теста">
+
+                </Label>
+                <Label x:Name="Name" Content="Name" Width="217"/>
+                <TextBox x:Name="TestNameTextBox" Text="TextBox" TextWrapping="Wrap" Width="440" Height="28"/>
+                <Label x:Name="Description" Content="Description" Width="102"/>
+                <RichTextBox x:Name="DescriptionTextBox" Height="63" Width="444">
+                    <FlowDocument>
+                        <Paragraph>
+                            <Run Text="RichTextBox"/>
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+                <Label x:Name="Topics" Content="Choose Topics" Width="138"/>
+                <ListBox x:Name="TopicListBox" Height="69" Width="443"/>
+                <Label x:Name="NumberOfQuestions" Content="NumberOfQuestions" Width="236"/>
+                <TextBox x:Name="NumOfQuesTextBox" Text="TextBox" TextWrapping="Wrap" Width="445" Height="24"/>
+                <Button x:Name="makeTestButton" Content="Button" Height="30" Width="130"/>
+            </ListBox>
+
+
+
+        </Grid>
+
     </Grid>
 </Window>

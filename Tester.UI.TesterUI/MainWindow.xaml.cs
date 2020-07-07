@@ -28,6 +28,10 @@ namespace TesterUI
         private void login_ButtonClick(object sender, RoutedEventArgs e)
         {
          
+            TestingWindow testingWindow = new TestingWindow();
+            testingWindow.Show();
+            EditorWindow editorWindow = new EditorWindow();
+            editorWindow.Show();
 
 
         }
