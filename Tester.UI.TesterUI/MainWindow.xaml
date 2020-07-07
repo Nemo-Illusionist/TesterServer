@@ -24,11 +24,11 @@
                 <ColumnDefinition Width="321"/>
                 <ColumnDefinition Width="236*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="login_button" Click="login_ButtonClick" Content="Войти" Margin="10,34,10,34" FontSize="18" Padding="15,1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="4" Grid.Row="1" d:LayoutOverrides="VerticalAlignment" Cursor="Hand" IsEnabled="False"/>
-            <TextBlock x:Name="welcome_textBlock" Margin="6,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="5" Height="41" FontSize="22" FontWeight="Bold" d:LayoutOverrides="TopMargin, BottomMargin" Grid.Column="1"/>
-            <TextBox x:Name="login_textBox" TextWrapping="Wrap" Grid.Column="4" Cursor="ScrollE" Margin="0,76,0,0" Height="24" VerticalAlignment="Top"/>
-            <Label x:Name="label_login" Content="Логин" Grid.Column="4" Margin="0,34,131,146" RenderTransformOrigin="0.502,0.058"/>
-            <Label x:Name="label_password" Content="Пароль" Grid.Column="4" Margin="0,112,122,85" RenderTransformOrigin="0.5,0.5" d:LayoutOverrides="VerticalAlignment">
+            <Button x:Name="LoginButton" Click="login_ButtonClick" Content="Войти" Margin="10,34,10,34" FontSize="18" Padding="15,1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="4" Grid.Row="1" d:LayoutOverrides="VerticalAlignment" Cursor="Hand" IsEnabled="False"/>
+            <TextBlock x:Name="WelcomeTextBlock" Margin="6,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="5" Height="41" FontSize="22" FontWeight="Bold" d:LayoutOverrides="TopMargin, BottomMargin" Grid.Column="1"/>
+            <TextBox x:Name="LoginTextBox" TextWrapping="Wrap" Grid.Column="4" Cursor="ScrollE" Margin="0,76,0,0" Height="24" VerticalAlignment="Top"/>
+            <Label x:Name="LabelLogin" Content="Логин" Grid.Column="4" Margin="0,34,131,146" RenderTransformOrigin="0.502,0.058"/>
+            <Label x:Name="LabelPassword" Content="Пароль" Grid.Column="4" Margin="0,112,122,85" RenderTransformOrigin="0.5,0.5" d:LayoutOverrides="VerticalAlignment">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -38,10 +38,10 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <PasswordBox x:Name="passwordBox" Grid.Column="4" Margin="0,149,0,62" Height="24"/>
+            <PasswordBox x:Name="PasswordBox" Grid.Column="4" Margin="0,149,0,62" Height="24"/>
         </Grid>
-        <Menu x:Name="menu" Height="29" VerticalAlignment="Top" FontSize="14" Background="Gainsboro">
-            <MenuItem x:Name="about_menuItem" Header="О программе"/>
+        <Menu x:Name="Menu" Height="29" VerticalAlignment="Top" FontSize="14" Background="Gainsboro">
+            <MenuItem x:Name="AboutMenuItem" Header="О программе"/>
         </Menu>
     </Grid>
 </Window>

@@ -24,7 +24,7 @@ namespace Tester.Web.Admin.Validation.Question
                 .When(request => (request.Type == QuestionType.MultipleSelection ));
         }
 
-        public bool BeOpen(string answer)
+        private bool BeOpen(string answer)
         {
             try
             {
@@ -33,12 +33,11 @@ namespace Tester.Web.Admin.Validation.Question
             }
             catch(Exception ex)
             {
-                //Console.WriteLine("{0} Exception caught.", ex);
-                return false;
+              return false;
             }
         }
 
-        public bool BeSingleSection(string answer)
+        private bool BeSingleSection(string answer)
         {
             try
             {
@@ -47,12 +46,12 @@ namespace Tester.Web.Admin.Validation.Question
                                 && sectionAnswer.Values != null;
                 return valid;
             }
-            catch
+            catch(Exception ex)
             {
                 return false;
             }
         }
-        public bool BeMultipleSection(string answer)
+        private bool BeMultipleSection(string answer)
         {
             try
             {
@@ -64,7 +63,7 @@ namespace Tester.Web.Admin.Validation.Question
                 }
                 return multipleAnswer.Values != null;
             }
-            catch
+            catch(Exception ex)
             {
                 return false;
             }
