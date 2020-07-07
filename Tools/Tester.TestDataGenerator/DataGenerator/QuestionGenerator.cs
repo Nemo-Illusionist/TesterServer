@@ -8,6 +8,7 @@ using Radilovsoft.Rest.Data.Core.Contract.Provider;
 using Tester.Core.Common;
 using Tester.Db.Model.App;
 using Tester.Db.Model.Client;
+using Tester.Dto.Question;
 
 namespace Tester.TestDataGenerator.DataGenerator
 {
@@ -31,7 +32,7 @@ namespace Tester.TestDataGenerator.DataGenerator
                     var question = faker.Generate();
                     question.TopicId = topic.Id;
                     question.Type = QuestionType.Open;
-                    question.Answer = JsonConvert.SerializeObject(new {answer = new[] {$"answer{i}"}});
+                    question.Answer = JsonConvert.SerializeObject(new OpenQuestion {Answers = new[] {$"answer{i}"}});
                     questions.Add(question);
                 }
 
@@ -40,10 +41,10 @@ namespace Tester.TestDataGenerator.DataGenerator
                     var question = faker.Generate();
                     question.TopicId = topic.Id;
                     question.Type = QuestionType.MultipleSelection;
-                    question.Answer = JsonConvert.SerializeObject(new
+                    question.Answer = JsonConvert.SerializeObject(new MultipleSectionQuestion
                     {
-                        values = new[] {$"answer{i}", $"answer{i + 1}", $"answer{i + 2}"},
-                        answer = new[] {$"answer{i}", $"answer{i + 1}"}
+                        Values = new[] {$"answer{i}", $"answer{i + 1}", $"answer{i + 2}"},
+                        Answers = new[] {$"answer{i}", $"answer{i + 1}"}
                     });
                     questions.Add(question);
                 }
@@ -53,10 +54,10 @@ namespace Tester.TestDataGenerator.DataGenerator
                     var question = faker.Generate();
                     question.TopicId = topic.Id;
                     question.Type = QuestionType.SingleSelection;
-                    question.Answer = JsonConvert.SerializeObject(new
+                    question.Answer = JsonConvert.SerializeObject(new SingleSectionQuestion
                     {
-                        values = new[] {$"answer{i}", $"answer{i + 1}", $"answer{i + 2}"},
-                        answer = new[] {$"answer{i + 1}"}
+                        Values = new[] {$"answer{i}", $"answer{i + 1}", $"answer{i + 2}"},
+                        Answer = $"answer{i + 1}"
                     });
                     questions.Add(question);
                 }

@@ -46,7 +46,8 @@ namespace Tester.Web.Core.Startup
         public static IServiceCollection AddPostgresEf(this IServiceCollection services, IConfiguration configuration,
             ILoggerFactory loggerFactory)
         {
-            services.AddEntityFrameworkNpgsql()
+            services
+                // .AddEntityFrameworkNpgsql()
                 .AddDbContext<TesterDbContext>((sp, ob) =>
                 {
                     ob.UseNpgsql(configuration.GetConnectionString("Postgres"));

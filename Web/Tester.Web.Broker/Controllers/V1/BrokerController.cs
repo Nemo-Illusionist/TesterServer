@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -8,7 +7,6 @@ using FluentValidation;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.OpenApi.Extensions;
 using Radilovsoft.Rest.Data.Core.Contract.Provider;
 using Tester.Auth.Extensions;
@@ -22,13 +20,13 @@ using Tester.Web.Broker.Controllers.Base;
 
 namespace Tester.Web.Broker.Controllers.V1
 {
-    public class BrokerBrokerController : BaseBrokerController
+    public class BrokerController : BaseBrokerController
     {
         private readonly IDataProvider _dataProvider;
         private readonly ICache _cache;
-        
 
-        public BrokerBrokerController([NotNull] IDataProvider dataProvider,
+
+        public BrokerController([NotNull] IDataProvider dataProvider,
             [NotNull] IValidatorFactory validatorFactory,
             ICache memoryCache)
             : base(validatorFactory)
@@ -43,27 +41,31 @@ namespace Tester.Web.Broker.Controllers.V1
             if (testId == null) throw new ArgumentNullException(nameof(testId));
 
             var test = await _dataProvider.GetQueryable<Test>()
-                .Include(x=>x.TestTopics)
+                .Include(x => x.TestTopics)
                 .FirstAsync(x => x.Id == testId).ConfigureAwait(false);
-            var questions = TestGenerator(test);
-            var userTest = new UserTest{ IsOver = false, TestId = testId,
-                UserId = User.Claims.GetUserId()};
+            var questions = await TestGenerator(test).ConfigureAwait(false);
+            var userTest = new UserTest
+            {
+                IsOver = false, TestId = testId,
+                UserId = User.Claims.GetUserId()
+            };
             await _dataProvider.InsertAsync(userTest).ConfigureAwait(false);
             var key = "test_" + userTest.Id;
-            await _cache.SetAsync(key,questions).ConfigureAwait(false);
-            
-            return Ok(new{key = userTest.Id}) ;
+            await _cache.SetAsync(key, questions).ConfigureAwait(false);
+            var issueQuestion = IssuedQuestion(questions.Peek());
+
+            return Ok(new {key = userTest.Id, question = issueQuestion});
         }
 
         [HttpPost("{id}/next")]
-        public async Task<IActionResult> Next(Guid id, [FromBody]UserAnswerRequest request)
+        public async Task<IActionResult> Next(Guid id, [FromBody] UserAnswerRequest request)
         {
-            //if (request.Id == null) throw new ArgumentNullException(nameof(request));
-            
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
             var userAnswer = new UserAnswer
             {
-                Id = request.Id, 
-                Value = request.UserAnswer,
+                QuestionId = request.Id,
+                Value = JsonSerializer.Serialize(request.UserAnswer),
                 UserTestId = id
             };
             await _dataProvider.InsertAsync(userAnswer).ConfigureAwait(false);
@@ -73,20 +75,27 @@ namespace Tester.Web.Broker.Controllers.V1
             {
                 return NoContent();
             }
-            
+
             var question = questions.Dequeue();
-            await _cache.SetAsync(key,questions).ConfigureAwait(false);
-            
+            await _cache.SetAsync(key, questions).ConfigureAwait(false);
+
+            var issueQuestion = IssuedQuestion(question);
+
+            return Ok(new {key = id, question = issueQuestion});
+        }
+
+        private static IssuedQuestion IssuedQuestion(Question question)
+        {
             string[] answerOptions = Array.Empty<string>();
-            switch (question.Type.GetDisplayName())
+            switch (question.Type)
             {
-                case "MultipleSectionQuestion":
+                case QuestionType.MultipleSelection:
                     answerOptions = JsonSerializer.Deserialize<MultipleSectionQuestion>(question.Answer).Values;
-                  break;
-                case "SingleSectionQuestion": 
+                    break;
+                case QuestionType.SingleSelection:
                     answerOptions = JsonSerializer.Deserialize<SingleSectionQuestion>(question.Answer).Values;
                     break;
-                case "OpenQuestion":
+                case QuestionType.Open:
                     break;
             }
 
@@ -96,38 +105,34 @@ namespace Tester.Web.Broker.Controllers.V1
                 Name = question.Name,
                 Description = question.Description,
                 Hint = question.Hint,
+                Type = question.Type,
                 AnswerOptions = answerOptions
             };
-
-            return Ok(new {issueQuestion});
+            return issueQuestion;
         }
 
-        private Queue<Question> TestGenerator(Test test)
+        private async Task<Queue<Question>> TestGenerator(Test test)
         {
-            try
+            var length = test.NumberOfQuestions;
+            var questions = new Queue<Question>();
+            while (length != 0)
             {
-                var length = test.NumberOfQuestions;
-                var questions = new Queue<Question>();
-                while (length != 0)
+                foreach (var topic in test.TestTopics)
                 {
-                    foreach (var topic in test.TestTopics)
+                    var pickQuestion = await _dataProvider.GetQueryable<Question>()
+                        .Where(x => !x.DeletedUtc.HasValue && x.TopicId == topic.TopicId)
+                        .OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefaultAsync()
+                        .ConfigureAwait(false);
+                    if (pickQuestion != null)
                     {
-                        var pickQuestion = _dataProvider.GetQueryable<Question>()
-                            .Where(x => !x.DeletedUtc.HasValue)
-                            .Where(x => x.Topic.Id == topic.TopicId)
-                            .OrderBy(x => Guid.NewGuid()).Take(1).ToArray();
-                        questions.Enqueue(pickQuestion[0]);
+                        questions.Enqueue(pickQuestion);
+                        length--;
+                        if (length == 0) break;
                     }
-
-                    length--;
                 }
+            }
 
-                return questions;
-            }
-            catch (ArgumentNullException)
-            {
-                throw new ArgumentNullException(nameof(test));
-            }
+            return questions;
         }
     }
 }

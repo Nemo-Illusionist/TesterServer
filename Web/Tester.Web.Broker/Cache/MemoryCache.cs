@@ -4,7 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Tester.Web.Broker.Cache
 {
-    public class MemoryCache: ICache
+    public class MemoryCache : ICache
     {
         private readonly IMemoryCache _memoryCache;
 
@@ -17,19 +17,14 @@ namespace Tester.Web.Broker.Cache
         {
         }
 
-        public string Get(string key)
-        {
-            return _memoryCache.Get<string>(key);
-        }
-
-        public void Set(string key, string value)
-        {
-            _memoryCache.Set(key, value);
-        }
-
         public T Get<T>(string key)
         {
             return _memoryCache.Get<T>(key);
+        }
+
+        public Task<T> GetAsync<T>(string key)
+        {
+            return Task.FromResult(Get<T>(key));
         }
 
         public void Set<T>(string key, T value)
@@ -37,30 +32,16 @@ namespace Tester.Web.Broker.Cache
             _memoryCache.Set(key, value);
         }
 
-        public void Remove(string key)
-        {
-            _memoryCache.Remove(key);
-        }
-
-        public Task<T> GetAsync<T>(string key)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task SetAsync<T>(string key, T value)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<string> GetAsync(string key)
-        {
-            return Task.FromResult(Get(key));
-        }
-
-        public Task SetAsync(string key, string value)
-        {
             Set(key, value);
             return Task.CompletedTask;
+        }
+
+        public void Remove(string key)
+        {
+            _memoryCache.Remove(key);
         }
 
         public Task RemoveAsync(string key)
