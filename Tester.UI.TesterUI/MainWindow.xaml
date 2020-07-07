@@ -7,29 +7,23 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid x:Name="StartGrid" Margin="10,34,10,40" AllowDrop="True"  Background="WhiteSmoke" >
+        <Grid x:Name="StartGrid" Margin="10,34,10,40" AllowDrop="True" Background="WhiteSmoke">
             <Grid.RowDefinitions>
-                <RowDefinition/>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="LoginButton" Click="login_ButtonClick" Content="Войти" Margin="233,290,246,34" FontSize="18" Padding="15,1"
-                    VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Cursor="Hand" IsEnabled="True"/>
-            <TextBlock x:Name="WelcomeTextBlock" Margin="10,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" FontSize="22" FontWeight="Bold"/>
-            <TextBox x:Name="LoginTextBox" TextWrapping="Wrap" Cursor="ScrollE" Margin="223,76,236,0" Height="24" VerticalAlignment="Top"/>
-            <Label x:Name="LabelLogin" Content="Логин" Margin="223,34,367,250" RenderTransformOrigin="0.502,0.058"/>
-            <Label x:Name="LabelPassword" Content="Пароль" Margin="222,112,359,219" RenderTransformOrigin="0.5,0.5">
-               
-            </Label>
-            <PasswordBox x:Name="PasswordBox" Margin="223,153,246,180"/>
+            <Label x:Name="LabelLogin" Content="Логин" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <TextBox x:Name="LoginTextBox" TextWrapping="Wrap" Grid.Row="1" Cursor="ScrollE" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="500"/>
+            <Label x:Name="LabelPassword" Content="Пароль" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <PasswordBox x:Name="PasswordBox" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="500"/>
+            <Button x:Name="LoginButton" Grid.Row="4" Click="login_ButtonClick" Content="Войти" IsEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="50" Width="500"/>
+            
         </Grid>
         <Menu x:Name="Menu" Height="29" VerticalAlignment="Top" FontSize="14" Background="Gainsboro">
-            <MenuItem x:Name="AboutMenuItem" Header="О программе"/>
+            <MenuItem x:Name="AboutMenuItem" Header="О программе" />
         </Menu>
     </Grid>
 </Window>
