@@ -2,8 +2,10 @@ using System;
 using AutoMapper;
 using Tester.Db.Model.App;
 using Tester.Db.Model.Client;
+using Tester.Db.Model.Statistics;
 using Tester.Dto;
 using Tester.Dto.Question;
+using Tester.Dto.Statistic;
 using Tester.Dto.Test;
 using Tester.Dto.TestTopic;
 using Tester.Dto.Topic;
@@ -22,6 +24,15 @@ namespace Tester.Infrastructure.Profiles
             Topic();
             Test();
             TestTopic();
+            Statistic();
+        }
+
+        private void Statistic()
+        {
+            CreateMap<UserTest, BaseDto<Guid>>()
+                .ForMember(x => x.Name, x => x.MapFrom(y => y.Test.Name));
+            CreateMap<UserAnswer, UserAnswerDto>();
+            CreateMap<UserTest, UserTestDto>();
         }
 
         private void User()
