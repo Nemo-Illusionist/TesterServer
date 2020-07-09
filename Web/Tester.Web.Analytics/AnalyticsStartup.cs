@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Tester.Auth.Extensions;
 using Tester.Infrastructure.Contracts;
 using Tester.Infrastructure.Services;
+using Tester.Web.Analytics.HostedServices;
 using Tester.Web.Core.Startup;
 
 namespace Tester.Web.Analytics
@@ -34,6 +35,7 @@ namespace Tester.Web.Analytics
 
             services.AddScoped<IUserTestRoService, UserTestRoService>();
             services.AddScoped<IUserAnswerRoService, UserAnswerRoService>();
+            services.AddHostedService<AnalyticsHostedService>();
         }
 
         public static void Configure([NotNull] IApplicationBuilder app, [NotNull] IWebHostEnvironment env,
