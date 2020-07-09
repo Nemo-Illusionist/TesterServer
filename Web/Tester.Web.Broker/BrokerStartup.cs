@@ -15,7 +15,7 @@ using Radilovsoft.Rest.Infrastructure.Service;
 using Tester.Auth.Extensions;
 using Tester.Infrastructure.Contracts;
 using Tester.Infrastructure.Services;
-using Tester.Web.Broker.Cache;
+using Tester.Infrastructure.Services.Cache;
 using Tester.Web.Core.Startup;
 
 namespace Tester.Web.Broker
@@ -50,6 +50,7 @@ namespace Tester.Web.Broker
             services.AddScoped<IOrderHelper, OrderHelper>();
             services.AddScoped<IExpressionHelper, ExpressionHelper>();
             services.AddScoped<ICache, MemoryCache>();
+            services.AddScoped<IBrokerService, BrokerService>();
         }
 
         public static void Configure([NotNull] IApplicationBuilder app, [NotNull] IWebHostEnvironment env,

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Tester.Web.Broker.Cache
+namespace Tester.Infrastructure.Services.Cache
 {
     public interface ICache: IDisposable
     {

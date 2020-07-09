@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Tester.Web.Broker.Cache
+namespace Tester.Infrastructure.Services.Cache
 {
     public class MemoryCache : ICache
     {
