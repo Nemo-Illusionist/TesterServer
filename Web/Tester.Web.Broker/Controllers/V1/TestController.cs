@@ -25,7 +25,7 @@ namespace Tester.Web.Broker.Controllers.V1
 
         [HttpGet]
         [ProducesResponseType(typeof(PagedResult<TestDto>), StatusCodes.Status200OK)]
-        public Task<IActionResult> Get([FromBody] FilterRequest filter)
+        public Task<IActionResult> Get([FromQuery] FilterRequest filter)
         {
             return GetByFilter(filter);
         }
