@@ -1,5 +1,4 @@
 ﻿using System;
-using Tester.Db.Model.Statistics;
 
 namespace Tester.Dto.User
 {
