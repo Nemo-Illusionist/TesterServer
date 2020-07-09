@@ -31,8 +31,18 @@ namespace Tester.Infrastructure.Profiles
         {
             CreateMap<UserTest, BaseDto<Guid>>()
                 .ForMember(x => x.Name, x => x.MapFrom(y => y.Test.Name));
-            CreateMap<UserAnswer, UserAnswerDto>();
-            CreateMap<UserTest, UserTestDto>();
+            CreateMap<UserAnswer, UserAnswerDto>()
+                .ForMember(x => x.Topic, x => x.MapFrom(y => y.Question.Topic))
+                .ForMember(x => x.Author, x => x.MapFrom(y => y.Question.Author))
+                .ForMember(x => x.Name, x => x.MapFrom(y => y.Question.Name))
+                .ForMember(x => x.Description, x => x.MapFrom(y => y.Question.Description))
+                .ForMember(x => x.Hint, x => x.MapFrom(y => y.Question.Hint))
+                .ForMember(x => x.Type, x => x.MapFrom(y => y.Question.Type));
+            CreateMap<UserTest, UserTestDto>()
+                .ForMember(x => x.TestAuthor, x => x.MapFrom(y => y.Test.Author))
+                .ForMember(x => x.Name, x => x.MapFrom(y => y.Test.Name))
+                .ForMember(x => x.Description, x => x.MapFrom(y => y.Test.Description))
+                .ForMember(x => x.NumberOfQuestions, x => x.MapFrom(y => y.Test.NumberOfQuestions));
         }
 
         private void User()
