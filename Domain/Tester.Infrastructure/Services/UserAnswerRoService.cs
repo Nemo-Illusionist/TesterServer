@@ -5,15 +5,15 @@ using Radilovsoft.Rest.Data.Core.Contract;
 using Radilovsoft.Rest.Data.Core.Contract.Provider;
 using Radilovsoft.Rest.Infrastructure.Contract;
 using Radilovsoft.Rest.Infrastructure.Service;
-using Tester.Db.Model.Client;
-using Tester.Dto;
+using Tester.Db.Model.Statistics;
+using Tester.Dto.Statistic;
 using Tester.Infrastructure.Contracts;
 
 namespace Tester.Infrastructure.Services
 {
-    public class RoleRoService : BaseRoService<Role, Guid, BaseDto<Guid>, BaseDto<Guid>>, IRoleRoService
+    public class UserAnswerRoService : BaseRoService<UserTest, Guid, UserAnswerDto, UserAnswerDto>, IUserAnswerRoService
     {
-        public RoleRoService([NotNull] IRoDataProvider dataProvider,
+        public UserAnswerRoService([NotNull] IRoDataProvider dataProvider,
             [NotNull] IAsyncHelpers asyncHelpers,
             [NotNull] IOrderHelper orderHelper,
             [NotNull] IMapper mapper)
