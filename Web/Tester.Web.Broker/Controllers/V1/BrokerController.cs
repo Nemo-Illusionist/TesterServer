@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using FluentValidation;
 using JetBrains.Annotations;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Extensions;
@@ -36,6 +37,7 @@ namespace Tester.Web.Broker.Controllers.V1
         }
 
         [HttpPost("{testId}")]
+        [ProducesResponseType(typeof(BrokerResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Init(Guid testId)
         {
             if (testId == null) throw new ArgumentNullException(nameof(testId));
@@ -54,10 +56,12 @@ namespace Tester.Web.Broker.Controllers.V1
             await _cache.SetAsync(key, questions).ConfigureAwait(false);
             var issueQuestion = IssuedQuestion(questions.Peek());
 
-            return Ok(new {key = userTest.Id, question = issueQuestion});
+            return Ok(new BrokerResponse {Key = userTest.Id, Question = issueQuestion, Count = questions.Count});
         }
 
         [HttpPost("{id}/next")]
+        [ProducesResponseType(typeof(BrokerResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Next(Guid id, [FromBody] UserAnswerRequest request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
@@ -81,7 +85,7 @@ namespace Tester.Web.Broker.Controllers.V1
 
             var issueQuestion = IssuedQuestion(question);
 
-            return Ok(new {key = id, question = issueQuestion});
+            return Ok(new BrokerResponse {Key = id, Question = issueQuestion, Count = questions.Count});
         }
 
         private static IssuedQuestion IssuedQuestion(Question question)
