@@ -15,6 +15,7 @@ namespace TesterUI
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.local.json", optional: false, reloadOnChange: true)
                 .Build();
 
             config.Bind(Configuration);
