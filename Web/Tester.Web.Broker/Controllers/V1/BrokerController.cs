@@ -61,7 +61,7 @@ namespace Tester.Web.Broker.Controllers.V1
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest();
             }
         }
     }
