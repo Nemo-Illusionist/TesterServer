@@ -61,7 +61,8 @@ namespace Tester.Infrastructure.Services
 
             var question = questions.Peek();
             if (question.Id != request.Id) throw new ArgumentException(nameof(request.Id));
-
+            
+           
             var userAnswer = new UserAnswer
             {
                 QuestionId = request.Id,

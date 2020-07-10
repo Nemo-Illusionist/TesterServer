@@ -16,11 +16,13 @@ namespace Tester.Web.Analytics.HostedServices
     public class AnalyticsHostedService : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
+        
+         public AnalyticsHostedService([NotNull] IServiceProvider serviceProvider)
+            {
+                _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+            }
 
-        public AnalyticsHostedService([NotNull] IServiceProvider serviceProvider)
-        {
-            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-        }
+        
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -30,7 +32,7 @@ namespace Tester.Web.Analytics.HostedServices
                 {
                     var dataProvider = _serviceProvider.GetService<IDataProvider>();
                     var userTests = await dataProvider.GetQueryable<UserTest>()
-                        .Where(x => x.IsOver)
+                        .Where(x => x.IsOver && x.IsChecked==false)
                         .ToArrayAsync(stoppingToken).ConfigureAwait(false);
 
                     var workerBlock = new ActionBlock<(UserTest, IDataProvider)>(
@@ -38,7 +40,7 @@ namespace Tester.Web.Analytics.HostedServices
                         {
                             try
                             {
-                                await Update(data.Item1, data.Item2);
+                                await Update(data.Item1, data.Item2).ConfigureAwait(false);
                             }
                             catch
                             {
@@ -52,13 +54,14 @@ namespace Tester.Web.Analytics.HostedServices
                     }
 
                     workerBlock.Complete();
-                    await workerBlock.Completion;
+                    await workerBlock.Completion.ConfigureAwait(false);
                 }
             }
             catch
             {
                 // ignored
             }
+            await Task.Delay(10000, stoppingToken).ConfigureAwait(false);
         }
 
         private async Task Update(UserTest userTest, IDataProvider dataProvider)
@@ -83,7 +86,12 @@ namespace Tester.Web.Analytics.HostedServices
             userTest.WrongAnswers = wrongAnswers;
             userTest.IsChecked = true;
             await dataProvider.InsertAsync(userTest).ConfigureAwait(false);
+            
+            
 
         }
+        
+       
     }
+    
 }

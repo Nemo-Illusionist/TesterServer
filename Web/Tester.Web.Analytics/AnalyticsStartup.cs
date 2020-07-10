@@ -36,6 +36,7 @@ namespace Tester.Web.Analytics
             services.AddScoped<IUserTestRoService, UserTestRoService>();
             services.AddScoped<IUserAnswerRoService, UserAnswerRoService>();
             services.AddHostedService<AnalyticsHostedService>();
+            
         }
 
         public static void Configure([NotNull] IApplicationBuilder app, [NotNull] IWebHostEnvironment env,
