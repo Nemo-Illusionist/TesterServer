@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="10.0.0" />
+      <PackageReference Include="AutoMapper" Version="9.0.0" />
       <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
       <PackageReference Include="Radilovsoft.Rest.Infrastructure" Version="1.0.2.2" />
     </ItemGroup>
