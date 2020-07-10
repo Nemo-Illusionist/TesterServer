@@ -4,15 +4,76 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:main="clr-namespace:TesterUI.MVVM.ViewModels.Main"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:models="clr-namespace:TesterUI.MVVM.Models"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Tester" Height="450" Width="800">
 
     <Window.DataContext>
         <main:MainWindowViewModel />
     </Window.DataContext>
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindow}"
+                                   CommandParameter="{Binding ElementName=MainDialog}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
         <Frame Content="{Binding AppContext.CurrentPage}"
                NavigationUIVisibility="Hidden" />
+
+        <materialDesign:DialogHost Name="MainDialog">
+            <materialDesign:DialogHost.DataContext>
+                <models:DialogModel />
+            </materialDesign:DialogHost.DataContext>
+            <materialDesign:DialogHost.DialogContent>
+                <GroupBox Header="{Binding Header}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0"
+                                   Text="{Binding Content}"
+                                   Margin="5"
+                                   TextWrapping="Wrap" />
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="5">
+                            <Button Content="Ok"
+                                    Margin="0,5"
+                                    Command="{Binding CloseOk}"
+                                    CommandParameter="{Binding ElementName=MainDialog}"
+                                    Visibility="{Binding Type,
+                                    Converter={StaticResource VisibilityDialogConverter},
+                                    ConverterParameter={x:Static models:DialogType.Ok}}" />
+
+                            <Button Content="Yes"
+                                    Margin="0,5"
+                                    Command="{Binding CloseYes}"
+                                    CommandParameter="{Binding ElementName=MainDialog}"
+                                    Visibility="{Binding Type,
+                                    Converter={StaticResource VisibilityDialogConverter},
+                                    ConverterParameter={x:Static models:DialogType.YesNot}}" />
+
+                            <Button Content="Not"
+                                    Margin="0,5"
+                                    Command="{Binding CloseNot}"
+                                    CommandParameter="{Binding ElementName=MainDialog}"
+                                    Visibility="{Binding Type, 
+                                    Converter={StaticResource VisibilityDialogConverter},
+                                    ConverterParameter={x:Static models:DialogType.YesNot}}" />
+
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+
     </Grid>
 </Window>

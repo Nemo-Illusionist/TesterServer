@@ -15,7 +15,8 @@
         <RichTextBox Margin="2.5">
                 <FlowDocument>
                     <Paragraph>
-                        <Run Text="{Binding AnswerModel.Answer}" />
+                        <Run Text="{Binding AnswerModel.Answer}" 
+                             FontSize="14"/>
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>

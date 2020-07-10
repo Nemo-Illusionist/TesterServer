@@ -9,6 +9,7 @@ using DevExpress.Mvvm;
 using JetBrains.Annotations;
 using Tester.Dto.Question;
 using Tester.Dto.User;
+using TesterUI.Helpers.WpfExtensions;
 using TesterUI.MVVM.Models;
 using TesterUI.MVVM.VIews.Main.Pages;
 using QuestionType = Tester.Core.Common.QuestionType;
@@ -138,12 +139,20 @@ namespace TesterUI.MVVM.ViewModels.Main.Pages
             {
                 return new DelegateCommand(async () =>
                 {
+                    if (string.IsNullOrWhiteSpace(Answer.Answer) || Answer.Answer == "[]")
+                    {
+                        var box = await AppContext.MainDialog.ShowDialog(new DialogModel("Внимание", "Вы уверены что хотите оставить пустой ответ?", DialogType.YesNot)).ConfigureAwait(true);
+                        if (box != ResultDialogType.Yes)
+                        {
+                            return;
+                        }
+                    }
+
                     Question = await GetNextQuestion().ConfigureAwait(true);
 
                     if (Question == null)
                     {
-                        MessageBox.Show("Тест пройдет");
-
+                        await AppContext.MainDialog.ShowDialog(new DialogModel("Внимание", "Тест пройден", DialogType.Ok)).ConfigureAwait(true);
                         AppContext.SetPage(new ProfilePage());
                         return;
                     }

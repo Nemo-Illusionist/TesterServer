@@ -29,9 +29,13 @@
 
                     <Grid Column="0"
                           Margin="2.5">
-                        <materialDesign:Card>
-                            <TextBlock Text="Данные пользователя" />
-                        </materialDesign:Card>
+                        <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}"
+                                  Header="Данные о пользователе">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Логин: " />
+                                <TextBlock Text="{Binding AppContext.Login}" />
+                            </StackPanel>
+                        </GroupBox>
                     </Grid>
 
                     <Grid Column="1"

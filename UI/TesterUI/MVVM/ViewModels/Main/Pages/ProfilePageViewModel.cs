@@ -5,6 +5,7 @@ using System.Windows.Input;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.Native;
 using Tester.Dto;
+using TesterUI.Helpers.WpfExtensions;
 using TesterUI.MVVM.Models;
 using TesterUI.MVVM.VIews.Auth.Pages;
 using TesterUI.MVVM.VIews.Main.Pages;
@@ -62,10 +63,9 @@ namespace TesterUI.MVVM.ViewModels.Main.Pages
                 {
                     if (CurrentTest != null)
                     {
-                        var box = MessageBox.Show("Вы уверены что хотите начать тестирование?", "Внимание",
-                            MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        var box = await AppContext.MainDialog.ShowDialog(new DialogModel("Внимание", "Вы уверены что хотите начать тестирование?", DialogType.YesNot)).ConfigureAwait(true);
 
-                        if (box == MessageBoxResult.Yes)
+                        if (box == ResultDialogType.Yes)
                         {
                             AppContext.SetPage(new QuestionPage
                             {

@@ -24,7 +24,8 @@
                         <RadioButton GroupName="Answer" 
                                      Content="{Binding Answer}"
                                      Command="{Binding ElementName=ThisPage, Path=DataContext.AnswerClick}"
-                                     CommandParameter="{Binding Answer}"/>
+                                     CommandParameter="{Binding Answer}"
+                                     FontSize="14"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

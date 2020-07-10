@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Windows.Controls;
+using MaterialDesignThemes.Wpf;
 using Refit;
 using TesterUI.Helpers.Api;
 using TesterUI.MVVM.ViewModels;
@@ -10,6 +11,7 @@ namespace TesterUI.MVVM.Models
 {
     public class Context : BaseViewModel
     {
+        public string Login { get; set; }
         public IAuthApi AuthApi { get; set; }
         public IBrokerApi BrokerApi { get; set; }
         private HttpClientHandler HttpClientHandler { get; set; } = new HttpClientHandler {CookieContainer = new CookieContainer()};
@@ -46,5 +48,7 @@ namespace TesterUI.MVVM.Models
         {
             CurrentPage = page;
         }
+
+        public DialogHost MainDialog { get; set; }
     }
 }
