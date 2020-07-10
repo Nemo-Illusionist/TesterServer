@@ -14,6 +14,12 @@ namespace Tester.Dto.Statistic
 
         public string Description { get; set; }
         
+        public bool IsChecked { get; set; }
+        
+        public int RightAnswers { get; set; }
+        
+        public int WrongAnswers { get; set; }
+        
         public int NumberOfQuestions { get; set; }
         
         public BaseDto<Guid> User { get; set; }

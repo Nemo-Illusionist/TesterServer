@@ -27,6 +27,12 @@ namespace Tester.Db.Model.Statistics
         public TimeSpan? Time { get; set; }
         
         public bool IsOver { get; set; }
+        
+        public bool IsChecked { get; set; }
+        
+        public int RightAnswers { get; set; }
+        
+        public int WrongAnswers { get; set; }
 
         [Index]
         public DateTime CreatedUtc { get; set; }

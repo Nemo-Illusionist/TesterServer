@@ -17,6 +17,8 @@ namespace Tester.Dto.Statistic
         public string Hint { get; set; }
 
         public QuestionType Type { get; set; }
+        
+        public bool? IsRight { get; set; }
 
         public BaseDto<Guid> UserTest { get; set; }
 

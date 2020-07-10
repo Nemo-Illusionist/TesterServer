@@ -27,6 +27,8 @@ namespace Tester.Db.Model.Statistics
         [Required]
         [Column(TypeName = "jsonb")]
         public string Value { get; set; }
+        
+        public bool? IsRight { get; set; }
 
         [Index]
         public DateTime CreatedUtc { get; set; }

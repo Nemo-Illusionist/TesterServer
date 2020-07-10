@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using JetBrains.Annotations;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +31,7 @@ namespace Tester.Web.Analytics.HostedServices
                     var dataProvider = _serviceProvider.GetService<IDataProvider>();
                     var userTests = await dataProvider.GetQueryable<UserTest>()
                         .Where(x => x.IsOver)
-                        .ToArrayAsync(stoppingToken);
+                        .ToArrayAsync(stoppingToken).ConfigureAwait(false);
 
                     var workerBlock = new ActionBlock<(UserTest, IDataProvider)>(
                         async data =>
@@ -65,9 +66,24 @@ namespace Tester.Web.Analytics.HostedServices
             var userAnswers = await dataProvider.GetQueryable<UserAnswer>()
                 .Where(x=>x.UserTestId == userTest.Id)
                 .Include(x=>x.Question)
-                .ToArrayAsync();
-            
-            throw new NotImplementedException();
+                .ToArrayAsync().ConfigureAwait(false);
+            int rightAnswers =0 , wrongAnswers = 0;
+            foreach (var answer in userAnswers)
+            {
+                if (answer.Value == answer.Question.Answer) {
+                    answer.IsRight = true;
+                    rightAnswers++;
+                }
+                else {
+                    answer.IsRight = false;
+                    wrongAnswers++;
+                }
+            }
+            userTest.RightAnswers = rightAnswers;
+            userTest.WrongAnswers = wrongAnswers;
+            userTest.IsChecked = true;
+            await dataProvider.InsertAsync(userTest).ConfigureAwait(false);
+
         }
     }
 }

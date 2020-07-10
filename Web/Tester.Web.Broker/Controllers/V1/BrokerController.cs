@@ -31,7 +31,7 @@ namespace Tester.Web.Broker.Controllers.V1
 
             try
             {
-                var brokerResponse = await _brokerService.InitTest(testId, User.Claims.GetUserId());
+                var brokerResponse = await _brokerService.InitTest(testId, User.Claims.GetUserId()).ConfigureAwait(false);
                 if (brokerResponse == null) return NoContent();
                 return Ok(brokerResponse);
             }
