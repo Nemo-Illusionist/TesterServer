@@ -48,7 +48,6 @@ namespace Tester.Web.Admin
             services.AddScoped<IFilterHelper, FilterHelper>();
             services.AddScoped<IExpressionHelper, ExpressionHelper>();
             services.AddScoped<IOrderHelper, OrderHelper>();
-            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IPasswordProvider, PasswordProvider>();
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<ITopicService, TopicService>();

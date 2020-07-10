@@ -2,8 +2,10 @@ using System;
 using AutoMapper;
 using Tester.Db.Model.App;
 using Tester.Db.Model.Client;
+using Tester.Db.Model.Statistics;
 using Tester.Dto;
 using Tester.Dto.Question;
+using Tester.Dto.Statistic;
 using Tester.Dto.Test;
 using Tester.Dto.TestTopic;
 using Tester.Dto.Topic;
@@ -22,6 +24,25 @@ namespace Tester.Infrastructure.Profiles
             Topic();
             Test();
             TestTopic();
+            Statistic();
+        }
+
+        private void Statistic()
+        {
+            CreateMap<UserTest, BaseDto<Guid>>()
+                .ForMember(x => x.Name, x => x.MapFrom(y => y.Test.Name));
+            CreateMap<UserAnswer, UserAnswerDto>()
+                .ForMember(x => x.Topic, x => x.MapFrom(y => y.Question.Topic))
+                .ForMember(x => x.Author, x => x.MapFrom(y => y.Question.Author))
+                .ForMember(x => x.Name, x => x.MapFrom(y => y.Question.Name))
+                .ForMember(x => x.Description, x => x.MapFrom(y => y.Question.Description))
+                .ForMember(x => x.Hint, x => x.MapFrom(y => y.Question.Hint))
+                .ForMember(x => x.Type, x => x.MapFrom(y => y.Question.Type));
+            CreateMap<UserTest, UserTestDto>()
+                .ForMember(x => x.TestAuthor, x => x.MapFrom(y => y.Test.Author))
+                .ForMember(x => x.Name, x => x.MapFrom(y => y.Test.Name))
+                .ForMember(x => x.Description, x => x.MapFrom(y => y.Test.Description))
+                .ForMember(x => x.NumberOfQuestions, x => x.MapFrom(y => y.Test.NumberOfQuestions));
         }
 
         private void User()
