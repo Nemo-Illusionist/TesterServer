@@ -8,61 +8,26 @@
         Title="TestingWindow" Width="700" Height="800" SizeToContent="WidthAndHeight">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="218*"/>
+            <RowDefinition Height="58*"/>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="299*"/>
+            <RowDefinition Height="86*"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="StartGrid" Margin="10,34,10,40" AllowDrop="True" Background="WhiteSmoke" RenderTransformOrigin="0.499,0.503" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height ="*" />
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="ChangeInfoButton" Content="Change Info" HorizontalAlignment="Left" Height="70" Margin="61,22,0,0" VerticalAlignment="Top" Width="202" Grid.Column="1"/>
-            <TextBlock x:Name="StudentInfoTextBlock" Margin="10,10,217,0" TextWrapping="Wrap" Text="StudentInfo" FontSize="16" Foreground="Black" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="251" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-            <Button x:Name="StatisticButton" Content="Ststistic" HorizontalAlignment="Left" Height="70" Margin="61,120,0,0" VerticalAlignment="Top" Width="202" Grid.Column="1"/>
-            <Button x:Name="PassTheTestButton" Content="Пройти тест" Margin="236,198,246,155" Grid.Row="1" Grid.ColumnSpan="2"/>
-            <Button x:Name="LogOutButton" Content="LogOut" HorizontalAlignment="Left" Height="70" Margin="58,210,0,0" VerticalAlignment="Top" Width="200" Grid.Column="1"/>
-        </Grid>
-        <Grid x:Name="TestGrid" Margin="10,34,10,40" AllowDrop="True" Background="WhiteSmoke" d:IsHidden="True" >
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <RichTextBox x:Name="QuestionTextBox" Margin="10,10,10,130" Visibility="Visible" IsReadOnlyCaretVisible="True" IsReadOnly="True" d:IsHidden="True">
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text="RichTextBox"/>
-                        <InlineUIContainer>
-                            <GroupBox x:Name="TestsGroupBox" Header="Choose a test" FontSize="14" Height="61" Width="655" d:IsHidden="True">
-                                <ComboBox x:Name="comboBox" Margin="10,0,16,0" Height="32"/>
-                            </GroupBox>
-                        </InlineUIContainer>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
-            <Button x:Name="NextQuestionButton" Content="Далее" Grid.Row="2" Margin="131,156,147,0" d:IsHidden="True"/>
-        </Grid>
-        <Grid x:Name="AnswerGrid" Margin="10,350,10,149" d:IsHidden="True">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <RichTextBox x:Name="AnsTextBox" Margin="10,-326,10,346" Grid.ColumnSpan="2" d:IsHidden="True">
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text="RichTextBox"/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
-            <GroupBox x:Name="OneSectionGroupBox" Header="Choose 1 question" Margin="10,-32,10,-31" IsEnabled="False" Grid.ColumnSpan="2" d:IsHidden="True">
+        <Label x:Name="label" Content="Информация о студенте:"  HorizontalAlignment="Center"  VerticalAlignment="Center" Height="24" Width="620"/>
+        <TextBlock x:Name="StudentInfoTextBlock"  Text="Студент Иванов Ф.Р. " Grid.Row ="1"  HorizontalAlignment="Center"  VerticalAlignment="Center" Height="170" Width="620"/>
+        <Button x:Name="LogOutButton" Grid.Row="2" Click="logout_ButtonClick" Content="Выйти" IsEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="300"/>
+        <Label x:Name="label1" Content="Выберите тест из списка доступных:"  Grid.Row ="3"  HorizontalAlignment="Center"  VerticalAlignment="Center" Height="25" Width="620"/>
 
-            </GroupBox>
-            <GroupBox x:Name="MultipleSectionGropBox" Header="Choose some " Margin="10,-32,10,-31" Grid.ColumnSpan="2" d:IsHidden="True"/>
-        </Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="191,700,0,0" VerticalAlignment="Top" Height="44" Width="292" d:IsHidden="True"/>
+        <ComboBox x:Name="TestsComboBox"  Grid.Row ="4"  HorizontalAlignment="Center"  VerticalAlignment="Center" Height="30" Width="620">
+            <TextBlock>Тест 1</TextBlock>
+            <TextBlock>Тест 2</TextBlock>
+            <TextBlock>Тест 3</TextBlock>
+        </ComboBox>
 
+
+        <Button x:Name="GetTestButton" Grid.Row="5" Click="getTest_ButtonClick" Content="Пройти тест" IsEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="300"/>
+        <RadioButton x:Name="radioButton" Content="RadioButton" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="3" Width="84"/>
     </Grid>
 </Window>
