@@ -137,13 +137,16 @@ namespace Tester.Infrastructure.Services
                 {
                     take = count;
                 }
-                var pickQuestion = await _dataProvider.GetQueryable<Question>()
+                var pickQuestion =  _dataProvider.GetQueryable<Question>()
                     .Where(x => !x.DeletedUtc.HasValue && x.TopicId == topic.TopicId )
-                    .OrderBy(x => Guid.NewGuid()).Take(take).FirstOrDefaultAsync()
-                    .ConfigureAwait(false);
-                if (pickQuestion != null)
+                    .OrderBy(x => Guid.NewGuid()).Take(take).ToArray();
+                if (pickQuestion.Any())
                 {
-                    questions.Enqueue(pickQuestion);
+                    foreach (var q in pickQuestion)
+                    {
+                        questions.Enqueue(q);
+                    }
+                    
                 }
             }
               

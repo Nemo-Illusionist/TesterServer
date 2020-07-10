@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using Radilovsoft.Rest.Data.Core.Contract.Provider;
 using Tester.Db.Model.Statistics;
 
@@ -32,7 +33,7 @@ namespace Tester.Web.Analytics.HostedServices
                 {
                     var dataProvider = _serviceProvider.GetService<IDataProvider>();
                     var userTests = await dataProvider.GetQueryable<UserTest>()
-                        .Where(x => x.IsOver && x.IsChecked==false)
+                        .Where(x => x.IsOver && !x.IsChecked)
                         .ToArrayAsync(stoppingToken).ConfigureAwait(false);
 
                     var workerBlock = new ActionBlock<(UserTest, IDataProvider)>(
@@ -85,10 +86,8 @@ namespace Tester.Web.Analytics.HostedServices
             userTest.RightAnswers = rightAnswers;
             userTest.WrongAnswers = wrongAnswers;
             userTest.IsChecked = true;
-            await dataProvider.InsertAsync(userTest).ConfigureAwait(false);
-            
-            
-
+            await dataProvider.UpdateAsync(userTest).ConfigureAwait(false);
+            await dataProvider.BatchUpdateAsync(userAnswers).ConfigureAwait(false);
         }
         
        
