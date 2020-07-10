@@ -53,7 +53,7 @@ namespace Tester.Infrastructure.Services
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
 
-            var any = await _dataProvider.GetQueryable<UserTest>().AnyAsync(x => x.UserId == userId && x.Id == id);
+            var any = await _dataProvider.GetQueryable<UserTest>().AnyAsync(x => x.UserId == userId && x.Id == id).ConfigureAwait(false);
             if (!any) throw new ItemNotFoundException();
 
             var key = "test_" + id;
@@ -73,6 +73,10 @@ namespace Tester.Infrastructure.Services
             questions.Dequeue();
             if (!questions.Any())
             {
+                var test = await _dataProvider.GetQueryable<UserTest>().Where(x=>x.Id == id).FirstAsync().ConfigureAwait(false);
+                test.IsOver = true;
+                await _dataProvider.UpdateAsync(test).ConfigureAwait(false);
+              
                 return null;
             }
 
@@ -115,28 +119,35 @@ namespace Tester.Infrastructure.Services
 
         private async Task<Queue<Question>> TestGenerator(Test test)
         {
-            var length = test.NumberOfQuestions;
+            int count = test.NumberOfQuestions / test.TestTopics.Count + 1;;
+            int addition = test.NumberOfQuestions % test.TestTopics.Count;
+            int take = 0;
             var questions = new Queue<Question>();
-            while (length != 0)
+            
+            
+            foreach (var topic in test.TestTopics)
             {
-                var isChange = false;
-                foreach (var topic in test.TestTopics)
+                if (addition != 0)
                 {
-                    var pickQuestion = await _dataProvider.GetQueryable<Question>()
-                        .Where(x => !x.DeletedUtc.HasValue && x.TopicId == topic.TopicId)
-                        .OrderBy(x => Guid.NewGuid()).Take(1).FirstOrDefaultAsync()
-                        .ConfigureAwait(false);
-                    if (pickQuestion != null)
-                    {
-                        questions.Enqueue(pickQuestion);
-                        length--;
-                        isChange = true;
-                        if (length == 0) break;
-                    }
+                    take = count + 1;
+                    addition--;
                 }
-
-                if (!isChange) break;
+                else
+                {
+                    take = count;
+                }
+                var pickQuestion = await _dataProvider.GetQueryable<Question>()
+                    .Where(x => !x.DeletedUtc.HasValue && x.TopicId == topic.TopicId )
+                    .OrderBy(x => Guid.NewGuid()).Take(take).FirstOrDefaultAsync()
+                    .ConfigureAwait(false);
+                if (pickQuestion != null)
+                {
+                    questions.Enqueue(pickQuestion);
+                }
             }
+              
+                
+
 
             return questions;
         }
