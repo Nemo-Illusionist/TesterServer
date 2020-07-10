@@ -21,4 +21,10 @@
       <ProjectReference Include="..\..\Domain\Tester.Db\Tester.Db.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Migrations\appsettings.local.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
