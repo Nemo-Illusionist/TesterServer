@@ -7,9 +7,8 @@ namespace TesterUI.MVVM.ViewModels.Main.Pages
     {
         public TextAnswerPageViewModel()
         {
-            
         }
-        
+
         public TextAnswerPageViewModel(AnswerModel answerModel)
         {
             AnswerModel = answerModel ?? throw new ArgumentNullException(nameof(answerModel));

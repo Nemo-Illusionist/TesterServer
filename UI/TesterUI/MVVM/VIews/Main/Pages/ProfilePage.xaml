@@ -14,7 +14,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -38,7 +38,7 @@
                           Margin="2.5">
                         <StackPanel Orientation="Vertical">
                             <Button Content="Выйти"
-                                    BorderBrush="Transparent"
+                                    BorderBrush="DarkRed"
                                     Background="Red"
                                     Command="{Binding Logout}" />
                         </StackPanel>

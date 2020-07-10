@@ -62,7 +62,8 @@ namespace TesterUI.MVVM.ViewModels.Main.Pages
                 {
                     if (CurrentTest != null)
                     {
-                        var box = MessageBox.Show("Вы уверены что хотите начать тестирование?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        var box = MessageBox.Show("Вы уверены что хотите начать тестирование?", "Внимание",
+                            MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                         if (box == MessageBoxResult.Yes)
                         {

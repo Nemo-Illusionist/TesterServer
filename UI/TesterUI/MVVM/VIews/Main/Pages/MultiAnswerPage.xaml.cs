@@ -2,9 +2,9 @@
 
 namespace TesterUI.MVVM.VIews.Main.Pages
 {
-    public partial class OpenAnswerPage : Page
+    public partial class MultiAnswerPage : Page
     {
-        public OpenAnswerPage()
+        public MultiAnswerPage()
         {
             InitializeComponent();
         }

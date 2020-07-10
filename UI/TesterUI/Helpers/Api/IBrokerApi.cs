@@ -5,7 +5,7 @@ using Refit;
 using Tester.Dto;
 using Tester.Dto.Question;
 using Tester.Dto.Test;
-using TesterUI.MVVM.Models;
+using Tester.Dto.User;
 
 namespace TesterUI.Helpers.Api
 {
@@ -15,7 +15,7 @@ namespace TesterUI.Helpers.Api
         Task<ApiResponse<BrokerResponse>> GetQuestionByTestId(Guid testId);
 
         [Post("/api/v1/Broker/{id}/next")]
-        Task<ApiResponse<BrokerResponse>> GetNextQuestion(Guid id);
+        Task<ApiResponse<BrokerResponse>> GetNextQuestion(Guid id, [Body] UserAnswerRequest answer);
 
         [Get("/api/v1/Test")]
         Task<PagedResult<TestFullDto>> SearchTests([Query] FilterRequest filter);

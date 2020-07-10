@@ -22,13 +22,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="MVVM\Models\QuestionType.cs">
-        <DependentUpon>QuestionModel.cs</DependentUpon>
-      </Compile>
       <Compile Update="MVVM\Models\SingleQuestion.cs">
         <DependentUpon>QuestionModel.cs</DependentUpon>
       </Compile>
-      <Compile Update="MVVM\Models\OpenQuestion.cs">
+      <Compile Update="MVVM\Models\MultiQuestion.cs">
         <DependentUpon>QuestionModel.cs</DependentUpon>
       </Compile>
       <Compile Update="MVVM\Models\TextQuestion.cs">
@@ -37,7 +34,7 @@
       <Compile Update="MVVM\ViewModels\Main\Pages\TextAnswerPageViewModel.cs">
         <DependentUpon>QuestionPageViewModel.cs</DependentUpon>
       </Compile>
-      <Compile Update="MVVM\ViewModels\Main\Pages\OpenAnswerPageViewModel.cs">
+      <Compile Update="MVVM\ViewModels\Main\Pages\MultiAnswerPageViewModel.cs">
         <DependentUpon>QuestionPageViewModel.cs</DependentUpon>
       </Compile>
       <Compile Update="MVVM\ViewModels\Main\Pages\SingleAnswerPageViewModel.cs">
@@ -52,7 +49,7 @@
       <Page Update="MVVM\VIews\Main\Pages\SingleAnswerPage.xaml">
         <DependentUpon>QuestionPage.xaml</DependentUpon>
       </Page>
-      <Page Update="MVVM\VIews\Main\Pages\OpenAnswerPage.xaml">
+      <Page Update="MVVM\VIews\Main\Pages\MultiAnswerPage.xaml">
         <DependentUpon>QuestionPage.xaml</DependentUpon>
       </Page>
     </ItemGroup>

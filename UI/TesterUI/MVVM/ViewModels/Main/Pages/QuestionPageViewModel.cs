@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,9 +8,9 @@ using System.Windows.Input;
 using DevExpress.Mvvm;
 using JetBrains.Annotations;
 using Tester.Dto.Question;
+using Tester.Dto.User;
 using TesterUI.MVVM.Models;
 using TesterUI.MVVM.VIews.Main.Pages;
-using OpenQuestion = TesterUI.MVVM.Models.OpenQuestion;
 using QuestionType = Tester.Core.Common.QuestionType;
 
 namespace TesterUI.MVVM.ViewModels.Main.Pages
@@ -24,22 +25,22 @@ namespace TesterUI.MVVM.ViewModels.Main.Pages
 
         public QuestionPageViewModel([NotNull] TestModel test)
         {
-            if (test == null) throw new ArgumentNullException(nameof(test));
+            Test = test ?? throw new ArgumentNullException(nameof(test));
 
-            Init(test);
+            Init();
         }
 
-        private void Init(TestModel question)
+        private void Init()
         {
             AppContext = App.Context;
             Answer = new AnswerModel();
-            Question = GetFirstQuestion(question.Id).Result;
+            Question = GetFirstQuestion().Result;
             SetAnswerPage(Question);
         }
 
-        private async Task<QuestionModel> GetFirstQuestion(Guid testId)
+        private async Task<QuestionModel> GetFirstQuestion()
         {
-            var response = await AppContext.BrokerApi.GetQuestionByTestId(testId).ConfigureAwait(true);
+            var response = await AppContext.BrokerApi.GetQuestionByTestId(Test.Id).ConfigureAwait(false);
 
             if (response.IsSuccessStatusCode)
             {
@@ -49,63 +50,73 @@ namespace TesterUI.MVVM.ViewModels.Main.Pages
             else
             {
                 MessageBox.Show(response.Error.Content);
+                throw new Exception(response.Error.Content);
             }
-
-            //todo исправить
-            return null;
         }
 
-        private async Task<QuestionModel> GetNextQuestion(Guid keyId)
+        private async Task<QuestionModel> GetNextQuestion()
         {
-            var response = await AppContext.BrokerApi.GetNextQuestion(keyId).ConfigureAwait(true);
+            var response = await AppContext.BrokerApi.GetNextQuestion(Question.Key, new UserAnswerRequest
+            {
+                Id = Question.Id,
+                UserAnswer = Answer.Answer
+            }).ConfigureAwait(true);
 
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content;
                 return Map(responseContent);
             }
+            else if (response.StatusCode == HttpStatusCode.NoContent)
+            {
+                return null;
+            }
             else
             {
                 MessageBox.Show(response.Error.Content);
+                throw new Exception(response.Error.Content);
             }
-
-            //todo исправить
-            return null;
         }
 
 
         private static QuestionModel Map(BrokerResponse brokerResponse)
         {
+            if (brokerResponse == null) return null;
+
             var question = brokerResponse.Question;
             switch (question.Type)
             {
-                case QuestionType.Open:
-                    return new OpenQuestion
+                case QuestionType.MultipleSelection:
+                    return new MultiQuestion
                     {
+                        Id = question.Id,
+                        Key = brokerResponse.Key,
+                        Name = question.Name,
                         QuestionText = question.Description,
                         Answers = question.AnswerOptions.Select(i => new AnswerModel
                         {
-                            Key = brokerResponse.Key,
                             Answer = i
                         }).ToArray(),
-                        Key = brokerResponse.Key,
                     };
-                case QuestionType.MultipleSelection:
+                case QuestionType.Open:
                     return new TextQuestion
                     {
-                        QuestionText = question.Description,
+                        Id = question.Id,
+                        Name = question.Name,
                         Key = brokerResponse.Key,
+                        QuestionText = question.Description,
                     };
                 case QuestionType.SingleSelection:
                     return new SingleQuestion
                     {
+                        Id = question.Id,
+                        Name = question.Name,
                         QuestionText = question.Description,
+                        Key = brokerResponse.Key,
                         Answers = question.AnswerOptions.Select(i => new AnswerModel
                         {
-                            Key = brokerResponse.Key,
                             Answer = i
                         }).ToArray(),
-                        Key = brokerResponse.Key,
                     };
                 case QuestionType.OrderedList:
                 case QuestionType.Conformity:
@@ -127,7 +138,17 @@ namespace TesterUI.MVVM.ViewModels.Main.Pages
             {
                 return new DelegateCommand(async () =>
                 {
-                    Question = await GetNextQuestion(Question.Key).ConfigureAwait(true);
+                    Question = await GetNextQuestion().ConfigureAwait(true);
+
+                    if (Question == null)
+                    {
+                        MessageBox.Show("Тест пройдет");
+
+                        AppContext.SetPage(new ProfilePage());
+                        return;
+                    }
+
+                    Answer.Answer = string.Empty;
                     SetAnswerPage(Question);
                 });
             }
@@ -142,11 +163,11 @@ namespace TesterUI.MVVM.ViewModels.Main.Pages
                     DataContext = new SingleAnswerPageViewModel(single, Answer)
                 };
             }
-            else if (question is OpenQuestion open)
+            else if (question is MultiQuestion open)
             {
-                AnswerPage = new OpenAnswerPage()
+                AnswerPage = new MultiAnswerPage()
                 {
-                    DataContext = new OpenAnswerPageViewModel(open, Answer)
+                    DataContext = new MultiAnswerPageViewModel(open, Answer)
                 };
             }
             else if (question is TextQuestion)

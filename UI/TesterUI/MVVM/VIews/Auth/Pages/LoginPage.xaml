@@ -8,33 +8,36 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
       Title="Tester" d:Height="450" d:Width="800">
-    
+
     <Page.DataContext>
-        <pages:LoginPageViewModel/>
+        <pages:LoginPageViewModel />
     </Page.DataContext>
-    
+
     <Grid>
         <Grid.Resources>
             <Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="Margin" Value="0,5,0,2"/>
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="Margin" Value="0,5,0,2" />
             </Style>
             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="Margin" Value="0,0,0,10"/>
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Margin" Value="0,0,0,10" />
             </Style>
             <Style TargetType="PasswordBox" BasedOn="{StaticResource MaterialDesignPasswordBox}">
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="Margin" Value="0,0,0,10"/>
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Margin" Value="0,0,0,10" />
             </Style>
 
         </Grid.Resources>
-        
+
         <GroupBox Header="Авторизация">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="Логин"/>
-                <TextBox Text="{Binding User.Login}"/>
-                <TextBlock Text="Пароль"/>
+            <StackPanel Orientation="Vertical"
+                        Width="200"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <TextBlock Text="Логин" />
+                <TextBox Text="{Binding User.Login}" />
+                <TextBlock Text="Пароль" />
                 <PasswordBox Name="Password">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PasswordChanged">
@@ -44,9 +47,10 @@
                     </i:Interaction.Triggers>
                 </PasswordBox>
                 <Button Content="Войти"
-                        Command="{Binding LoginClick}"/>
+                        Margin="10"
+                        Command="{Binding LoginClick}" />
             </StackPanel>
         </GroupBox>
-        
+
     </Grid>
 </Page>

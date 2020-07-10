@@ -1,6 +1,6 @@
 ﻿namespace TesterUI.MVVM.Models
 {
-    public class OpenQuestion : QuestionModel
+    public class MultiQuestion : QuestionModel
     {
         public AnswerModel[] Answers { get; set; }
     }

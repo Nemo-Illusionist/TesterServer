@@ -7,23 +7,27 @@
       xmlns:pages="clr-namespace:TesterUI.MVVM.ViewModels.Main.Pages"
       xmlns:system="clr-namespace:System;assembly=System.Runtime"
       mc:Ignorable="d"
-      Title="SingleAnswerPage" Height="450" Width="800">
-    
+      Name="ThisPage"
+      Title="SingleAnswerPage" d:Height="450" d:Width="800">
+
     <Page.DataContext>
-        <pages:SingleAnswerPageViewModel/>
+        <pages:SingleAnswerPageViewModel />
     </Page.DataContext>
-    
+
     <Grid>
         <GroupBox Header="Выберите правильный ответ">
-            <ListBox ItemsSource="{Binding SingleQuestion.Answers}"
+            <ItemsControl ItemsSource="{Binding SingleQuestion.Answers}"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      Margin="5">
-                <ListBox.ItemTemplate>
-                    <DataTemplate >
-                        <RadioButton GroupName="Answer" Content="{Binding Answer}"/>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton GroupName="Answer" 
+                                     Content="{Binding Answer}"
+                                     Command="{Binding ElementName=ThisPage, Path=DataContext.AnswerClick}"
+                                     CommandParameter="{Binding Answer}"/>
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-           </GroupBox>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </GroupBox>
     </Grid>
 </Page>
