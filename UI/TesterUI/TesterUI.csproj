@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <UseWPF>true</UseWPF>
+        <IncludeMaterialDesignFont>True</IncludeMaterialDesignFont>
+        <MaterialDesignFontDirectory>Resources\Roboto\</MaterialDesignFontDirectory>
+        <ApplicationIcon>Resources/Icons/IconApp.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DevExpressMvvm" Version="19.2.3" />
+        <PackageReference Include="Fody" Version="6.2.0" />
+        <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.4" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.5" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.5" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.5" />
+        <PackageReference Include="PropertyChanged.Fody" Version="3.2.8" />
+        <PackageReference Include="refit" Version="5.1.67" />
+        <PackageReference Include="Refit.HttpClientFactory" Version="5.1.67" />
+        <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="MVVM\Models\SingleQuestion.cs">
+            <DependentUpon>QuestionModel.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MVVM\Models\MultiQuestion.cs">
+            <DependentUpon>QuestionModel.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MVVM\Models\TextQuestion.cs">
+            <DependentUpon>QuestionModel.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MVVM\ViewModels\Main\Pages\TextAnswerPageViewModel.cs">
+            <DependentUpon>QuestionPageViewModel.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MVVM\ViewModels\Main\Pages\MultiAnswerPageViewModel.cs">
+            <DependentUpon>QuestionPageViewModel.cs</DependentUpon>
+        </Compile>
+        <Compile Update="MVVM\ViewModels\Main\Pages\SingleAnswerPageViewModel.cs">
+            <DependentUpon>QuestionPageViewModel.cs</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Page Update="MVVM\VIews\Main\Pages\TextAnswerPage.xaml">
+            <DependentUpon>QuestionPage.xaml</DependentUpon>
+        </Page>
+        <Page Update="MVVM\VIews\Main\Pages\SingleAnswerPage.xaml">
+            <DependentUpon>QuestionPage.xaml</DependentUpon>
+        </Page>
+        <Page Update="MVVM\VIews\Main\Pages\MultiAnswerPage.xaml">
+            <DependentUpon>QuestionPage.xaml</DependentUpon>
+        </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Domain\Tester.Dto\Tester.Dto.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="appsettings.local.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Resources\Icons\IconApp.ico">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Resources\Icons" />
+    </ItemGroup>
+
+</Project>

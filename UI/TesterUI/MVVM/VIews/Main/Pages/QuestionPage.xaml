@@ -1,0 +1,60 @@
+﻿<Page x:Class="TesterUI.MVVM.VIews.Main.Pages.QuestionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:TesterUI.MVVM.VIews.Main.Pages"
+      xmlns:pages="clr-namespace:TesterUI.MVVM.ViewModels.Main.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
+      Title="QuestionPage" d:Height="450" d:Width="800">
+
+    <Page.DataContext>
+        <pages:QuestionPageViewModel />
+    </Page.DataContext>
+
+    <Grid>
+        <GroupBox Header="{Binding Test.Name}"
+                  HeaderStringFormat="Тестирование - {0}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="{Binding Question.Name}"
+                               TextAlignment="Center"
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+
+                    <materialDesign:Card Grid.Row="1"
+                                         Margin="5">
+                        <TextBlock Text="{Binding Question.QuestionText}"
+                                   Margin="10"
+                                   TextAlignment="Center" TextWrapping="Wrap"
+                                   VerticalAlignment="Center"
+                                   FontSize="16" />
+                    </materialDesign:Card>
+
+                    <Frame Grid.Row="2"
+                           Margin="5"
+                           Content="{Binding AnswerPage}"
+                           NavigationUIVisibility="Hidden" />
+
+                    <Button Grid.Row="3"
+                            Content="Далее"
+                            Command="{Binding NextQuestionClick}" />
+                </Grid>
+
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Page>

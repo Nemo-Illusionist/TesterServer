@@ -1,0 +1,34 @@
+﻿<Page x:Class="TesterUI.MVVM.VIews.Main.Pages.SingleAnswerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:TesterUI.MVVM.VIews.Main.Pages"
+      xmlns:pages="clr-namespace:TesterUI.MVVM.ViewModels.Main.Pages"
+      xmlns:system="clr-namespace:System;assembly=System.Runtime"
+      mc:Ignorable="d"
+      Name="ThisPage"
+      Title="SingleAnswerPage" d:Height="450" d:Width="800">
+
+    <Page.DataContext>
+        <pages:SingleAnswerPageViewModel />
+    </Page.DataContext>
+
+    <Grid>
+        <GroupBox Header="Выберите правильный ответ">
+            <ItemsControl ItemsSource="{Binding SingleQuestion.Answers}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     Margin="5">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton GroupName="Answer" 
+                                     Content="{Binding Answer}"
+                                     Command="{Binding ElementName=ThisPage, Path=DataContext.AnswerClick}"
+                                     CommandParameter="{Binding Answer}"
+                                     FontSize="14"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </GroupBox>
+    </Grid>
+</Page>
